@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../static/css/styles.css" />
+    <link rel="stylesheet" href="../static/css/newinternship.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <title>Internship Portal</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-red navbar-dark">
+      <div class="wrap"></div>
+      <div class="container-fluid all-show">
+        <a class="navbar-brand" href="#">Internship Portal</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">About us</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#"
+                >New Internship</a
+              >
+            </li>
+            <li class="nav-item"><a class="nav-link" href="#">Profile</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Login</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Sign up</a></li>
+            <li class="nav-item">
+              <a class="nav-link" href="#"
+                ><i class="fa fa-search"> Search</i></a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-steps/1.1.0/jquery.steps.min.js"></script>
+    <div class="wrapper">
+      <form method="POST" action="/addrecord">
+        <div id="wizard">
+          <!-- SECTION 1 -->
+          <h4></h4>
+          <section>
+            <div class="form-row">
+              <label>Name of the Company (required)</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="ex - Google"
+                required
+              />
+            </div>
+            <div class="form-row">
+              <label>Rate your Company (required)</label>
+              <input
+                type="number" min="1" max="5"
+                class="form-control"
+                placeholder="1 to 5"
+                required
+              />
+            </div>
+            <div class="form-row">
+              <label>Domain of the Internship (required)</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="ex- Machine learning, Marketing etc"
+                required
+              />
+            </div>
+
+            <div class="input-group mb-3">
+              <select class="custom-select" id="inputGroupSelect02">
+                <option selected>Choose...</option>
+                <option value="1">VIT Internship</option>
+                <option value="2">Internshala</option>
+                <option value="3">Self</option>
+              </select>
+              <div class="input-group-append">
+                <label class="input-group-text" for="inputGroupSelect02"
+                  >Source of Internship</label
+                >
+              </div>
+            </div>
+          </section>
+
+          <!-- SECTION 2 -->
+          <h4></h4>
+
+          <section>
+            <div class="form-row">
+              <label>Starting Date (required)</label>
+              <input type="date" class="form-control" required />
+            </div>
+
+            <div class="form-row">
+              <label
+                >Ending date (Tentative if currently internship going on)
+                (required)</label
+              >
+              <input type="date" class="form-control" required />
+            </div>
+          </section>
+
+          <!-- SECTION 3 -->
+
+          <h4></h4>
+          <section>
+            <div class="input-group mb-3">
+              <div class="custom-file">
+                <input
+                  type="file"
+                  class="custom-file-input"
+                  id="inputGroupFile01"
+                />
+                <label class="custom-file-label" for="inputGroupFile01"
+                  >Offer Letter</label
+                >
+              </div>
+            </div>
+            <div class="input-group mb-3">
+              <div class="custom-file">
+                <input
+                  type="file"
+                  class="custom-file-input"
+                  id="inputGroupFile01"
+                />
+                <label class="custom-file-label" for="inputGroupFile01"
+                  >Completion Certificate
+                </label>
+              </div>
+            </div>
+          </section>
+
+          <!-- SECTION 4 -->
+          <h4></h4>
+          <section>
+            <svg
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 130.2 130.2"
+            >
+              <circle
+                class="path circle"
+                fill="none"
+                stroke="#73AF55"
+                stroke-width="6"
+                stroke-miterlimit="10"
+                cx="65.1"
+                cy="65.1"
+                r="62.1"
+              />
+              <polyline
+                class="path check"
+                fill="none"
+                stroke="#73AF55"
+                stroke-width="6"
+                stroke-linecap="round"
+                stroke-miterlimit="10"
+                points="100.2,40.2 51.5,88.8 29.8,67.5 "
+              />
+            </svg>
+            <p><br /></p>
+
+            <div class="form-group">
+              <input type="submit" class="btnContact" value="SUBMIT RECORD" />
+            </div>
+          </section>
+        </div>
+      </form>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-steps/1.1.0/jquery.steps.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <script>
+      $('a[href$="#finish"]').attr("href", "http://www.google.com");
+    </script>
+    <script src="../static/js/newinternship.js"></script>
+  </body>
+</html>
