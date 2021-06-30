@@ -17,11 +17,13 @@
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
     <title>Internship Portal</title>
   </head>
-  <body>
+  <body style="background-color: #e8cebf">
     <nav class="navbar navbar-expand-lg navbar-red navbar-dark">
       <div class="wrap"></div>
       <div class="container-fluid all-show">
-        <a class="navbar-brand" href="#">Internship Portal</a>
+        <a class="navbar-brand" href="#" style="color: #266150"
+          >Internship Portal</a
+        >
         <button
           class="navbar-toggler"
           type="button"
@@ -44,8 +46,9 @@
               >
             </li>
             <li class="nav-item"><a class="nav-link" href="#">Profile</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Login</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Sign up</a></li>
+            <li class="nav-item">
+              <a class="nav-link" href="login.html">Login</a>
+            </li>
             <li class="nav-item">
               <a class="nav-link" href="#"
                 ><i class="fa fa-search"> Search</i></a
@@ -75,7 +78,9 @@
             <div class="form-row">
               <label>Rate your Company (required)</label>
               <input
-                type="number" min="1" max="5"
+                type="number"
+                min="1"
+                max="5"
                 class="form-control"
                 placeholder="1 to 5"
                 required
@@ -192,9 +197,55 @@
       </form>
     </div>
 
+    <footer class = "footer">
+      <div class = "container">
+          <div class = "row">             
+              <div class="col-4 offset-1 col-sm-2">
+                  <h5>Links</h5>
+                  <ul class= "list-unstyled">
+                      <li><a href="./aboutus.html">About</a></li>
+                      <li><a href="./contactus.html">Contact</a></li>
+                  </ul>
+              </div>
+              <div class="col-7 col-sm-5">
+                  <h5>Our Address</h5>
+                  <address>
+                Vidyalankar Institute of Technology<br>
+                Wadala, Mumbai<br>
+                India<br>
+                <i class="fa fa-phone fa-lg"></i>  +852 1234 5678<br>
+                    <i class="fa fa-fax fa-lg"></i>  +852 8765 4321<br>
+                    <i class="fa fa-envelope fa-lg"></i>  
+                    <a href="https://vit.edu.in/">vit.edu.in</a>
+             </address>
+              </div>
+
+              <div  class="col-12 col-sm-4 align-self-center">
+                  <div class="text-center">
+                      <a class="btn btn-social-icon btn-google" href="http://google.com/+"><i class="fa fa-google-plus"></i></a>
+                      <a class="btn btn-social-icon btn-facebook" href="http://www.facebook.com/profile.php?id="><i class="fa fa-facebook"></i></a>
+                      <a class="btn btn-social-icon btn-linkedin" href="http://www.linkedin.com/in/"><i class="fa fa-linkedin"></i></a>
+                      <a class="btn btn-social-icon btn-twitter" href="http://twitter.com/"><i class="fa fa-twitter"></i></a>
+                      <a class="btn btn-social-icon btn-google" href="http://youtube.com/"><i class="fa fa-youtube"></i></a>
+                      <a class="btn btn-social-icon" href="mailto:"><i class="fa fa-envelope-o"></i></a>
+                  </div>
+
+              </div>
+         </div>
+
+         <div class = "row justify-content-center">             
+              <div class = "col-12">
+                  <p>© Copyright 2021 Vidyalankar Institute of Technology</p>
+              </div>
+         </div>
+
+      </div>
+  </footer>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-steps/1.1.0/jquery.steps.min.js"></script>
+
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
       integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"

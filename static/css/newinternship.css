@@ -8,7 +8,6 @@ body {
   font-family: "Poppins-Regular";
   font-size: 15px;
   color: #666;
-  background-color: #9daaf2;
   margin: 0;
 }
 
@@ -63,7 +62,7 @@ img {
 
 #wizard {
   min-height: 570px;
-  background: #fff;
+  background: #FDF8F5;
   margin-right: 60px;
   padding: 107px 75px 65px;
   margin-top: 20px;
@@ -94,7 +93,7 @@ img {
 
 .steps ul li.first a,
 .steps ul li.checked a {
-  background: #9daaf2;
+  background: #266150;
   transition: all 0.5s ease;
 }
 
@@ -219,7 +218,7 @@ textarea.form-control {
   height: 51px;
   width: 135px;
   align-items: center;
-  background: #1a2238;
+  background: #266150;
   cursor: pointer;
   color: #fff !important;
   position: relative;

@@ -1,14 +1,28 @@
+/* Makeup Tan: #DDAF94
+
+Blush: #E8CEBF
+
+Complimentary Green: #266150
+
+Dark Highlight: #4F4846
+
+Lightly Off White: #FDF8F5 */
+
 @import url("https://fonts.googleapis.com/css2?family=Allerta+Stencil&display=swap");
 
+html {
+  background-color: #e8cebf !important; 
+}
+
 body {
-  background-color: #eee;
+  background-color: #e8cebf;
 }
 
 .navbar-nav > li > a {
   text-transform: uppercase;
   font-size: 12px;
   margin-right: 20px;
-  color: #fff;
+  color: #266150;
 }
 
 .navbar-toggler {
@@ -20,20 +34,20 @@ body {
 }
 
 .nav-link {
-  color: #fff !important;
+  color: #266150 !important;
 }
 
 .wrap {
   width: 100%;
   position: absolute;
   height: 100%;
-  background-color: #9daaf2;
+  background-color: #266150;
   clip-path: polygon(81% 0, 100% 0, 100% 50%, 100% 100%, 71% 100%);
   transition: 1s all;
 }
 
 .navbar-brand {
-  color: #fff;
+  color: #266150;
   font-family: "Allerta Stencil", sans-serif;
   margin-bottom: 4px;
   font-size: 27px;
@@ -44,14 +58,28 @@ body {
 }
 
 .navbar-brand:hover {
-  color: #fff;
+  color: #266150;
 }
 
 .navbar-red {
-  background-color: #1a2238;
-  color: #fff;
+  background-color: #fdf8f5;
+  color: #266150;
 }
 
 .all-show {
   z-index: 10;
+}
+
+.footer {
+  font-family: "Poppins-Regular";
+  background-color: #FDF8F5;
+  margin: 0px auto;
+  padding: 20px 0px 20px 0px;
+}
+
+address {
+  font-size: 80%;
+  font-weight: 200;
+  margin: 0px;
+  color: #0f0f0f;
 }
