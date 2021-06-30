@@ -10,9 +10,7 @@ Lightly Off White: #FDF8F5 */
 
 @import url("https://fonts.googleapis.com/css2?family=Allerta+Stencil&display=swap");
 
-html {
-  background-color: #e8cebf !important; 
-}
+
 
 body {
   background-color: #e8cebf;
@@ -23,6 +21,7 @@ body {
   font-size: 12px;
   margin-right: 20px;
   color: #266150;
+  font-size: medium;
 }
 
 .navbar-toggler {
