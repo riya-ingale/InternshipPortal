@@ -38,22 +38,37 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link" href="index.html">About us</a>
+              <a class="nav-link" href="/"><i class="fa fa-home"> Home</i></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#"
-                >New Internship</a
+              <a class="nav-link" href="/newinternship"
+                ><i class="fa fa-plus"> New Internship</i></a
               >
             </li>
-            <li class="nav-item"><a class="nav-link" href="profile.html">Profile</a></li>
             <li class="nav-item">
-              <a class="nav-link" href="login.html">Login</a>
+              <a class="nav-link" href="/profile"
+                ><i class="fa fa-user"> User</i></a
+              >
             </li>
+
             <li class="nav-item">
-              <a class="nav-link" href="search.html"
+              <a class="nav-link" href="/search"
                 ><i class="fa fa-search"> Search</i></a
               >
             </li>
+            {% if not current_user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/login"
+                ><i class="fa fa-sign-in"> Login</i></a
+              >
+            </li>
+            {% endif %} {% if current_user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="/logout"
+                ><i class="fa fa-sign-out"> Logout</i></a
+              >
+            </li>
+            {% endif %}
           </ul>
         </div>
       </div>
@@ -61,14 +76,16 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-steps/1.1.0/jquery.steps.min.js"></script>
     <div class="wrapper">
-      <form method="POST" action="/addrecord">
+      <form method="POST" enctype="multipart/form-data">
         <div id="wizard">
           <!-- SECTION 1 -->
           <h4></h4>
           <section>
+            <p style="font-size:small; font-style: italic;">(Please fill all the required fields otherwise the form won't be submitted)</p>
             <div class="form-row">
-              <label>Name of the Company (required)</label>
+              <label>Name of the Company <span style="color: red;">(required)</span></label>
               <input
+                name="companyname"
                 type="text"
                 class="form-control"
                 placeholder="ex - Google"
@@ -76,8 +93,9 @@
               />
             </div>
             <div class="form-row">
-              <label>Rate your Company (required)</label>
+              <label>Rate your Company <span style="color: red;">(required)</span></label>
               <input
+                name="rating"
                 type="number"
                 min="1"
                 max="5"
@@ -87,8 +105,9 @@
               />
             </div>
             <div class="form-row">
-              <label>Domain of the Internship (required)</label>
+              <label>Domain of the Internship <span style="color: red;">(required)</span></label>
               <input
+                name="domain"
                 type="text"
                 class="form-control"
                 placeholder="ex- Machine learning, Marketing etc"
@@ -96,18 +115,24 @@
               />
             </div>
 
+            <label>Source of Internship <span style="color: red;">(required)</span></label>
             <div class="input-group mb-3">
-              <select class="custom-select" id="inputGroupSelect02">
-                <option selected>Choose...</option>
-                <option value="1">VIT Internship</option>
-                <option value="2">Internshala</option>
-                <option value="3">Self</option>
+              
+              
+              
+              <select
+                class="custom-select"
+                name="source"
+                id="inputGroupSelect02"
+              >
+                <option selected name="source">Choose...</option>
+                <option value="VIT Internship" name="source">
+                  VIT Internship
+                </option>
+                <option value="Internshala" name="source">Internshala</option>
+                <option value="Self" name="source">Self</option>
               </select>
-              <div class="input-group-append">
-                <label class="input-group-text" for="inputGroupSelect02"
-                  >Source of Internship</label
-                >
-              </div>
+              
             </div>
           </section>
 
@@ -116,16 +141,21 @@
 
           <section>
             <div class="form-row">
-              <label>Starting Date (required)</label>
-              <input type="date" class="form-control" required />
+              <label>Starting Date <span style="color: red;">(required)</span></label>
+              <input
+                name="startdate"
+                type="date"
+                class="form-control"
+                required
+              />
             </div>
 
             <div class="form-row">
               <label
                 >Ending date (Tentative if currently internship going on)
-                (required)</label
+                <span style="color: red;">(required)</span></label
               >
-              <input type="date" class="form-control" required />
+              <input name="enddate" type="date" class="form-control" required />
             </div>
           </section>
 
@@ -136,6 +166,7 @@
             <div class="input-group mb-3">
               <div class="custom-file">
                 <input
+                  name="offerletter"
                   type="file"
                   class="custom-file-input"
                   id="inputGroupFile01"
@@ -148,6 +179,7 @@
             <div class="input-group mb-3">
               <div class="custom-file">
                 <input
+                  name="completioncert"
                   type="file"
                   class="custom-file-input"
                   id="inputGroupFile01"
@@ -190,23 +222,33 @@
             <p><br /></p>
 
             <div class="form-group">
-              <input type="submit" class="btnContact" value="SUBMIT RECORD" />
+              <input
+                type="submit"
+                formaction="/newinternship"
+                class="btnContact"
+                value="SUBMIT RECORD"
+              />
             </div>
           </section>
         </div>
       </form>
     </div>
 
-    <div class="container-fluid pb-0 mb-0 justify-content-center text-light" style="background-color: rgba(0, 77, 77, 0.9);">
+    <div
+      class="container-fluid pb-0 mb-0 justify-content-center text-light"
+      style="background-color: rgba(0, 77, 77, 0.9)"
+    >
       <footer>
         <div class="row my-5 justify-content-center py-5">
           <div class="col-11">
-            <div class="row ">
+            <div class="row">
               <div class="col-xl-8 col-md-4 col-sm-4 col-12 my-auto mx-auto a">
-                <h3 class="text-muted mb-md-0 mb-5 bold-text">Internship Portal</h3>
+                <h3 class="text-muted mb-md-0 mb-5 bold-text">
+                  Internship Portal
+                </h3>
               </div>
               <div class="col-xl-2 col-md-4 col-sm-4 col-12">
-                <h6 class="mb-3 mb-lg-4 bold-text "><b>Links</b></h6>
+                <h6 class="mb-3 mb-lg-4 bold-text"><b>Links</b></h6>
                 <ul class="list-unstyled">
                   <li><a href="/">Home</a></li>
                   <li><a href="/allblogs">Login</a></li>
@@ -214,35 +256,75 @@
                 </ul>
               </div>
               <div class="col-xl-2 col-md-4 col-sm-4 col-12">
-                <h6 class="mb-3 mb-lg-4 text-muted bold-text mt-sm-0 mt-5"><b>ADDRESS</b></h6>
+                <h6 class="mb-3 mb-lg-4 text-muted bold-text mt-sm-0 mt-5">
+                  <b>ADDRESS</b>
+                </h6>
                 <p class="mb-1">VIT</p>
                 <p>Wadala, Mumbai</p>
               </div>
             </div>
-            <div class="row ">
-              <div class="col-xl-8 col-md-4 col-sm-4 col-auto my-md-0 mt-5 order-sm-1 order-3 align-self-end">
+            <div class="row">
+              <div
+                class="
+                  col-xl-8 col-md-4 col-sm-4 col-auto
+                  my-md-0
+                  mt-5
+                  order-sm-1 order-3
+                  align-self-end
+                "
+              >
                 <p class="social text-muted mb-0 pb-0 bold-text">
-                   <span class="mx-2"><i class="fa fa-facebook" aria-hidden="true"></i></span>
-                   <span class="mx-2"><i class="fa fa-linkedin-square" aria-hidden="true"></i></span>
-                   <span class="mx-2"><i class="fa fa-twitter" aria-hidden="true"></i></span>
-                   <span class="mx-2"><i class="fa fa-instagram" aria-hidden="true"></i></span>
-                 </p>
-                 <small class="rights"><span>&#174;</span>Team VIT </small>
+                  <span class="mx-2"
+                    ><i class="fa fa-facebook" aria-hidden="true"></i
+                  ></span>
+                  <span class="mx-2"
+                    ><i class="fa fa-linkedin-square" aria-hidden="true"></i
+                  ></span>
+                  <span class="mx-2"
+                    ><i class="fa fa-twitter" aria-hidden="true"></i
+                  ></span>
+                  <span class="mx-2"
+                    ><i class="fa fa-instagram" aria-hidden="true"></i
+                  ></span>
+                </p>
+                <small class="rights"><span>&#174;</span>Team VIT </small>
               </div>
-              <div class="col-xl-2 col-md-4 col-sm-4 col-auto order-1 align-self-end ">
-                <h6 class="mt-55 mt-2 text-muted bold-text"><b>Contact Us</b></h6><small>
-                   <span><i class="fa fa-info" aria-hidden="true"></i></span> <a href="/aboutus">About Us</a></small>
+              <div
+                class="
+                  col-xl-2 col-md-4 col-sm-4 col-auto
+                  order-1
+                  align-self-end
+                "
+              >
+                <h6 class="mt-55 mt-2 text-muted bold-text">
+                  <b>Contact Us</b>
+                </h6>
+                <small>
+                  <span><i class="fa fa-info" aria-hidden="true"></i></span>
+                  <a href="/aboutus">About Us</a></small
+                >
               </div>
-              <div class="col-xl-2 col-md-4 col-sm-4 col-auto order-2 align-self-end mt-3 ">
-                <h6 class="mt-55 mt-2 text-muted bold-text"><b>Give Your Feedback</b></h6><small>
-                   <span><i class="fa fa-envelope" aria-hidden="true"></i></span> contact@gmail.com</small>
+              <div
+                class="
+                  col-xl-2 col-md-4 col-sm-4 col-auto
+                  order-2
+                  align-self-end
+                  mt-3
+                "
+              >
+                <h6 class="mt-55 mt-2 text-muted bold-text">
+                  <b>Give Your Feedback</b>
+                </h6>
+                <small>
+                  <span><i class="fa fa-envelope" aria-hidden="true"></i></span>
+                  contact@gmail.com</small
+                >
               </div>
             </div>
           </div>
         </div>
       </footer>
     </div>
-
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 

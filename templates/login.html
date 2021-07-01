@@ -16,7 +16,7 @@
     />
     <title>Internship Portal</title>
   </head>
-  <body style="background-color: #e8cebf">
+  <body style="background-color: #e8cebf;">
     <nav class="navbar navbar-expand-lg navbar-red navbar-dark">
       <div class="wrap"></div>
       <div class="container-fluid all-show">
@@ -37,20 +37,29 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link" href="index.html">About us</a>
+              <a class="nav-link" href="/"><i class="fa fa-home"> Home</i></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="newinternship.html">New Internship</a>
-            </li>
-            <li class="nav-item"><a class="nav-link" href="profile.html">Profile</a></li>
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Login</a>
+              <a class="nav-link" href="/newinternship"><i class="fa fa-plus"> New Internship</i></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="search.html"
+              <a class="nav-link" href="/profile"><i class="fa fa-user"> User</i></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/login"><i class="fa fa-sign-in"> Login</i></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/search"
                 ><i class="fa fa-search"> Search</i></a
               >
             </li>
+            {% if current_user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="/logout"
+                ><i class="fa fa-sign-out"> Logout</i></a
+              >
+            </li>
+            {% endif %}
           </ul>
         </div>
       </div>
@@ -79,18 +88,39 @@
                 <div class="login">
                   <form method="POST">
                     <p>
-                      <br>
+                      <br />
                     </p>
+                    <div>
+                      {% with messages = get_flashed_messages() %}
+                      {% if messages %}
+                      <div class = "flashes" style="font:sans-serif; text-align:center; color: #fff; font-style: italic;">
+                      {% for message in messages %}
+                         <h6>{{ message }}</h6>
+                      {% endfor %}   
+                      </div>
+                      {% endif %}
+                      {% endwith %}
+                   </div>
+                    <p>
+                      <br />
+                    </p>
+
                     <div class="group">
                       <label for="login-rollno" class="label"
                         >Roll Number</label
                       >
-                      <input id="login-rollno" type="text" class="input"
-                      placeholder="Enter your Roll Number" />
+                      <input
+                        id="login-rollno"
+                        type="text"
+                        class="input"
+                        name="rollno"
+                        placeholder="Enter your Roll Number"
+                      />
                     </div>
                     <div class="group">
                       <label for="login-pass" class="label">Password</label>
                       <input
+                        name="password"
                         id="login-pass"
                         type="password"
                         class="input"
@@ -103,20 +133,36 @@
                       <input
                         type="submit"
                         class="button"
-                        formaction="#"
+                        formaction="/login"
                         value="Sign In"
                       />
                     </div>
                     <div class="hr"></div>
                     <div class="foot"><a href="#">Forgot Password?</a></div>
+                    <p>
+                      <br>
+                    </p>
+                    
+
                   </form>
                 </div>
 
                 <div class="sign-up-form">
                   <form method="POST">
                     <div class="group">
+                      <label for="rollno" class="label">Full Name</label>
+                      <input
+                        name="fullname"
+                        id="fullname"
+                        type="text"
+                        class="input"
+                        placeholder="Enter your Full Name"
+                      />
+                    </div>
+                    <div class="group">
                       <label for="rollno" class="label">Roll Number</label>
                       <input
+                        name="rollno"
                         id="rollno"
                         type="text"
                         class="input"
@@ -124,8 +170,9 @@
                       />
                     </div>
                     <div class="group">
-                      <label for="pass" class="label">Password</label>
+                      <label for="pass" class="label">Create Password</label>
                       <input
+                        name="password"
                         id="pass"
                         type="password"
                         class="input"
@@ -136,6 +183,7 @@
                     <div class="group">
                       <label for="cpass" class="label">Confirm Password</label>
                       <input
+                        name="cpassword"
                         id="cpass"
                         type="password"
                         class="input"
@@ -146,6 +194,7 @@
                     <div class="group">
                       <label for="email" class="label">Email Address</label>
                       <input
+                        name="email"
                         id="email"
                         type="text"
                         class="input"
@@ -154,8 +203,9 @@
                     </div>
 
                     <div class="group">
-                      <label for="branch" class="label">Branch</label>
+                      <label for="branch" class="label">Department</label>
                       <input
+                        name="dept"
                         id="branch"
                         type="text"
                         class="input"
@@ -166,6 +216,7 @@
                     <div class="group">
                       <label for="div" class="label">Division</label>
                       <input
+                        name="div"
                         id="div"
                         type="text"
                         class="input"
@@ -174,11 +225,22 @@
                     </div>
 
                     <div class="group">
+                      <label for="div" class="label">Mobile Number</label>
+                      <input
+                        name="mobileno"
+                        id="mobileno"
+                        type="tel"
+                        class="input"
+                        placeholder="Enter your Contact"
+                      />
+                    </div>
+
+                    <div class="group">
                       <input
                         style="color: #4f4846"
                         type="submit"
                         class="button"
-                        formaction="#"
+                        formaction="/signup"
                         value="Sign Up"
                       />
                     </div>
@@ -192,19 +254,24 @@
       </div>
     </div>
     <p>
-      <br>
+      <br />
     </p>
 
-    <div class="container-fluid pb-0 mb-0 justify-content-center text-light" style="background-color: rgba(0, 77, 77, 0.9);">
+    <div
+      class="container-fluid pb-0 mb-0 justify-content-center text-light"
+      style="background-color: rgba(0, 77, 77, 0.9)"
+    >
       <footer>
         <div class="row my-5 justify-content-center py-5">
           <div class="col-11">
-            <div class="row ">
+            <div class="row">
               <div class="col-xl-8 col-md-4 col-sm-4 col-12 my-auto mx-auto a">
-                <h3 class="text-muted mb-md-0 mb-5 bold-text">Internship Portal</h3>
+                <h3 class="text-muted mb-md-0 mb-5 bold-text">
+                  Internship Portal
+                </h3>
               </div>
               <div class="col-xl-2 col-md-4 col-sm-4 col-12">
-                <h6 class="mb-3 mb-lg-4 bold-text "><b>Links</b></h6>
+                <h6 class="mb-3 mb-lg-4 bold-text"><b>Links</b></h6>
                 <ul class="list-unstyled">
                   <li><a href="/">Home</a></li>
                   <li><a href="/allblogs">Login</a></li>
@@ -212,28 +279,69 @@
                 </ul>
               </div>
               <div class="col-xl-2 col-md-4 col-sm-4 col-12">
-                <h6 class="mb-3 mb-lg-4 text-muted bold-text mt-sm-0 mt-5"><b>ADDRESS</b></h6>
+                <h6 class="mb-3 mb-lg-4 text-muted bold-text mt-sm-0 mt-5">
+                  <b>ADDRESS</b>
+                </h6>
                 <p class="mb-1">VIT</p>
                 <p>Wadala, Mumbai</p>
               </div>
             </div>
-            <div class="row ">
-              <div class="col-xl-8 col-md-4 col-sm-4 col-auto my-md-0 mt-5 order-sm-1 order-3 align-self-end">
+            <div class="row">
+              <div
+                class="
+                  col-xl-8 col-md-4 col-sm-4 col-auto
+                  my-md-0
+                  mt-5
+                  order-sm-1 order-3
+                  align-self-end
+                "
+              >
                 <p class="social text-muted mb-0 pb-0 bold-text">
-                   <span class="mx-2"><i class="fa fa-facebook" aria-hidden="true"></i></span>
-                   <span class="mx-2"><i class="fa fa-linkedin-square" aria-hidden="true"></i></span>
-                   <span class="mx-2"><i class="fa fa-twitter" aria-hidden="true"></i></span>
-                   <span class="mx-2"><i class="fa fa-instagram" aria-hidden="true"></i></span>
-                 </p>
-                 <small class="rights"><span>&#174;</span>Team VIT </small>
+                  <span class="mx-2"
+                    ><i class="fa fa-facebook" aria-hidden="true"></i
+                  ></span>
+                  <span class="mx-2"
+                    ><i class="fa fa-linkedin-square" aria-hidden="true"></i
+                  ></span>
+                  <span class="mx-2"
+                    ><i class="fa fa-twitter" aria-hidden="true"></i
+                  ></span>
+                  <span class="mx-2"
+                    ><i class="fa fa-instagram" aria-hidden="true"></i
+                  ></span>
+                </p>
+                <small class="rights"><span>&#174;</span>Team VIT </small>
               </div>
-              <div class="col-xl-2 col-md-4 col-sm-4 col-auto order-1 align-self-end ">
-                <h6 class="mt-55 mt-2 text-muted bold-text"><b>Contact Us</b></h6><small>
-                   <span><i class="fa fa-info" aria-hidden="true"></i></span> <a href="/aboutus">About Us</a></small>
+              <div
+                class="
+                  col-xl-2 col-md-4 col-sm-4 col-auto
+                  order-1
+                  align-self-end
+                "
+              >
+                <h6 class="mt-55 mt-2 text-muted bold-text">
+                  <b>Contact Us</b>
+                </h6>
+                <small>
+                  <span><i class="fa fa-info" aria-hidden="true"></i></span>
+                  <a href="/aboutus">About Us</a></small
+                >
               </div>
-              <div class="col-xl-2 col-md-4 col-sm-4 col-auto order-2 align-self-end mt-3 ">
-                <h6 class="mt-55 mt-2 text-muted bold-text"><b>Give Your Feedback</b></h6><small>
-                   <span><i class="fa fa-envelope" aria-hidden="true"></i></span> contact@gmail.com</small>
+              <div
+                class="
+                  col-xl-2 col-md-4 col-sm-4 col-auto
+                  order-2
+                  align-self-end
+                  mt-3
+                "
+              >
+                <h6 class="mt-55 mt-2 text-muted bold-text">
+                  <b>Give Your Feedback</b>
+                </h6>
+                <small>
+                  <span><i class="fa fa-envelope" aria-hidden="true"></i></span>
+                  contact@gmail.com</small
+                >
               </div>
             </div>
           </div>

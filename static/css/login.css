@@ -9,7 +9,7 @@ body {
   width: 100%;
   margin: auto;
   max-width: 525px;
-  min-height: 900px;
+  min-height: 960px;
   position: relative;
   /* background: url(https://images.unsplash.com/photo-1507208773393-40d9fc670acf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1268&q=80) no-repeat center; */
   box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24),
@@ -60,7 +60,7 @@ body {
 .login-snip .sign-in:checked + .tab,
 .login-snip .sign-up:checked + .tab {
   color: #fff;
-  border-color: #E8CEBF;
+  border-color: #e8cebf;
 }
 
 .login-space {
@@ -101,7 +101,7 @@ body {
 }
 
 .login-space .group .button {
-  background: #E8CEBF;
+  background: #e8cebf;
 }
 
 .login-space .group label .icon {
@@ -141,7 +141,7 @@ body {
 }
 
 .login-space .group .check:checked + label .icon {
-  background: #E8CEBF;
+  background: #e8cebf;
 }
 
 .login-space .group .check:checked + label .icon:before {

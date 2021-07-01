@@ -37,25 +37,33 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link" href="index.html">About us</a>
+              <a class="nav-link" href="/"><i class="fa fa-home"> Home</i></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="newinternship.html">New Internship</a>
+              <a class="nav-link" href="/newinternship"><i class="fa fa-plus"> New Internship</i></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#"
-                >Profile</a
-              >
+              <a class="nav-link" href="/profile"><i class="fa fa-user"> User</i></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="login.html">Login</a>
-            </li>
-
-            <li class="nav-item">
-              <a class="nav-link" href="search.html"
+              <a class="nav-link" href="/search"
                 ><i class="fa fa-search"> Search</i></a
               >
             </li>
+            
+            {% if not current_user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/login"><i class="fa fa-sign-in"> Login</i></a>
+            </li>
+            {% endif %}
+            
+            {% if current_user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="/logout"
+                ><i class="fa fa-sign-out"> Logout</i></a
+              >
+            </li>
+            {% endif %}
           </ul>
         </div>
       </div>
