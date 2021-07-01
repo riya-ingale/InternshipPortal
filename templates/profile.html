@@ -50,7 +50,7 @@
                 ><i class="fa fa-search"> Search</i></a
               >
             </li>
-            
+
             {% if not current_user.is_authenticated %}
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="/login"><i class="fa fa-sign-in"> Login</i></a>
@@ -74,7 +74,7 @@
         <div class="row">
           <div class="col-md-6">
             <div class="profile-head">
-              <h5>Name of the Student</h5>
+              <h5>{{current_user.fullname}}</h5>
               <h6>Vidyalankar Institute of Technology</h6>
 
               <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -130,7 +130,7 @@
                     <label>Roll Number</label>
                   </div>
                   <div class="col-md-6">
-                    <p>19102B0030</p>
+                    <p>{{current_user.rollno}}</p>
                   </div>
                 </div>
                 <div class="row">
@@ -138,7 +138,7 @@
                     <label>Full Name</label>
                   </div>
                   <div class="col-md-6">
-                    <p>Kshiti Ghelani</p>
+                    <p>{{ current_user.fullname }}</p>
                   </div>
                 </div>
                 <div class="row">
@@ -146,7 +146,7 @@
                     <label>Email</label>
                   </div>
                   <div class="col-md-6">
-                    <p>kshitighelani@gmail.com</p>
+                    <p>{{ current_user.email }}</p>
                   </div>
                 </div>
                 <div class="row">
@@ -154,7 +154,7 @@
                     <label>Mobile Number</label>
                   </div>
                   <div class="col-md-6">
-                    <p>123 456 7890</p>
+                    <p>{{ current_user.mobileno }}</p>
                   </div>
                 </div>
                 <div class="row">
@@ -162,7 +162,7 @@
                     <label>Branch</label>
                   </div>
                   <div class="col-md-6">
-                    <p>CMPN</p>
+                    <p>{{current_user.dept}}</p>
                   </div>
                 </div>
                 <div class="row">
@@ -170,7 +170,7 @@
                     <label>Division</label>
                   </div>
                   <div class="col-md-6">
-                    <p>B</p>
+                    <p>{{current_user.div}}</p>
                   </div>
                 </div>
               </div>

@@ -122,9 +122,12 @@ def logout():
     return redirect('/')
 
 
-@app.route('/profile')
+@app.route('/profile', methods = ['GET','POST'])
+@login_required
 def profile():
-    return render_template("profile.html")
+    user_id = current_user.id
+    internships = Internships.query.filter_by(user_id = user_id).all()
+    return render_template("profile.html", current_user=current_user, internships = internships)
 
 
 @app.route('/search', methods=['GET', 'POST'])
