@@ -161,6 +161,9 @@ def newinternship():
         return redirect('/newinternship.html')
     return render_template("newinternship.html")
 
+@app.route('/admin/login')
+def adminlogin():
+    return render_template('adminlogin.html')
 
 if __name__ == '__main__':
     db.create_all()
