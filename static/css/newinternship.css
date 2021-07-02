@@ -62,7 +62,7 @@ img {
 
 #wizard {
   min-height: 570px;
-  background: #FDF8F5;
+  background: #fdf8f5;
   margin-right: 60px;
   padding: 107px 75px 65px;
   margin-top: 20px;
@@ -115,7 +115,7 @@ img {
 }
 
 .steps ul.step-4:before {
-  content: "Submit";
+  content: "Click on Submit";
 }
 
 h3 {
@@ -229,6 +229,32 @@ textarea.form-control {
   -webkit-transition-duration: 0.3s;
   transition-duration: 0.3s;
   font-weight: 400;
+}
+
+
+.lastsubmit {
+  padding: 0;
+  margin-left: 100px;
+  border: none;
+  display: inline-flex;
+  height: 51px;
+  width: 180px;
+  align-items: center;
+  background: #266150;
+  cursor: pointer;
+  color: #fff !important;
+  position: relative;
+  padding-left: 35px;
+  text-decoration: none;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  font-weight: 400;
+}
+
+.lastsubmit:hover {
+  background: #1a2238;
 }
 
 .actions li a:before {

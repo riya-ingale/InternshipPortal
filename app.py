@@ -118,21 +118,22 @@ def login():
 @app.route('/logout')
 def logout():
     logout_user()
-    flash("Successfully Logged out!")
     return redirect('/')
 
 
-@app.route('/profile', methods = ['GET','POST'])
+@app.route('/profile', methods=['GET', 'POST'])
 @login_required
 def profile():
     user_id = current_user.id
-    internships = Internships.query.filter_by(user_id = user_id).all()
-    return render_template("profile.html", current_user=current_user, internships = internships)
+    internships = Internships.query.filter_by(user_id=user_id).all()
+    return render_template("profile.html", current_user=current_user, internships=internships)
 
 
 @app.route('/search', methods=['GET', 'POST'])
 def search():
-    return render_template("search.html")
+    if request.method == "GET":
+        allstudents = Users.query.all()
+        return render_template("search.html", students=allstudents)
 
 
 @app.route('/newinternship', methods=['GET', 'POST'])
@@ -161,9 +162,11 @@ def newinternship():
         return redirect('/newinternship.html')
     return render_template("newinternship.html")
 
+
 @app.route('/admin/login')
 def adminlogin():
     return render_template('adminlogin.html')
+
 
 if __name__ == '__main__':
     db.create_all()
