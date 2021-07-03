@@ -56,6 +56,11 @@
                 ><i class="fa fa-search"> Search</i></a
               >
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/aboutus"
+                ><i class="fa fa-info-circle"> About us</i></a
+              >
+            </li>
             {% if not current_user.is_authenticated %}
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="/login"
@@ -119,9 +124,6 @@
 
             <label>Source of Internship <span style="color: red;">(required)</span></label>
             <div class="input-group mb-3">
-              
-              
-              
               <select
                 class="custom-select"
                 name="source"
@@ -136,12 +138,47 @@
               </select>
               
             </div>
+
+            <div class="form-row">
+              <label>Skills Acquired <span style="color: red;">(required)</span></label>
+              <input
+                name="skilss"
+                type="text"
+                class="form-control"
+                placeholder="ex- Machine learning, Marketing etc"
+                required
+              />
+            </div>
           </section>
 
           <!-- SECTION 2 -->
           <h4></h4>
 
           <section>
+
+            <div class="form-row">
+              <label>Name of Representative from Company <span style="color: red;">(required)</span></label>
+              <input
+                name="companyrepresentative_name"
+                type="text"
+                class="form-control"
+                placeholder="Name of Representative from Company"
+                required
+              />
+            </div>
+
+            <div class="form-row">
+              <label>Contact of Representative from Company <span style="color: red;">(required)</span></label>
+              <input
+                name="companyrepresentative_name"
+                type="text"
+                class="form-control"
+                placeholder="Contact of Representative from Company"
+                required
+              />
+            </div>
+
+
             <div class="form-row">
               <label>Starting Date <span style="color: red;">(required)</span></label>
               <input
@@ -166,34 +203,26 @@
           <h4></h4>
           <section>
             <div class="input-group mb-3">
-              <div class="custom-file">
-                <label for="inputGroupFile01"
-                  >Offer Letter/Email Notification Screenshot </label
-                >
+              <div >
+                <label  for="inputGroupFile01">Offer Letter/Email Notification Screenshot </label>
                 <input
                   name="offerletter"
                   type="file"
-                  class="custom-file-input"
                   id="inputGroupFile01"
                 />
-                <label class="custom-file-label" for="inputGroupFile01"
-                  >Offer Letter/Email Notification Screenshot </label
-                >
               </div>
             </div>
             <div class="input-group mb-3">
-              <div class="custom-file">
+              <div >
+                <label  for="inputGroupFile01">Completion Certificate </label>
                 <input
                   name="completioncert"
                   type="file"
-                  class="custom-file-input"
                   id="inputGroupFile01"
                 />
-                <label class="custom-file-label" for="inputGroupFile01"
-                  >Completion Certificate
-                </label>
               </div>
             </div>
+            
           </section>
 
           <!-- SECTION 4 -->

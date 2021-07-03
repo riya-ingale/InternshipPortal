@@ -54,6 +54,11 @@
                 ><i class="fa fa-search"> Search</i></a
               >
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/aboutus"
+                ><i class="fa fa-info-circle"> About us</i></a
+              >
+            </li>
 
             {% if not current_user.is_authenticated %}
             <li class="nav-item">
@@ -133,42 +138,33 @@
                   </div>
                   <div class="input-field">
                     <div class="input-select">
-                      <select data-trigger="" name="choices-single-defaul">
-                        <option placeholder="" value="">Size</option>
-                        <option>Subject b</option>
-                        <option>Subject c</option>
+                      <select data-trigger="" name="div">
+                        <option placeholder="" value="" name="div">
+                          Division
+                        </option>
+                        <option value="A" name="div">A</option>
+                        <option value="B" name="div">B</option>
                       </select>
                     </div>
                   </div>
                 </div>
                 <div class="row second">
                   <div class="input-field">
-                    <div class="input-select">
-                      <select data-trigger="" name="choices-single-defaul">
-                        <option placeholder="" value="">Sale</option>
-                        <option>Subject b</option>
-                        <option>Subject c</option>
-                      </select>
-                    </div>
+                    <label for="startdate">Start Date</label>
+                    <input id="startdate" type="date" name="startdate" />
+                  </div>
+                  <div class="input-field">
+                    <label for="enddate">End Date</label>
+                    <input id="enddate" type="date" name="enddate" />
                   </div>
                   <div class="input-field">
                     <div class="input-select">
-                      <select data-trigger="" name="choices-single-defaul">
-                        <option placeholder="" value="">Time</option>
-                        <option>Last time</option>
-                        <option>Today</option>
-                        <option>This week</option>
-                        <option>This month</option>
-                        <option>This year</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="input-field">
-                    <div class="input-select">
-                      <select data-trigger="" name="choices-single-defaul">
-                        <option placeholder="" value="">Type</option>
-                        <option>Subject b</option>
-                        <option>Subject c</option>
+                      <select data-trigger="" name="div">
+                        <option placeholder="" value="" name="div">
+                          Division
+                        </option>
+                        <option value="A" name="div">A</option>
+                        <option value="B" name="div">B</option>
                       </select>
                     </div>
                   </div>
@@ -181,7 +177,7 @@
                         type="reset"
                         formaction="/searchstudents"
                         class="btn-search"
-                        style="background-color: #266150;"
+                        style="background-color: #266150"
                       >
                         SEARCH
                       </button>
@@ -221,10 +217,12 @@
                       data-abc="true"
                       >Student Name</a
                     >
-                    <div class="text-muted">Comapany Name</div>
+                    <div class="text-muted">
+                      Comapany Namebkbuihvioigoihgiaubuababvp
+                    </div>
                     <div class="text-muted">Domain</div>
-                    <hr>
-                    <div class="text-muted">Comapany Name</div>
+                    <hr />
+                    <div class="text-muted">Comapany Name - 2</div>
                     <div class="text-muted">Domain</div>
                   </div>
                   <!-- <div class="ml-auto">
@@ -258,12 +256,9 @@
                     <a href="#" class="m-b-0 font-medium p-0" data-abc="true"
                       >Student Name</a
                     >
-                    <span class="text-muted"
-                      >Comapany Name
-                    </span>
+                    <span class="text-muted">Comapany Name </span>
                     <div class="text-muted">Domain</div>
                   </div>
-                  
                 </li>
 
                 <li class="d-flex no-block card-body">
@@ -275,7 +270,6 @@
                     <div class="text-muted">Comapany Name</div>
                     <div class="text-muted">Domain</div>
                   </div>
-                  
                 </li>
 
                 <li class="d-flex no-block card-body">
@@ -287,7 +281,6 @@
                     <div class="text-muted">Comapany Name</div>
                     <div class="text-muted">Domain</div>
                   </div>
-                  
                 </li>
               </ul>
             </div>
