@@ -179,6 +179,11 @@ def adminlogin():
     return render_template('adminlogin.html')
 
 
+@app.route('/editprofile')
+def editprofile():
+    return render_template('editprofile.html')
+
+
 if __name__ == '__main__':
     db.create_all()
     app.run(debug=True)

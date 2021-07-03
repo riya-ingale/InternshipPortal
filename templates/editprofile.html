@@ -70,7 +70,7 @@
     </nav>
 
     <div class="container emp-profile">
-      <form>
+      <form method="post">
         <div class="row">
           <div class="col-md-6">
             <div class="profile-head">
@@ -107,7 +107,6 @@
           </div>
           <div class="col-md-2">
             <input
-              formaction="/downloadrecord"
               type="submit"
               class="profile-edit-btn"
               name="btnAddMore"
@@ -115,18 +114,10 @@
               style="background-color: #266150; color: #fff"
             />
             <p><br/></p>
-            <input
-              formmethod="GET"
-              formaction="/editprofile"
-              type="submit"
-              class="profile-edit-btn"
-              name="btnAddMore"
-              value="Edit Record"
-              style="background-color: #266150; color: #fff"
-            />
-            <p><br/></p>
           </div>
         </div>
+
+
         <div class="row">
           <div class="col-md-8">
             <div class="tab-content profile-tab" id="myTabContent">
@@ -141,7 +132,7 @@
                     <label>Roll Number</label>
                   </div>
                   <div class="col-md-6">
-                    <p>{{current_user.rollno}}</p>
+                    <input type="text" name="rollno" value="{{current_user.rollno}}"/> 
                   </div>
                 </div>
                 <div class="row">
@@ -149,7 +140,7 @@
                     <label>Full Name</label>
                   </div>
                   <div class="col-md-6">
-                    <p>{{ current_user.fullname }}</p>
+                    <input type="text" name="fullname" value="{{current_user.fullname}}"/> 
                   </div>
                 </div>
                 <div class="row">
@@ -157,7 +148,7 @@
                     <label>Email</label>
                   </div>
                   <div class="col-md-6">
-                    <p>{{ current_user.email }}</p>
+                    <input type="text" name="email" value="{{current_user.email}}"/> 
                   </div>
                 </div>
                 <div class="row">
@@ -165,7 +156,7 @@
                     <label>Mobile Number</label>
                   </div>
                   <div class="col-md-6">
-                    <p>{{ current_user.mobileno }}</p>
+                    <input type="text" name="mobno" value="{{current_user.mobno}}"/> 
                   </div>
                 </div>
                 <div class="row">
@@ -173,7 +164,7 @@
                     <label>Branch</label>
                   </div>
                   <div class="col-md-6">
-                    <p>{{current_user.dept}}</p>
+                    <input type="text" name="dept" value="{{current_user.dept}}"/> 
                   </div>
                 </div>
                 <div class="row">
@@ -181,29 +172,37 @@
                     <label>Division</label>
                   </div>
                   <div class="col-md-6">
-                    <p>{{current_user.div}}</p>
+                    <input type="text" name="div" value="{{current_user.div}}"/> 
                   </div>
                 </div>
+
+                <p>
+                    <br>
+                </p>
+                <button class="editbtn" formaction="/editgeneralprofile" value="Edit">Update Profile</button>
               </div>
+
               <div
                 class="tab-pane fade"
                 id="profile"
                 role="tabpanel"
                 aria-labelledby="profile-tab"
               >
+              <div class="container">
                 <div class="row">
                     <div class="card text-center col-11" style="margin: 3%;">
                         <div class="card-header" style="background-color: #fff;color: #266150; font-weight: bold;">
                           Company Name
                         </div>
                         <div class="card-body">
-                          <h5 class="card-title" style="font-style: italic;">Domain</h5>
+                          <h6 class="card-title" style="font-style: italic;">Domain</h6>
                           <p class="card-text" style="color: black;">
                               Source of Internship - 
                               <br>
                               Rating - 
                           </p>
                           <a href="#" class="btn btn-primary" style="background-color:#266150; color: #fff;">Completion Certicate</a>
+                          <a href="#" class="btn btn-primary">EDIT</a>
                           
                         </div>
                         <div class="card-footer text-muted" style="background-color: #fff;color: #266150;">
@@ -216,13 +215,14 @@
                           Company Name
                         </div>
                         <div class="card-body">
-                          <h5 class="card-title" style="font-style: italic;">Domain</h5>
+                          <h6 class="card-title" style="font-style: italic;">Domain</h6>
                           <p class="card-text" style="color: black;">
                               Source of Internship - 
                               <br>
                               Rating - 
                           </p>
                           <a href="#" class="btn btn-primary" style="background-color:#266150; color: #fff;">Completion Certicate</a>
+                          <a href="#" class="btn btn-primary">EDIT</a>
                           
                         </div>
                         <div class="card-footer text-muted" style="background-color: #fff;color: #266150;">
@@ -235,13 +235,15 @@
                           Company Name
                         </div>
                         <div class="card-body">
-                          <h5 class="card-title" style="font-style: italic;">Domain</h5>
+                          <h6 class="card-title" style="font-style: italic;">Domain</h6>
                           <p class="card-text" style="color: black;">
                               Source of Internship - 
                               <br>
                               Rating - 
                           </p>
                           <a href="#" class="btn btn-primary" style="background-color:#266150; color: #fff;">Completion Certicate</a>
+
+                          <a href="#" class="btn btn-primary">EDIT</a>
                           
                         </div>
                         <div class="card-footer text-muted" style="background-color: #fff;color: #266150;">
@@ -250,12 +252,11 @@
                       </div>
                     </div>
                 </div>
-                
-                
-                
+                </div>
               </div>
             </div>
           </div>
+
         </div>
       </form>
     </div>
