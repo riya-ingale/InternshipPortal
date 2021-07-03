@@ -1268,3 +1268,24 @@ ul.list-style-none li a {
 .w-30px {
     width: 30px
 }
+
+.downloadlistbutton{
+  padding: 0;
+  /* margin-left: 100px; */
+  border: none;
+  display: inline-flex;
+  height: 51px;
+  width: 100%;
+  align-items: center;
+  background: #266150;
+  cursor: pointer;
+  color: #fff !important;
+  position: relative;
+  padding-left: 35px;
+  text-decoration: none;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  font-weight: 400;
+}

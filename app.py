@@ -121,9 +121,9 @@ def logout():
     return redirect('/')
 
 
-@app.route('/profile', methods=['GET', 'POST'])
+@app.route('/profile/<int:user_id>', methods=['GET', 'POST'])
 @login_required
-def profile():
+def profile(user_id):
     user_id = current_user.id
     internships = Internships.query.filter_by(user_id=user_id).all()
     return render_template("profile.html", current_user=current_user, internships=internships)
@@ -161,6 +161,17 @@ def newinternship():
         flash("Record Added!")
         return redirect('/newinternship.html')
     return render_template("newinternship.html")
+
+@app.route('/downloadcompletioncert/<int:user_id>', methods=['GET', 'POST'])
+def downloadmarksheet12(user_id):
+    user = Users.query.filter_by(id = user_id).first()
+    if user.completioncert:
+        file_data = user.completioncert
+        return send_file(BytesIO(file_data), attachment_filename=user.rollno + user.companyname + "Completioncert.pdf", as_attachment=True)
+    else:
+        flash("No file Exists")
+        return redirect(f'/profile/{user_id}')
+
 
 
 @app.route('/admin/login')
