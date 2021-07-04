@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../static/css/styles.css" />
+    <link rel="stylesheet" href="../static/css/newinternship.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <title>Internship Portal</title>
+  </head>
+  <body style="background-color: #e8cebf">
+    <nav class="navbar navbar-expand-lg navbar-red navbar-dark">
+      <div class="wrap"></div>
+      <div class="container-fluid all-show">
+        <a class="navbar-brand" href="#" style="color: #266150"
+          >Internship Portal</a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="/"><i class="fa fa-home"> Home</i></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/newinternship"
+                ><i class="fa fa-plus"> New Internship</i></a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/profile"
+                ><i class="fa fa-user"> User</i></a
+              >
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="/search"
+                ><i class="fa fa-search"> Search</i></a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/aboutus"
+                ><i class="fa fa-info-circle"> About us</i></a
+              >
+            </li>
+            {% if not current_user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/login"
+                ><i class="fa fa-sign-in"> Login</i></a
+              >
+            </li>
+            {% endif %} {% if current_user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="/logout"
+                ><i class="fa fa-sign-out"> Logout</i></a
+              >
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <p>
+      <br />
+    </p>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-steps/1.1.0/jquery.steps.min.js"></script>
+    <div class="wrapper">
+      
+      <form method="POST" enctype="multipart/form-data">
+        <div id="wizard">
+            
+          <!-- SECTION 1 -->
+          <h4></h4>
+          <section>
+            <p style="font-size: small; font-style: italic">
+              (Please fill all the required fields otherwise the form won't be
+              submitted)
+            </p>
+            <div class="form-row">
+              <label
+                >Name of the Company
+                <span style="color: red">(required)</span></label
+              >
+              <input
+                name="companyname"
+                type="text"
+                class="form-control"
+                placeholder="ex - Google"
+                required
+              />
+            </div>
+            <div class="form-row">
+              <label
+                >Rate your Company
+                <span style="color: red">(required)</span></label
+              >
+              <input
+                name="rating"
+                type="number"
+                min="1"
+                max="5"
+                class="form-control"
+                placeholder="1 to 5"
+                required
+              />
+            </div>
+            <div class="form-row">
+              <label
+                >Domain of the Internship
+                <span style="color: red">(required)</span></label
+              >
+              <input
+                name="domain"
+                type="text"
+                class="form-control"
+                placeholder="ex- Machine learning, Marketing etc"
+                required
+              />
+            </div>
+
+            <label
+              >Source of Internship
+              <span style="color: red">(required)</span></label
+            >
+            <div class="input-group mb-3">
+              <select
+                class="custom-select"
+                name="source"
+                id="inputGroupSelect02"
+              >
+                <option selected name="source">Choose...</option>
+                <option value="VIT Internship" name="source">
+                  VIT Internship
+                </option>
+                <option value="Internshala" name="source">Internshala</option>
+                <option value="Self" name="source">Self</option>
+              </select>
+            </div>
+
+            <div class="form-row">
+              <label
+                >Skills Acquired
+                <span style="color: red">(required)</span></label
+              >
+              <input
+                name="skilss"
+                type="text"
+                class="form-control"
+                placeholder="ex- Machine learning, Marketing etc"
+                required
+              />
+            </div>
+          </section>
+
+          <!-- SECTION 2 -->
+          <h4></h4>
+
+          <section>
+            <div class="form-row">
+              <label
+                >Name of Representative from Company
+                <span style="color: red">(required)</span></label
+              >
+              <input
+                name="companyrepresentative_name"
+                type="text"
+                class="form-control"
+                placeholder="Name of Representative from Company"
+                required
+              />
+            </div>
+
+            <div class="form-row">
+              <label
+                >Contact of Representative from Company
+                <span style="color: red">(required)</span></label
+              >
+              <input
+                name="companyrepresentative_name"
+                type="text"
+                class="form-control"
+                placeholder="Contact of Representative from Company"
+                required
+              />
+            </div>
+
+            <div class="form-row">
+              <label
+                >Starting Date <span style="color: red">(required)</span></label
+              >
+              <input
+                name="startdate"
+                type="date"
+                class="form-control"
+                required
+              />
+            </div>
+
+            <div class="form-row">
+              <label
+                >Ending date (Tentative if currently internship going on)
+                <span style="color: red">(required)</span></label
+              >
+              <input name="enddate" type="date" class="form-control" required />
+            </div>
+          </section>
+
+          <!-- SECTION 3 -->
+
+          <h4></h4>
+          <section>
+            <div class="input-group mb-3">
+              <div>
+                <label for="inputGroupFile01"
+                  >Offer Letter/Email Notification Screenshot
+                </label>
+                <input name="offerletter" type="file" id="inputGroupFile01" />
+              </div>
+            </div>
+            <div class="input-group mb-3">
+              <div>
+                <label for="inputGroupFile01">Completion Certificate </label>
+                <input
+                  name="completioncert"
+                  type="file"
+                  id="inputGroupFile01"
+                />
+              </div>
+            </div>
+          </section>
+
+          <!-- SECTION 4 -->
+          <h4></h4>
+          <section>
+            <svg
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 130.2 130.2"
+            >
+              <circle
+                class="path circle"
+                fill="none"
+                stroke="#73AF55"
+                stroke-width="6"
+                stroke-miterlimit="10"
+                cx="65.1"
+                cy="65.1"
+                r="62.1"
+              />
+              <polyline
+                class="path check"
+                fill="none"
+                stroke="#73AF55"
+                stroke-width="6"
+                stroke-linecap="round"
+                stroke-miterlimit="10"
+                points="100.2,40.2 51.5,88.8 29.8,67.5 "
+              />
+            </svg>
+            <p><br /></p>
+            <div class="lastbtndiv">
+              <!-- <div class="form-group"> -->
+              <input
+                class="lastsubmit"
+                type="submit"
+                formaction="/newinternship"
+                class="btnContact"
+                value="SUBMIT RECORD"
+              />
+              <!-- </div> -->
+            </div>
+          </section>
+        </div>
+      </form>
+    </div>
+
+    <div
+      class="container-fluid pb-0 mb-0 justify-content-center text-light"
+      style="background-color: rgba(0, 77, 77, 0.9)"
+    >
+      <footer>
+        <div class="row my-5 justify-content-center py-5">
+          <div class="col-11">
+            <div class="row">
+              <div class="col-xl-8 col-md-4 col-sm-4 col-12 my-auto mx-auto a">
+                <h3 class="text-muted mb-md-0 mb-5 bold-text">
+                  Internship Portal
+                </h3>
+              </div>
+              <div class="col-xl-2 col-md-4 col-sm-4 col-12">
+                <h6 class="mb-3 mb-lg-4 bold-text"><b>Links</b></h6>
+                <ul class="list-unstyled">
+                  <li><a href="/">Home</a></li>
+                  <li><a href="/allblogs">Login</a></li>
+                  <li><a href="/news">Contact Us</a></li>
+                </ul>
+              </div>
+              <div class="col-xl-2 col-md-4 col-sm-4 col-12">
+                <h6 class="mb-3 mb-lg-4 text-muted bold-text mt-sm-0 mt-5">
+                  <b>ADDRESS</b>
+                </h6>
+                <p class="mb-1">VIT</p>
+                <p>Wadala, Mumbai</p>
+              </div>
+            </div>
+            <div class="row">
+              <div
+                class="
+                  col-xl-8 col-md-4 col-sm-4 col-auto
+                  my-md-0
+                  mt-5
+                  order-sm-1 order-3
+                  align-self-end
+                "
+              >
+                <p class="social text-muted mb-0 pb-0 bold-text">
+                  <span class="mx-2"
+                    ><i class="fa fa-facebook" aria-hidden="true"></i
+                  ></span>
+                  <span class="mx-2"
+                    ><i class="fa fa-linkedin-square" aria-hidden="true"></i
+                  ></span>
+                  <span class="mx-2"
+                    ><i class="fa fa-twitter" aria-hidden="true"></i
+                  ></span>
+                  <span class="mx-2"
+                    ><i class="fa fa-instagram" aria-hidden="true"></i
+                  ></span>
+                </p>
+                <small class="rights"><span>&#174;</span>Team VIT </small>
+              </div>
+              <div
+                class="
+                  col-xl-2 col-md-4 col-sm-4 col-auto
+                  order-1
+                  align-self-end
+                "
+              >
+                <h6 class="mt-55 mt-2 text-muted bold-text">
+                  <b>Contact Us</b>
+                </h6>
+                <small>
+                  <span><i class="fa fa-info" aria-hidden="true"></i></span>
+                  <a href="/aboutus">About Us</a></small
+                >
+              </div>
+              <div
+                class="
+                  col-xl-2 col-md-4 col-sm-4 col-auto
+                  order-2
+                  align-self-end
+                  mt-3
+                "
+              >
+                <h6 class="mt-55 mt-2 text-muted bold-text">
+                  <b>Give Your Feedback</b>
+                </h6>
+                <small>
+                  <span><i class="fa fa-envelope" aria-hidden="true"></i></span>
+                  contact@gmail.com</small
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-steps/1.1.0/jquery.steps.min.js"></script>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <script>
+      $('a[href$="#finish"]').attr("href", "http://www.google.com");
+    </script>
+    <script src="../static/js/newinternship.js"></script>
+  </body>
+</html>
