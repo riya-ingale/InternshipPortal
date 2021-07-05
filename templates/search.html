@@ -45,7 +45,7 @@
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/profile"
+              <a class="nav-link" href="/profile/{{current_user.id}}"
                 ><i class="fa fa-user"> User</i></a
               >
             </li>
@@ -154,22 +154,20 @@
                 <div class="row second">
                   <div class="input-field-date">
                     <label for="startdate">Start Date</label>
-                    <input  id="startdate" type="date" name="startdate"/>
+                    <input id="startdate" type="date" name="startdate" />
                   </div>
                   <div class="input-field-date">
                     <label for="enddate">End Date</label>
-                    <input type="date"  id="enddate" name="enddate" />
-                    
+                    <input type="date" id="enddate" name="enddate" />
                   </div>
-                  
                 </div>
                 <div class="row third">
                   <div class="input-field">
                     <div class="group-btn">
-                      <button class="btn-delete" id="delete">RESET</button>
+                      <button type="reset" class="btn-delete" id="delete">RESET</button>
                       <button
-                        type="reset"
-                        formaction="/searchstudents"
+                        type="submit"
+                        formaction="/search"
                         class="btn-search"
                         style="background-color: #266150"
                       >
@@ -219,7 +217,6 @@
                     <div class="text-muted">Comapany Name - 2</div>
                     <div class="text-muted">Domain</div>
                   </div>
-  
                 </li>
 
                 <li class="d-flex no-block card-body">
@@ -231,7 +228,6 @@
                     <div class="text-muted">Comapany Name</div>
                     <div class="text-muted">Domain</div>
                   </div>
-
                 </li>
 
                 <li class="d-flex no-block card-body">

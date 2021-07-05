@@ -37,6 +37,7 @@ class Users(UserMixin, db.Model):
     dept = db.Column(db.String(15))
     div = db.Column(db.String(15))
     year = db.Column(db.String(15))
+    linkedIn_username = db.Column(db.Text)
 
 
 class Internships(db.Model):
@@ -46,6 +47,9 @@ class Internships(db.Model):
     domain = db.Column(db.Text)
     source = db.Column(db.Text)
     rating = db.Column(db.Integer)
+    skills_acquired = db.Column(db.Text)
+    companyrepresentative_name = db.Column(db.Text)
+    companyrepresentative_contact = db.Column(db.Text)
     startdate = db.Column(db.Date)
     enddate = db.Column(db.Date)
     offerletter = db.Column(db.LargeBinary)
@@ -84,7 +88,7 @@ def signup():
 
         if(password == cpassword):
             new_user = Users(fullname=fullname, rollno=rollno, email=email, mobileno=mobileno,
-                             dept=dept, div=div, password=hashed_password)
+                             dept=dept, div=div, password=hashed_password, year=year)
             db.session.add(new_user)
             db.session.commit()
 
@@ -137,18 +141,70 @@ def search():
     if request.method == "GET":
         allstudents = Users.query.all()
         return render_template("search.html", students=allstudents)
+
     if request.method == 'POST':
+        students = []
+        internships = []
         searchname = request.form.get('searchname')
         dept = request.form.get('dept')
         div = request.form.get('div')
         year = request.form.get('year')
         startdate = request.form.get('startdate')
+        print(startdate)
+        startdate = datetime.strptime(startdate, '%Y-%m-%d')
         enddate = request.form.get('enddate')
+        print(enddate)
+        enddate = datetime.strptime(enddate, '%Y-%m-%d')
+
         search = "{0}".format(searchname)
         search = search+'%'
-        allstudents = Users.query.filter(or_(Users.companyname.like(search), Users.domain.like(search))).all()
-        return render_template("search.html", students=allstudents)
-       
+
+        if startdate and enddate:
+            allinternships = Internships.query.filter(
+                or_(Internships.companyname.like(search), Internships.domain.like(search)), Internships.startdate > startdate and Internships.enddate < enddate).all()
+        elif startdate:
+            allinternships = Internships.query.filter(
+                or_(Internships.companyname.like(search), Internships.domain.like(search)), Internships.startdate > startdate).all()
+        elif enddate:
+            allinternships = Internships.query.filter(
+                or_(Internships.companyname.like(search), Internships.domain.like(search)), Internships.endate < enddate).all()
+        else:
+            allinternships = Internships.query.filter(
+                or_(Internships.companyname.like(search), Internships.domain.like(search))).all()
+
+        for internship in allinternships:
+            user = Users.query.filter_by(id=internship.user_id).first()
+            if div and dept and year:
+                if user.div == div and user.dept == dept and user.year == year:
+                    students.append(user)
+                    internships.append(internship)
+                elif dept and div:
+                    if user.dept == dept and user.div == div:
+                        students.append(user)
+                        internships.append(internship)
+                elif dept and year:
+                    if user.dept == dept and user.year == year:
+                        students.append(user)
+                        internships.append(internship)
+                elif div and year:
+                    if user.year == year and user.div == div:
+                        students.append(user)
+                        internships.append(internship)
+                elif div:
+                    if user.div == div:
+                        students.append(user)
+                        internships.append(internship)
+                elif dept:
+                    if user.dept == dept:
+                        students.append(user)
+                        internships.append(internship)
+                else:
+                    if user.year == year:
+                        students.append(user)
+                        internships.append(internship)
+        print(students)
+        print(internships)
+        return render_template("search.html", students=students, internships=internships)
 
 
 @app.route('/newinternship', methods=['GET', 'POST'])
@@ -158,37 +214,42 @@ def newinternship():
         companyname = request.form.get('companyname')
         domain = request.form.get('domain')
         source = request.form.get('source')
-        rating = request.form.get('rating')        
+        rating = request.form.get('rating')
+        skills_acquired = request.form.get('skills_acquired')
+        companyrepresentative_name = request.form.get(
+            'companyrepresentative_name')
+        companyrepresentative_contact = request.form.get(
+            'companyrepresentative_contact')
         startdate = request.form.get('startdate')
         startdate = datetime.strptime(startdate, '%Y-%m-%d')
         enddate = request.form.get('enddate')
         enddate = datetime.strptime(enddate, '%Y-%m-%d')
         offerletter = request.files['offerletter']
         completioncert = request.files['completioncert']
-        if len(offerletter.filename)>0:
+        if len(offerletter.filename) > 0:
             offerletter_filename = offerletter.filename
             offerletter = offerletter.read()
-        if len(completioncert.filename)>0:
+        if len(completioncert.filename) > 0:
             completioncert_filename = completioncert.filename
             completioncert = completioncert.read()
-        new_internship = Internships(user_id=current_user.id, companyname=companyname, domain=domain,     source=source, rating=rating, startdate=startdate, enddate=enddate,
+        new_internship = Internships(user_id=current_user.id, companyname=companyname, domain=domain, companyrepresentative_name=companyrepresentative_name, companyrepresentative_contact=companyrepresentative_contact, source=source, rating=rating, skills_acquired=skills_acquired, startdate=startdate, enddate=enddate,
                                      offerletter=offerletter, offerletter_filename=offerletter_filename, completioncert=completioncert, completioncert_filename=completioncert_filename)
         db.session.add(new_internship)
         db.session.commit()
         flash("Record Added!")
-        return redirect('/newinternship.html')
+        return redirect('/newinternship')
     return render_template("newinternship.html")
+
 
 @app.route('/downloadcompletioncert/<int:user_id>', methods=['GET', 'POST'])
 def downloadmarksheet12(user_id):
-    user = Users.query.filter_by(id = user_id).first()
+    user = Users.query.filter_by(id=user_id).first()
     if user.completioncert:
         file_data = user.completioncert
         return send_file(BytesIO(file_data), attachment_filename=user.rollno + user.companyname + "Completioncert.pdf", as_attachment=True)
     else:
         flash("No file Exists")
         return redirect(f'/profile/{user_id}')
-
 
 
 @app.route('/admin/login')

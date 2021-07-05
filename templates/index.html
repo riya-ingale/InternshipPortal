@@ -44,11 +44,11 @@
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/profile"
+              <a class="nav-link" href="/profile/{{current_user.id}}"
                 ><i class="fa fa-user"> User</i></a
               >
             </li>
-            
+
             <li class="nav-item">
               <a class="nav-link" href="/search"
                 ><i class="fa fa-search"> Search</i></a
@@ -65,8 +65,7 @@
                 ><i class="fa fa-sign-in"> Login</i></a
               >
             </li>
-            {% endif %}
-            {% if current_user.is_authenticated %}
+            {% endif %} {% if current_user.is_authenticated %}
             <li class="nav-item">
               <a class="nav-link" href="/logout"
                 ><i class="fa fa-sign-out"> Logout</i></a
