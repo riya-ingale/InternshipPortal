@@ -44,7 +44,7 @@
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/profile"
+              <a class="nav-link" href="/profile/{{current_user.id}}"
                 ><i class="fa fa-user"> User</i></a
               >
             </li>
@@ -140,7 +140,7 @@
             <div class="form-row">
               <label>Skills Acquired <span style="color: red;">(required)</span></label>
               <input
-                name="skilss"
+                name="skills_acquired"
                 type="text"
                 class="form-control"
                 placeholder="ex- Machine learning, Marketing etc"
@@ -155,24 +155,22 @@
           <section>
 
             <div class="form-row">
-              <label>Name of Representative from Company <span style="color: red;">(required)</span></label>
+              <label>Name of Representative from Company</label>
               <input
                 name="companyrepresentative_name"
                 type="text"
                 class="form-control"
                 placeholder="Name of Representative from Company"
-                required
               />
             </div>
 
             <div class="form-row">
-              <label>Contact of Representative from Company <span style="color: red;">(required)</span></label>
+              <label>Contact of Representative from Company</label>
               <input
-                name="companyrepresentative_name"
+                name="companyrepresentative_contact"
                 type="text"
                 class="form-control"
                 placeholder="Contact of Representative from Company"
-                required
               />
             </div>
 
