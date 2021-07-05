@@ -6,21 +6,24 @@ Complimentary Green: #266150
 
 Dark Highlight: #4F4846
 
-Lightly Off White: #FDF8F5 */
+Lightly Off White: #FDF8F5 
+#EAE7DC 
+rgba(0, 77, 77, 0.9) 
+5AB9EA*/
 
 @import url("https://fonts.googleapis.com/css2?family=Allerta+Stencil&display=swap");
 
 
 
 body {
-  background-color: #e8cebf;
+  background-color: #5AB9EA;
 }
 
 .navbar-nav > li > a {
   text-transform: uppercase;
   font-size: 12px;
   margin-right: 20px;
-  color: rgba(0, 77, 77, 0.9);
+  color: #C1C8E4;
   font-size: medium;
 }
 
@@ -33,14 +36,14 @@ body {
 }
 
 .nav-link {
-  color: rgba(0, 77, 77, 0.9) !important;
+  color: #C1C8E4 !important;
 }
 
 .wrap {
   width: 100%;
   position: absolute;
   height: 100%;
-  background-color: rgba(0, 77, 77, 0.9);
+  background-color: #17E9E0;
   clip-path: polygon(81% 0, 100% 0, 100% 50%, 100% 100%, 71% 100%);
   transition: 1s all;
 }
@@ -61,7 +64,7 @@ body {
 }
 
 .navbar-red {
-  background-color: #fdf8f5;
+  background-color: #2fabe9;
   color: #266150;
 }
 
@@ -71,7 +74,7 @@ body {
 
 .footer {
   font-family: "Poppins-Regular";
-  background-color: #FDF8F5;
+  background-color: #8860D0;
   margin: 0px auto;
   padding: 20px 0px 20px 0px;
 }
