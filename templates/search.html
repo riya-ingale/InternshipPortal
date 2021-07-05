@@ -89,6 +89,7 @@
                     id="search"
                     type="text"
                     placeholder="Type Company Name or Domain"
+                    name="searchname"
                   />
                   <div class="icon-wrap">
                     <svg
@@ -138,36 +139,29 @@
                   </div>
                   <div class="input-field">
                     <div class="input-select">
-                      <select data-trigger="" name="div">
-                        <option placeholder="" value="" name="div">
-                          Division
+                      <select data-trigger="" name="year">
+                        <option placeholder="" value="" name="year">
+                          Year
                         </option>
-                        <option value="A" name="div">A</option>
-                        <option value="B" name="div">B</option>
+                        <option value="FE" name="year">FE</option>
+                        <option value="SE" name="year">SE</option>
+                        <option value="TE" name="year">TE</option>
+                        <option value="BE" name="year">BE</option>
                       </select>
                     </div>
                   </div>
                 </div>
                 <div class="row second">
-                  <div class="input-field">
+                  <div class="input-field-date">
                     <label for="startdate">Start Date</label>
-                    <input id="startdate" type="date" name="startdate" />
+                    <input  id="startdate" type="date" name="startdate"/>
                   </div>
-                  <div class="input-field">
+                  <div class="input-field-date">
                     <label for="enddate">End Date</label>
-                    <input id="enddate" type="date" name="enddate" />
+                    <input type="date"  id="enddate" name="enddate" />
+                    
                   </div>
-                  <div class="input-field">
-                    <div class="input-select">
-                      <select data-trigger="" name="div">
-                        <option placeholder="" value="" name="div">
-                          Division
-                        </option>
-                        <option value="A" name="div">A</option>
-                        <option value="B" name="div">B</option>
-                      </select>
-                    </div>
-                  </div>
+                  
                 </div>
                 <div class="row third">
                   <div class="input-field">
@@ -225,12 +219,7 @@
                     <div class="text-muted">Comapany Name - 2</div>
                     <div class="text-muted">Domain</div>
                   </div>
-                  <!-- <div class="ml-auto">
-                    <div class="tetx-right">
-                      <h5 class="text-muted m-b-0">11</h5>
-                      <span class="text-muted font-16">MAR</span>
-                    </div>
-                  </div> -->
+  
                 </li>
 
                 <li class="d-flex no-block card-body">
@@ -242,12 +231,7 @@
                     <div class="text-muted">Comapany Name</div>
                     <div class="text-muted">Domain</div>
                   </div>
-                  <!-- <div class="ml-auto">
-                    <div class="tetx-right">
-                      <h5 class="text-muted m-b-0">11</h5>
-                      <span class="text-muted font-16">MAR</span>
-                    </div>
-                  </div> -->
+
                 </li>
 
                 <li class="d-flex no-block card-body">

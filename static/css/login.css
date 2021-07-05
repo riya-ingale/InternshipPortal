@@ -3,13 +3,14 @@ body {
   color: #6a6f8c;
   background: #c8c8c8;
   font: 600 16px/18px "Open Sans", sans-serif;
+  overflow-x: hidden !important;
 }
 
 .login-box {
   width: 100%;
   margin: auto;
   max-width: 525px;
-  min-height: 960px;
+  min-height: 1060px;
   position: relative;
   /* background: url(https://images.unsplash.com/photo-1507208773393-40d9fc670acf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1268&q=80) no-repeat center; */
   box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24),
@@ -26,10 +27,7 @@ body {
 
 .login-snip .login,
 .login-snip .sign-up-form {
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+ 
   position: absolute;
   transform: rotateY(180deg);
   backface-visibility: hidden;
@@ -200,3 +198,34 @@ a {
 ::placeholder {
   color: #fff;
 }
+/* RESPONSIVE */
+@media only screen and (max-width: 991px) {
+  .login-box {
+    width: 100%;
+    margin: auto;
+    max-width: 320px;
+    min-height: 1060px;
+    position: relative;
+    box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24),
+      0 17px 50px 0 rgba(0, 0, 0, 0.19);
+  }
+  .login-snip {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    padding: 0px;
+    background: rgba(0, 77, 77, 0.9);
+  }
+  .card {
+    width: 300px;
+    left: 10px;
+  }
+  .login {
+    left: 25px;
+  }
+  .sign-up-form {
+    left: 25px;
+  }
+  
+}
+/* End Responsive */

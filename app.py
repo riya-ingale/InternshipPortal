@@ -6,6 +6,7 @@ from flask_login import LoginManager, UserMixin, login_user, login_required, log
 from io import BytesIO
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -35,6 +36,7 @@ class Users(UserMixin, db.Model):
     email = db.Column(db.String(50))
     dept = db.Column(db.String(15))
     div = db.Column(db.String(15))
+    year = db.Column(db.String(15))
 
 
 class Internships(db.Model):
@@ -66,6 +68,7 @@ def signup():
         mobileno = request.form['mobileno']
         dept = request.form['dept']
         div = request.form['div']
+        year = request.form['year']
         password = request.form['password']
         hashed_password = generate_password_hash(password, method="sha256")
         cpassword = request.form['cpassword']
@@ -134,6 +137,18 @@ def search():
     if request.method == "GET":
         allstudents = Users.query.all()
         return render_template("search.html", students=allstudents)
+    if request.method == 'POST':
+        searchname = request.form.get('searchname')
+        dept = request.form.get('dept')
+        div = request.form.get('div')
+        year = request.form.get('year')
+        startdate = request.form.get('startdate')
+        enddate = request.form.get('enddate')
+        search = "{0}".format(searchname)
+        search = search+'%'
+        allstudents = Users.query.filter(or_(Users.companyname.like(search), Users.domain.like(search))).all()
+        return render_template("search.html", students=allstudents)
+       
 
 
 @app.route('/newinternship', methods=['GET', 'POST'])
@@ -143,17 +158,19 @@ def newinternship():
         companyname = request.form.get('companyname')
         domain = request.form.get('domain')
         source = request.form.get('source')
-        rating = request.form.get('rating')
+        rating = request.form.get('rating')        
         startdate = request.form.get('startdate')
+        startdate = datetime.strptime(startdate, '%Y-%m-%d')
         enddate = request.form.get('enddate')
-        offerletter = request.files.get('offerletter')
-        completioncert = request.files.get('completioncert')
-        if offerletter:
+        enddate = datetime.strptime(enddate, '%Y-%m-%d')
+        offerletter = request.files['offerletter']
+        completioncert = request.files['completioncert']
+        if len(offerletter.filename)>0:
             offerletter_filename = offerletter.filename
             offerletter = offerletter.read()
-        if completioncert:
-            completioncert_filename = offerletter.filename
-            completioncert = offerletter.read()
+        if len(completioncert.filename)>0:
+            completioncert_filename = completioncert.filename
+            completioncert = completioncert.read()
         new_internship = Internships(user_id=current_user.id, companyname=companyname, domain=domain,     source=source, rating=rating, startdate=startdate, enddate=enddate,
                                      offerletter=offerletter, offerletter_filename=offerletter_filename, completioncert=completioncert, completioncert_filename=completioncert_filename)
         db.session.add(new_internship)

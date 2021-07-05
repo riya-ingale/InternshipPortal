@@ -224,7 +224,7 @@ select,
 textarea {
   font-family: sans-serif;
   /* 1 */
-  font-size: 100%;
+  font-size: 32px;
   /* 1 */
   line-height: 1.15;
   /* 1 */
@@ -241,7 +241,10 @@ input {
   /* 1 */
   overflow: visible;
 }
-
+input.date {
+  border: #000 10px !important;
+  background-color: aqua;
+}
 /**
    * Remove the inheritance of text transform in Edge, Firefox, and IE.
    * 1. Remove the inheritance of text transform in Firefox.
