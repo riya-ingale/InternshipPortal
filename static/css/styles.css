@@ -43,7 +43,7 @@ body {
   width: 100%;
   position: absolute;
   height: 100%;
-  background-color: #17E9E0;
+  background-color: #FFCCBC;
   clip-path: polygon(81% 0, 100% 0, 100% 50%, 100% 100%, 71% 100%);
   transition: 1s all;
 }
@@ -64,7 +64,7 @@ body {
 }
 
 .navbar-red {
-  background-color: #2fabe9;
+  background-color: #02776b;
   color: #266150;
 }
 

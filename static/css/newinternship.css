@@ -62,7 +62,7 @@ img {
 
 #wizard {
   min-height: 570px;
-  background: #07ccc2;
+  background: #fafafa;
   margin-right: 60px;
   padding: 107px 75px 65px;
   margin-top: 20px;
@@ -93,7 +93,7 @@ img {
 
 .steps ul li.first a,
 .steps ul li.checked a {
-  background: #7d52cc;
+  background: #00887a;
   transition: all 0.5s ease;
 }
 
@@ -218,7 +218,7 @@ textarea.form-control {
   height: 51px;
   width: 135px;
   align-items: center;
-  background: #7d53cc;
+  background: #00887a;
   cursor: pointer;
   color: #fff !important;
   position: relative;
