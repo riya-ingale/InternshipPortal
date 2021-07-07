@@ -5,9 +5,82 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Record</title>
+    <style>
+        body{  
+        font-family: Arial, Helvetica, sans-serif;
+        }
+        table {
+          border-collapse: collapse;
+          width: 100%;
+        }
+        
+        th, td {
+          text-align: left;
+          padding: 8px;
+        }
+        
+        </style>
 </head>
 <body>
-    
+    <h2 style="font-style: italic;">Student General Details</h2>
+    <div style="overflow-x:auto;">
+    <table class="table">
+        <tbody>
+          <tr>
+            <th scope="row">Full Name</th>
+            <td>{{student.fullname}}</td>
+          </tr>
+          <tr>
+            <th scope="row">Roll Number</th>
+            <td>{{student.rollno}}</td>
+          </tr>
+          <tr>
+            <th scope="row">Email</th>
+            <td>{{student.email}}</td>
+          </tr>
+          <tr>
+            <th scope="row">Mobile Number</th>
+            <td>{{student.mobno}}</td>
+          </tr>
+          <tr>
+            <th scope="row">Department</th>
+            <td>{{student.dept}}</td>
+          </tr>
+          <tr>
+            <th scope="row">Division</th>
+            <td>{{student.div}}</td>
+          </tr>
+          <tr>
+            <th scope="row">Year of Study</th>
+            <td>{{student.year}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <hr>
+    <h2 style="font-style: italic;">Student Internship Details</h2>
+    {for internship in internships}
+    <div>
+    <h3>{{internship.companyname}}</h3>
+        <p>Domain - {{internship.domain}}
+            <br>
+            Rating - {{internship.rating}}
+            <br>
+            Skills Acquired - {{internship.skill_acquired}}
+            <br>
+            Start Date - {{internship.startdate}}
+            <br>
+            End Date - {{internship.enddate}}
+            <br>
+            Company Representative - {{internship.companyrepresentative_name}}
+            <br>
+            Company Representative Contact - {{internship.companyrepresentative_contact}}
+            <br>
+            Source of Internship - {{internship.source}}
+            <br>
+        </p>
+    </div>
+    {% endfor %}
     
 </body>
 </html>

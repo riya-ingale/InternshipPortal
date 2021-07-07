@@ -144,7 +144,8 @@ def search():
     internship_data=[]
     if request.method == "GET":
         allstudents = Users.query.all()
-        return render_template("search.html", students=allstudents)
+        allinternships = Internships.query.all()
+        return render_template("search.html", students=allstudents, internships = allinternships)
 
     if request.method == 'POST':
         searchname = request.form.get('searchname')
