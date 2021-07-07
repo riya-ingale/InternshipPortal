@@ -201,24 +201,25 @@
                 <h4 class="card-title m-b-0">Students</h4>
               </div>
               <ul class="list-style-none">
+                <!-- First -->
+                {% for user in students %}
                 <li class="d-flex no-block card-body">
                   <i class="fa fa-check-circle w-30px m-t-5"></i>
                   <div>
-                    <a
-                      href="/profile/student_id"
-                      class="m-b-0 font-medium p-0"
-                      data-abc="true"
-                      >Student Name</a
-                    >
-                    <div class="text-muted">
-                      Comapany Namebkbuihvioigoihgiaubuababvp
+                    <a href="/profile/student_id" class="m-b-0 font-medium p-0" data-abc="true">{{user.fullname}}</a>
+                    <div class="Company-Names">
+                      {% for Internship in internships %}
+                      {% if user.id == Internship.user_id %}
+                        <div class="text-muted">{{Internship.companyname}}</div>
+                        <div class="text-muted">{{Internship.domain}}</div>
+                        <hr />
+                      {% endif %}
+                      {% endfor %} 
                     </div>
-                    <div class="text-muted">Domain</div>
-                    <hr />
-                    <div class="text-muted">Comapany Name - 2</div>
-                    <div class="text-muted">Domain</div>
                   </div>
                 </li>
+                {% endfor %}                
+                <!-- End First -->
 
                 <li class="d-flex no-block card-body">
                   <i class="fa fa-check-circle w-30px m-t-5"></i>
@@ -231,38 +232,7 @@
                   </div>
                 </li>
 
-                <li class="d-flex no-block card-body">
-                  <i class="fa fa-check-circle w-30px m-t-5"></i>
-                  <div>
-                    <a href="#" class="m-b-0 font-medium p-0" data-abc="true"
-                      >Student Name</a
-                    >
-                    <span class="text-muted">Comapany Name </span>
-                    <div class="text-muted">Domain</div>
-                  </div>
-                </li>
-
-                <li class="d-flex no-block card-body">
-                  <i class="fa fa-check-circle w-30px m-t-5"></i>
-                  <div>
-                    <a href="#" class="m-b-0 font-medium p-0" data-abc="true"
-                      >Student Name</a
-                    >
-                    <div class="text-muted">Comapany Name</div>
-                    <div class="text-muted">Domain</div>
-                  </div>
-                </li>
-
-                <li class="d-flex no-block card-body">
-                  <i class="fa fa-check-circle w-30px m-t-5"></i>
-                  <div>
-                    <a href="#" class="m-b-0 font-medium p-0" data-abc="true"
-                      >Student Name</a
-                    >
-                    <div class="text-muted">Comapany Name</div>
-                    <div class="text-muted">Domain</div>
-                  </div>
-                </li>
+               
               </ul>
             </div>
           </div>

@@ -138,73 +138,80 @@ def profile(user_id):
 
 @app.route('/search', methods=['GET', 'POST'])
 def search():
+    allinternships=[]
+    allstudents=[]
+    student_data=[]
+    internship_data=[]
     if request.method == "GET":
         allstudents = Users.query.all()
         return render_template("search.html", students=allstudents)
 
     if request.method == 'POST':
-        students = []
-        internships = []
         searchname = request.form.get('searchname')
         dept = request.form.get('dept')
         div = request.form.get('div')
         year = request.form.get('year')
         startdate = request.form.get('startdate')
         print(startdate)
-        startdate = datetime.strptime(startdate, '%Y-%m-%d')
+        if startdate:
+            startdate = datetime.strptime(startdate, '%Y-%m-%d')
         enddate = request.form.get('enddate')
         print(enddate)
-        enddate = datetime.strptime(enddate, '%Y-%m-%d')
+        if enddate:
+            enddate = datetime.strptime(enddate, '%Y-%m-%d')
 
         search = "{0}".format(searchname)
         search = search+'%'
+        print(search)
 
-        if startdate and enddate:
+        if startdate and enddate and searchname:
             allinternships = Internships.query.filter(
                 or_(Internships.companyname.like(search), Internships.domain.like(search)), Internships.startdate > startdate and Internships.enddate < enddate).all()
         elif startdate:
+            allinternships = Internships.query.filter(Internships.startdate > startdate).all()
+        elif startdate and searchname:
             allinternships = Internships.query.filter(
                 or_(Internships.companyname.like(search), Internships.domain.like(search)), Internships.startdate > startdate).all()
-        elif enddate:
+        elif enddate and searchname:
             allinternships = Internships.query.filter(
                 or_(Internships.companyname.like(search), Internships.domain.like(search)), Internships.endate < enddate).all()
-        else:
+        elif enddate:
+            allinternships = Internships.query.filter(Internships.enddate < enddate).all()
+        elif startdate and enddate:
+            allinternships = Internships.query.filter(Internships.startdate > startdate and Internships.enddate < enddate).all()        
+        elif searchname:
             allinternships = Internships.query.filter(
                 or_(Internships.companyname.like(search), Internships.domain.like(search))).all()
-
-        for internship in allinternships:
-            user = Users.query.filter_by(id=internship.user_id).first()
-            if div and dept and year:
-                if user.div == div and user.dept == dept and user.year == year:
-                    students.append(user)
-                    internships.append(internship)
-                elif dept and div:
-                    if user.dept == dept and user.div == div:
-                        students.append(user)
-                        internships.append(internship)
-                elif dept and year:
-                    if user.dept == dept and user.year == year:
-                        students.append(user)
-                        internships.append(internship)
-                elif div and year:
-                    if user.year == year and user.div == div:
-                        students.append(user)
-                        internships.append(internship)
-                elif div:
-                    if user.div == div:
-                        students.append(user)
-                        internships.append(internship)
-                elif dept:
-                    if user.dept == dept:
-                        students.append(user)
-                        internships.append(internship)
-                else:
-                    if user.year == year:
-                        students.append(user)
-                        internships.append(internship)
-        print(students)
-        print(internships)
-        return render_template("search.html", students=students, internships=internships)
+        else:
+            pass
+        if dept and div and year:
+            allstudents = Users.query.filter_by(dept=dept,div=div,year=year).all()
+        elif dept and div:
+            allstudents = Users.query.filter_by(dept=dept,div=div).all()
+        elif div and year:
+            allstudents = Users.query.filter_by(div=div,year=year).all()
+        elif dept and year:
+            allstudents = Users.query.filter_by(dept=dept,year=year).all()
+        elif dept:
+            allstudents = Users.query.filter_by(dept=dept).all()
+        elif div:
+            allstudents = Users.query.filter_by(div=div).all()
+        elif year:
+            allstudents = Users.query.filter_by(year=year).all()
+        else:
+            pass
+        if allinternships:
+            for internship in allinternships:
+                student=Users.query.filter_by(id=internship.user_id).first()                
+                student_data.append(student)
+            return render_template("search.html", students=student_data, internships=allinternships)
+        elif allstudents:
+            for student in allstudents:
+                student=Internships.query.filter_by(user_id=student.id).first()                
+                internship_data.append(student)
+            return render_template("search.html", students=allstudents, internships=internship_data)
+        elif allinternships and allstudents:
+            return render_template("search.html", students=allstudents, internships=allinternships)
 
 
 @app.route('/newinternship', methods=['GET', 'POST'])
