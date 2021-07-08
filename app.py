@@ -270,6 +270,11 @@ def editprofile():
     return render_template('editprofile.html')
 
 
+@app.route('/aboutus')
+def aboutus():
+    return render_template('aboutus.html')
+
+
 if __name__ == '__main__':
     db.create_all()
     app.run(debug=True)
