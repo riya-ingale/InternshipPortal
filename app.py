@@ -129,6 +129,7 @@ def logout():
 
 
 @app.route('/profile/<int:user_id>', methods=['GET', 'POST'])
+@app.route('/profile/', methods=['GET', 'POST'])
 @login_required
 def profile(user_id):
     user_id = current_user.id
@@ -263,6 +264,11 @@ def downloadmarksheet12(user_id):
 @app.route('/admin/login')
 def adminlogin():
     return render_template('adminlogin.html')
+
+
+@app.route('/admin/dashboard')
+def admindashboard():
+    return render_template('admindashboard.html')
 
 
 @app.route('/editprofile')
