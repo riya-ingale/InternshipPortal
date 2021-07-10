@@ -7,6 +7,7 @@ from io import BytesIO
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
 from datetime import datetime
+import pdfkit
 
 app = Flask(__name__)
 
@@ -250,15 +251,28 @@ def newinternship():
     return render_template("newinternship.html")
 
 
-@app.route('/downloadcompletioncert/<int:user_id>', methods=['GET', 'POST'])
-def downloadmarksheet12(user_id):
-    user = Users.query.filter_by(id=user_id).first()
-    if user.completioncert:
-        file_data = user.completioncert
-        return send_file(BytesIO(file_data), attachment_filename=user.rollno + user.companyname + "Completioncert.pdf", as_attachment=True)
+@app.route('/downloadcompletioncert/<int:internship_id>', methods=['GET', 'POST'])
+def downloadcompletioncert(internship_id):    
+    internship = Internships.query.filter_by(id=internship_id).first()
+    if internship.completioncert:
+        file_data = internship.completioncert
+        return send_file(BytesIO(file_data), attachment_filename=internship.companyname + "Completioncert.pdf", as_attachment=True)
     else:
         flash("No file Exists")
-        return redirect(f'/profile/{user_id}')
+        return redirect(f'/profile/{current_user.id}')
+
+@app.route('/student_record/<int:user_id>', methods=['POST', 'GET'])
+def student_record(user_id):
+    user = Users.query.get_or_404(user_id)
+    internships=Internships.query.filter_by(user_id=user_id).all()
+    rendered = render_template('studentrecorddownload.html', student=user, internships=internships)
+    pdf = pdfkit.from_string(rendered, False)
+    response = make_response(pdf)
+    response.headers['Content-Type'] = 'application/pdf'
+    response.headers['Content-Disposition'] = 'inline; filename = student.rollno +_Details.pdf'
+
+    return response
+
 
 
 @app.route('/admin/login')
@@ -271,8 +285,19 @@ def admindashboard():
     return render_template('admindashboard.html')
 
 
-@app.route('/editprofile')
+@app.route('/editprofile', methods=['GET', 'POST'])
 def editprofile():
+    if request.method == "POST":
+        user = Users.query.get_or_404(current_user.id)
+        user.fullname = request.form.get('fullname')
+        user.rollno = request.form['rollno']
+        user.email = request.form['email']
+        user.mobileno = request.form['mobileno']
+        user.dept = request.form['dept']
+        user.div = request.form['div']
+        user.year = request.form['year']
+        db.session.commit()
+        return redirect(f'/profile/{current_user.id}')
     return render_template('editprofile.html')
 
 

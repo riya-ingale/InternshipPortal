@@ -113,7 +113,7 @@
           </div>
           <div class="col-md-2">
             <input
-              formaction="/downloadrecord"
+              formaction="/student_record/{{current_user.id}}"
               type="submit"
               class="profile-edit-btn"
               name="btnAddMore"
@@ -197,68 +197,29 @@
                 role="tabpanel"
                 aria-labelledby="profile-tab"
               >
+              
                 <div class="row">
+                  {% for internship in internships %}
                     <div class="card text-center col-11" style="margin: 3%;">
                         <div class="card-header" style="background-color: #fff;color: #266150; font-weight: bold;">
-                          Company Name
+                          Comapany Name : {{internship.companyname}}
                         </div>
                         <div class="card-body">
-                          <h5 class="card-title" style="font-style: italic;">Domain</h5>
+                          <h5 class="card-title" style="font-style: italic;">Domain : {{internship.domain}}</h5>
                           <p class="card-text" style="color: black;">
-                              Source of Internship - 
+                              Source of Internship - {{internship.source}}
                               <br>
-                              Rating - 
+                              Rating - {{internship.rating}}
                           </p>
-                          <a href="#" class="btn btn-primary" style="background-color:#266150; color: #fff;">Completion Certicate</a>
-                          
+                          <a href='/downloadcompletioncert/{{internship.id}}' class="btn btn-primary" style="background-color:#266150; color: #fff;">Completion Certicate</a>
                         </div>
                         <div class="card-footer text-muted" style="background-color: #fff;color: #266150;">
-                          start date - end date
+                          {{internship.startdate}} - {{internship.enddate}}
                         </div>
                       </div>
-
-                      <div class="card text-center col-11" style="margin: 3%;">
-                        <div class="card-header" style="background-color: #fff;color: #266150; font-weight: bold;">
-                          Company Name
-                        </div>
-                        <div class="card-body">
-                          <h5 class="card-title" style="font-style: italic;">Domain</h5>
-                          <p class="card-text" style="color: black;">
-                              Source of Internship - 
-                              <br>
-                              Rating - 
-                          </p>
-                          <a href="#" class="btn btn-primary" style="background-color:#266150; color: #fff;">Completion Certicate</a>
-                          
-                        </div>
-                        <div class="card-footer text-muted" style="background-color: #fff;color: #266150;">
-                          start date - end date
-                        </div>
-                      </div>
-
-                      <div class="card text-center col-11" style="margin: 3%;">
-                        <div class="card-header" style="background-color: #fff;color: #266150; font-weight: bold;">
-                          Company Name
-                        </div>
-                        <div class="card-body">
-                          <h5 class="card-title" style="font-style: italic;">Domain</h5>
-                          <p class="card-text" style="color: black;">
-                              Source of Internship - 
-                              <br>
-                              Rating - 
-                          </p>
-                          <a href="#" class="btn btn-primary" style="background-color:#266150; color: #fff;">Completion Certicate</a>
-                          
-                        </div>
-                        <div class="card-footer text-muted" style="background-color: #fff;color: #266150;">
-                          start date - end date
-                        </div>
-                      </div>
+                      {% endfor %}
                     </div>
-                </div>
-                
-                
-                
+                </div>             
               </div>
             </div>
           </div>

@@ -157,7 +157,7 @@
                     <label>Mobile Number</label>
                   </div>
                   <div class="col-md-6">
-                    <input type="text" name="mobno" value="{{current_user.mobno}}"/> 
+                    <input type="text" name="mobileno" value="{{current_user.mobileno}}"/> 
                   </div>
                 </div>
                 <div class="row">
@@ -176,11 +176,19 @@
                     <input type="text" name="div" value="{{current_user.div}}"/> 
                   </div>
                 </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label>Year</label>
+                  </div>
+                  <div class="col-md-6">
+                    <input type="text" name="year" value="{{current_user.year}}"/> 
+                  </div>
+                </div>
 
                 <p>
                     <br>
                 </p>
-                <button class="editbtn" formaction="/editgeneralprofile" value="Edit">Update Profile</button>
+                <button class="editbtn" formaction="/editprofile" value="Edit">Update Profile</button>
               </div>
 
               <div

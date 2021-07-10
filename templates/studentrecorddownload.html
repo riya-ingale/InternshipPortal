@@ -40,7 +40,7 @@
           </tr>
           <tr>
             <th scope="row">Mobile Number</th>
-            <td>{{student.mobno}}</td>
+            <td>{{student.mobileno}}</td>
           </tr>
           <tr>
             <th scope="row">Department</th>
@@ -59,7 +59,7 @@
     </div>
     <hr>
     <h2 style="font-style: italic;">Student Internship Details</h2>
-    {for internship in internships}
+    {% for internship in internships %}
     <div>
     <h3>{{internship.companyname}}</h3>
         <p>Domain - {{internship.domain}}
