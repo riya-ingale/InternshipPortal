@@ -319,7 +319,7 @@ def admindashboard():
     if current_user.role == "admin":
         return render_template('admindashboard.html')
     else:
-        return "Page Not Found"    
+        return "Page Not Found"
 
 
 @app.route('/editprofile/<int:user_id>', methods=['GET', 'POST'])
@@ -343,12 +343,13 @@ def editprofile(user_id):
 def aboutus():
     return render_template('aboutus.html')
 
+
 @app.route("/custom_export", methods=['GET'])
-def docustomexport():
+def docustomexport():        
     query_sets = Internships.query.all()
-    print("Excel",query_sets)
-    column_names = ['id', 'user_id','companyname' , 'domain', 'source' , 'rating' , 'skills_acquired' , 'companyrepresentative_name' , 'companyrepresentative_contact' , 'startdate' , 'enddate']
-    return excel.make_response_from_query_sets(query_sets, column_names, 'xlsx', file_name="file_name")
+    print("Excel", query_sets)
+    column_names = ['id', 'companyname' , 'domain', 'source' , 'rating' , 'skills_acquired' , 'companyrepresentative_name' , 'companyrepresentative_contact' , 'startdate' , 'enddate']
+    return excel.make_response_from_query_sets(query_sets, column_names, 'xlsx', file_name="sheet")
 
 
 if __name__ == '__main__':
