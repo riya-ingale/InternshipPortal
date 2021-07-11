@@ -8,12 +8,15 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import os
 from datetime import datetime
 import pdfkit
+import flask_excel as excel
 
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = os.urandom(24)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///InternshipPortal_Database.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+excel.init_excel(app)
 
 db = SQLAlchemy(app)
 
@@ -339,6 +342,13 @@ def editprofile(user_id):
 @app.route('/aboutus')
 def aboutus():
     return render_template('aboutus.html')
+
+@app.route("/custom_export", methods=['GET'])
+def docustomexport():
+    query_sets = Internships.query.all()
+    print("Excel",query_sets)
+    column_names = ['id', 'user_id','companyname' , 'domain', 'source' , 'rating' , 'skills_acquired' , 'companyrepresentative_name' , 'companyrepresentative_contact' , 'startdate' , 'enddate']
+    return excel.make_response_from_query_sets(query_sets, column_names, 'xlsx', file_name="file_name")
 
 
 if __name__ == '__main__':
