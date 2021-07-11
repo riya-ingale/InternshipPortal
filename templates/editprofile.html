@@ -133,7 +133,7 @@
                     <label>Roll Number</label>
                   </div>
                   <div class="col-md-6">
-                    <input type="text" name="rollno" value="{{current_user.rollno}}"/> 
+                    <input type="text" name="rollno" value="{{user.rollno}}"/> 
                   </div>
                 </div>
                 <div class="row">
@@ -141,7 +141,7 @@
                     <label>Full Name</label>
                   </div>
                   <div class="col-md-6">
-                    <input type="text" name="fullname" value="{{current_user.fullname}}"/> 
+                    <input type="text" name="fullname" value="{{user.fullname}}"/> 
                   </div>
                 </div>
                 <div class="row">
@@ -149,7 +149,7 @@
                     <label>Email</label>
                   </div>
                   <div class="col-md-6">
-                    <input type="text" name="email" value="{{current_user.email}}"/> 
+                    <input type="text" name="email" value="{{user.email}}"/> 
                   </div>
                 </div>
                 <div class="row">
@@ -157,7 +157,7 @@
                     <label>Mobile Number</label>
                   </div>
                   <div class="col-md-6">
-                    <input type="text" name="mobileno" value="{{current_user.mobileno}}"/> 
+                    <input type="text" name="mobileno" value="{{user.mobileno}}"/> 
                   </div>
                 </div>
                 <div class="row">
@@ -165,7 +165,7 @@
                     <label>Branch</label>
                   </div>
                   <div class="col-md-6">
-                    <input type="text" name="dept" value="{{current_user.dept}}"/> 
+                    <input type="text" name="dept" value="{{user.dept}}"/> 
                   </div>
                 </div>
                 <div class="row">
@@ -173,7 +173,7 @@
                     <label>Division</label>
                   </div>
                   <div class="col-md-6">
-                    <input type="text" name="div" value="{{current_user.div}}"/> 
+                    <input type="text" name="div" value="{{user.div}}"/> 
                   </div>
                 </div>
                 <div class="row">
@@ -181,14 +181,14 @@
                     <label>Year</label>
                   </div>
                   <div class="col-md-6">
-                    <input type="text" name="year" value="{{current_user.year}}"/> 
+                    <input type="text" name="year" value="{{user.year}}"/> 
                   </div>
                 </div>
 
                 <p>
                     <br>
                 </p>
-                <button class="editbtn" formaction="/editprofile" value="Edit">Update Profile</button>
+                <button class="editbtn" formaction="/editprofile/{{user.id}}" value="Edit">Update Profile</button>
               </div>
 
               <div

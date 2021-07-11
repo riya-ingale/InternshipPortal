@@ -40,21 +40,13 @@
             <li class="nav-item">
               <a class="nav-link" href="/"><i class="fa fa-home"> Home</i></a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/newinternship"><i class="fa fa-plus"> New Internship</i></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/profile/{{current_user.id}}"><i class="fa fa-user"> User</i></a>
-            </li>
             
-            {% if current_user.role == "admin" %}
+            
             <li class="nav-item">
               <a class="nav-link" href="/search"
                 ><i class="fa fa-search"> Search</i></a
               >
             </li>
-            {% endif %}
-
             <li class="nav-item">
               <a class="nav-link" href="/aboutus"
                 ><i class="fa fa-info-circle"> About us</i></a
@@ -125,16 +117,7 @@
               style="background-color: #266150; color: #fff"
             />
             <p><br/></p>
-            <input
-              formmethod="GET"
-              formaction="/editprofile/{{user.id}}"
-              type="submit"
-              class="profile-edit-btn"
-              name="btnAddMore"
-              value="Edit Record"
-              style="background-color: #266150; color: #fff"
-            />
-            <p><br/></p>
+            
           </div>
         </div>
         <div class="row">

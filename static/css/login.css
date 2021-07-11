@@ -27,7 +27,6 @@ body {
 
 .login-snip .login,
 .login-snip .sign-up-form {
- 
   position: absolute;
   transform: rotateY(180deg);
   backface-visibility: hidden;
@@ -80,8 +79,7 @@ body {
   display: block;
 }
 
-.login-space .group .input-dropdown
- {
+.login-space .group .input-dropdown {
   width: 100%;
   color: #000;
   display: block;
@@ -237,6 +235,5 @@ a {
   .sign-up-form {
     left: 25px;
   }
-  
 }
 /* End Responsive */

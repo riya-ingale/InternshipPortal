@@ -39,6 +39,7 @@ class Users(UserMixin, db.Model):
     div = db.Column(db.String(15))
     year = db.Column(db.String(15))
     linkedIn_username = db.Column(db.Text)
+    role = db.Column(db.Text)
 
 
 class Internships(db.Model):
@@ -133,21 +134,28 @@ def logout():
 @app.route('/profile/', methods=['GET', 'POST'])
 @login_required
 def profile(user_id):
-    user_id = current_user.id
+    user = Users.query.filter_by(id=user_id).first()
     internships = Internships.query.filter_by(user_id=user_id).all()
-    return render_template("profile.html", current_user=current_user, internships=internships)
+    return render_template("profile.html", current_user=current_user, internships=internships, user=user)
+
+
+@app.route('/otherprofile/<int:user_id>', methods=['GET', 'POST'])
+def otherprofile(user_id):
+    user = Users.query.filter_by(id=user_id).first()
+    internships = Internships.query.filter_by(user_id=user_id).all()
+    return render_template("otherprofile.html", current_user=current_user, internships=internships, user=user)
 
 
 @app.route('/search', methods=['GET', 'POST'])
 def search():
-    allinternships=[]
-    allstudents=[]
-    student_data=[]
-    internship_data=[]
+    allinternships = []
+    allstudents = []
+    student_data = []
+    internship_data = []
     if request.method == "GET":
         allstudents = Users.query.all()
         allinternships = Internships.query.all()
-        return render_template("search.html", students=allstudents, internships = allinternships)
+        return render_template("search.html", students=allstudents, internships=allinternships)
 
     if request.method == 'POST':
         searchname = request.form.get('searchname')
@@ -171,7 +179,8 @@ def search():
             allinternships = Internships.query.filter(
                 or_(Internships.companyname.like(search), Internships.domain.like(search)), Internships.startdate > startdate and Internships.enddate < enddate).all()
         elif startdate:
-            allinternships = Internships.query.filter(Internships.startdate > startdate).all()
+            allinternships = Internships.query.filter(
+                Internships.startdate > startdate).all()
         elif startdate and searchname:
             allinternships = Internships.query.filter(
                 or_(Internships.companyname.like(search), Internships.domain.like(search)), Internships.startdate > startdate).all()
@@ -179,22 +188,25 @@ def search():
             allinternships = Internships.query.filter(
                 or_(Internships.companyname.like(search), Internships.domain.like(search)), Internships.endate < enddate).all()
         elif enddate:
-            allinternships = Internships.query.filter(Internships.enddate < enddate).all()
+            allinternships = Internships.query.filter(
+                Internships.enddate < enddate).all()
         elif startdate and enddate:
-            allinternships = Internships.query.filter(Internships.startdate > startdate and Internships.enddate < enddate).all()        
+            allinternships = Internships.query.filter(
+                Internships.startdate > startdate and Internships.enddate < enddate).all()
         elif searchname:
             allinternships = Internships.query.filter(
                 or_(Internships.companyname.like(search), Internships.domain.like(search))).all()
         else:
             pass
         if dept and div and year:
-            allstudents = Users.query.filter_by(dept=dept,div=div,year=year).all()
+            allstudents = Users.query.filter_by(
+                dept=dept, div=div, year=year).all()
         elif dept and div:
-            allstudents = Users.query.filter_by(dept=dept,div=div).all()
+            allstudents = Users.query.filter_by(dept=dept, div=div).all()
         elif div and year:
-            allstudents = Users.query.filter_by(div=div,year=year).all()
+            allstudents = Users.query.filter_by(div=div, year=year).all()
         elif dept and year:
-            allstudents = Users.query.filter_by(dept=dept,year=year).all()
+            allstudents = Users.query.filter_by(dept=dept, year=year).all()
         elif dept:
             allstudents = Users.query.filter_by(dept=dept).all()
         elif div:
@@ -205,12 +217,13 @@ def search():
             pass
         if allinternships:
             for internship in allinternships:
-                student=Users.query.filter_by(id=internship.user_id).first()                
+                student = Users.query.filter_by(id=internship.user_id).first()
                 student_data.append(student)
             return render_template("search.html", students=student_data, internships=allinternships)
         elif allstudents:
             for student in allstudents:
-                student=Internships.query.filter_by(user_id=student.id).first()                
+                student = Internships.query.filter_by(
+                    user_id=student.id).first()
                 internship_data.append(student)
             return render_template("search.html", students=allstudents, internships=internship_data)
         elif allinternships and allstudents:
@@ -252,7 +265,7 @@ def newinternship():
 
 
 @app.route('/downloadcompletioncert/<int:internship_id>', methods=['GET', 'POST'])
-def downloadcompletioncert(internship_id):    
+def downloadcompletioncert(internship_id):
     internship = Internships.query.filter_by(id=internship_id).first()
     if internship.completioncert:
         file_data = internship.completioncert
@@ -261,11 +274,13 @@ def downloadcompletioncert(internship_id):
         flash("No file Exists")
         return redirect(f'/profile/{current_user.id}')
 
+
 @app.route('/student_record/<int:user_id>', methods=['POST', 'GET'])
 def student_record(user_id):
     user = Users.query.get_or_404(user_id)
-    internships=Internships.query.filter_by(user_id=user_id).all()
-    rendered = render_template('studentrecorddownload.html', student=user, internships=internships)
+    internships = Internships.query.filter_by(user_id=user_id).all()
+    rendered = render_template(
+        'studentrecorddownload.html', student=user, internships=internships)
     pdf = pdfkit.from_string(rendered, False)
     response = make_response(pdf)
     response.headers['Content-Type'] = 'application/pdf'
@@ -274,21 +289,41 @@ def student_record(user_id):
     return response
 
 
-
-@app.route('/admin/login')
+@app.route('/admin/login', methods=['GET', 'POST'])
 def adminlogin():
+    if request.method == 'POST':
+        username = request.form.get('username')
+        print(username)
+        password = request.form.get('password')
+        print(password)
+        user = Users.query.filter_by(role="admin", fullname=username).first()
+        print(user.role)
+        if user:
+            if user.password == password:
+                login_user(user)
+                return redirect('/admin/dashboard')
+            else:
+                flash("Password Incorrect")
+                return redirect('/admin/login')
+        else:
+            flash("No such admin exists")
+            return redirect('/admin/login')
     return render_template('adminlogin.html')
 
 
-@app.route('/admin/dashboard')
+@app.route('/admin/dashboard', methods=['GET', 'POST'])
 def admindashboard():
-    return render_template('admindashboard.html')
+    if current_user.role == "admin":
+        return render_template('admindashboard.html')
+    else:
+        return "Page Not Found"    
 
 
-@app.route('/editprofile', methods=['GET', 'POST'])
-def editprofile():
+@app.route('/editprofile/<int:user_id>', methods=['GET', 'POST'])
+def editprofile(user_id):
+    user = Users.query.get_or_404(user_id)
     if request.method == "POST":
-        user = Users.query.get_or_404(current_user.id)
+        user = Users.query.get_or_404(user_id)
         user.fullname = request.form.get('fullname')
         user.rollno = request.form['rollno']
         user.email = request.form['email']
@@ -297,8 +332,8 @@ def editprofile():
         user.div = request.form['div']
         user.year = request.form['year']
         db.session.commit()
-        return redirect(f'/profile/{current_user.id}')
-    return render_template('editprofile.html')
+        return redirect(f'/profile/{user_id}')
+    return render_template('editprofile.html', user=user)
 
 
 @app.route('/aboutus')

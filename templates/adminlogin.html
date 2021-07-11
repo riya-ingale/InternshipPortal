@@ -40,28 +40,20 @@
             <li class="nav-item">
               <a class="nav-link" href="/"><i class="fa fa-home"> Home</i></a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/newinternship"
-                ><i class="fa fa-plus"> New Internship</i></a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/profile"
-                ><i class="fa fa-user"> User</i></a
-              >
-            </li>
             
             <li class="nav-item">
-              <a class="nav-link" href="/search"
-                ><i class="fa fa-search"> Search</i></a
+              <a class="nav-link" href="/aboutus"
+                ><i class="fa fa-info-circle"> About Us</i></a
               >
             </li>
+
             {% if not current_user.is_authenticated %}
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="/login"
-                ><i class="fa fa-sign-in"> Login</i></a
+                ><i class="fa fa-sign-in"> Student Login</i></a
               >
             </li>
+
             {% endif %}
             {% if current_user.is_authenticated %}
             <li class="nav-item">
@@ -89,22 +81,40 @@
 
                 <div class="col-lg-12 login-form">
                     <div class="col-lg-12 login-form">
-                        <form>
+                        <form method="POST">
+
                             <div class="form-group">
                                 <label class="form-control-label">USERNAME</label>
-                                <input type="text" class="form-control">
+                                <input name = "username" type="text" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label class="form-control-label">PASSWORD</label>
-                                <input type="password" class="form-control" i>
+                                <input name="password" type="password" class="form-control" i>
                             </div>
 
                             <div class="col-lg-12 loginbttm">
                                 <div class="col-lg-6 login-btm login-text">
-                                    <!-- Error Message -->
+                                  <div>
+                                    {% with messages = get_flashed_messages() %} {% if
+                                    messages %}
+                                    <div
+                                      class="flashes"
+                                      style="
+                                        font: sans-serif;
+                                        text-align: center;
+                                        color: #fff;
+                                        font-style: italic;
+                                      "
+                                    >
+                                      {% for message in messages %}
+                                      <h6>{{ message }}</h6>
+                                      {% endfor %}
+                                    </div>
+                                    {% endif %} {% endwith %}
+                                  </div>
                                 </div>
                                 <div class="col-lg-6 login-btm login-button">
-                                    <button type="submit" class="btn btn-outline-primary">LOGIN</button>
+                                <button type="submit" class="btn btn-outline-primary" formaction="/admin/login">LOGIN</button>
                                 </div>
                             </div>
                         </form>

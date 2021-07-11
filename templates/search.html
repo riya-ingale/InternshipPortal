@@ -46,21 +46,19 @@
             <li class="nav-item">
               <a class="nav-link" href="/"><i class="fa fa-home"> Home</i></a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/newinternship"
-                ><i class="fa fa-plus"> New Internship</i></a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/profile/{{current_user.id}}"
-                ><i class="fa fa-user"> User</i></a
-              >
-            </li>
+
             <li class="nav-item">
               <a class="nav-link" href="/search"
                 ><i class="fa fa-search"> Search</i></a
               >
             </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/dashboard"
+                ><i class="fa fa-search"> Dashboard</i></a
+              >
+            </li>
+            
             <li class="nav-item">
               <a class="nav-link" href="/aboutus"
                 ><i class="fa fa-info-circle"> About us</i></a
@@ -69,7 +67,7 @@
 
             {% if not current_user.is_authenticated %}
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/login"
+              <a class="nav-link active" aria-current="page" href="/admin/login"
                 ><i class="fa fa-sign-in"> Login</i></a
               >
             </li>
@@ -215,7 +213,7 @@
                   <i class="fa fa-check-circle w-30px m-t-5"></i>
                   <div>
                     <a
-                      href="/profile/student_id"
+                      href="/otherprofile/{{user.id}}"
                       class="m-b-0 font-medium p-0"
                       data-abc="true"
                       >{{user.fullname}}</a
@@ -223,8 +221,8 @@
                     <div class="Company-Names">
                       {% for Internship in internships %} {% if user.id ==
                       Internship.user_id %}
-                      <div class="text-muted">{{Internship.companyname}}</div>
-                      <div class="text-muted">{{Internship.domain}}</div>
+                      <div class="text-muted">Company name - {{Internship.companyname}}</div>
+                      <div class="text-muted">Domain - {{Internship.domain}}</div>
                       <hr />
                       {% endif %} {% endfor %}
                     </div>
