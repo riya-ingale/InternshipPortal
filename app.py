@@ -181,24 +181,25 @@ def search():
         if startdate and enddate and searchname:
             allinternships = Internships.query.filter(
                 or_(Internships.companyname.like(search), Internships.domain.like(search)), Internships.startdate > startdate and Internships.enddate < enddate).all()
-        elif startdate:
-            allinternships = Internships.query.filter(
-                Internships.startdate > startdate).all()
+
         elif startdate and searchname:
             allinternships = Internships.query.filter(
                 or_(Internships.companyname.like(search), Internships.domain.like(search)), Internships.startdate > startdate).all()
         elif enddate and searchname:
             allinternships = Internships.query.filter(
                 or_(Internships.companyname.like(search), Internships.domain.like(search)), Internships.endate < enddate).all()
-        elif enddate:
-            allinternships = Internships.query.filter(
-                Internships.enddate < enddate).all()
         elif startdate and enddate:
             allinternships = Internships.query.filter(
                 Internships.startdate > startdate and Internships.enddate < enddate).all()
         elif searchname:
             allinternships = Internships.query.filter(
                 or_(Internships.companyname.like(search), Internships.domain.like(search))).all()
+        elif startdate:
+            allinternships = Internships.query.filter(
+                Internships.startdate > startdate).all()
+        elif enddate:
+            allinternships = Internships.query.filter(
+                Internships.enddate < enddate).all()
         else:
             pass
         if dept and div and year:
@@ -344,11 +345,15 @@ def aboutus():
     return render_template('aboutus.html')
 
 
-@app.route("/custom_export", methods=['GET'])
-def docustomexport():        
+@app.route("/customexport", methods=['GET', 'POST'])
+def docustomexport():
+    information = request.data
+    print(type(information))
+
     query_sets = Internships.query.all()
-    print("Excel", query_sets)
-    column_names = ['id', 'companyname' , 'domain', 'source' , 'rating' , 'skills_acquired' , 'companyrepresentative_name' , 'companyrepresentative_contact' , 'startdate' , 'enddate']
+    print("Excel - ", query_sets)
+    column_names = ['id', 'companyname', 'domain', 'source', 'rating', 'skills_acquired',
+                    'companyrepresentative_name', 'companyrepresentative_contact', 'startdate', 'enddate']
     return excel.make_response_from_query_sets(query_sets, column_names, 'xlsx', file_name="sheet")
 
 
