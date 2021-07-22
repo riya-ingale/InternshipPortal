@@ -155,6 +155,7 @@ def search():
     allstudents = []
     student_data = []
     internship_data = []
+    global searchname
     if request.method == "GET":
         allstudents = Users.query.all()
         allinternships = Internships.query.all()
