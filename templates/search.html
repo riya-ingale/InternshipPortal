@@ -91,7 +91,7 @@
               <div class="basic-search">
                 <div class="input-field">
                   <input
-                    id="search"
+                    id="companyname"
                     type="text"
                     placeholder="Type Company Name or Domain"
                     name="searchname"
@@ -119,7 +119,7 @@
                 <div class="row">
                   <div class="input-field">
                     <div class="input-select">
-                      <select data-trigger="" name="dept">
+                      <select id="dept" data-trigger="" name="dept">
                         <option placeholder="" name="dept" value="">
                           Department
                         </option>
@@ -133,7 +133,7 @@
                   </div>
                   <div class="input-field">
                     <div class="input-select">
-                      <select data-trigger="" name="div">
+                      <select id="div" data-trigger="" name="div">
                         <option placeholder="" value="" name="div">
                           Division
                         </option>
@@ -144,7 +144,7 @@
                   </div>
                   <div class="input-field">
                     <div class="input-select">
-                      <select data-trigger="" name="year">
+                      <select id="year" data-trigger="" name="year">
                         <option placeholder="" value="" name="year">
                           Year
                         </option>
@@ -202,7 +202,7 @@
         >
           <div class="col-12 col-lg-12">
             <div class="card">
-              <a class="downloadlistbutton" href="/custom_export">Download Students List</a>
+              <a class="downloadlistbutton" href="javascript:customexport()">Download Students List</a>
               <div class="card-body text-center">
                 <h4 class="card-title m-b-0">Students</h4>
               </div>
@@ -376,5 +376,28 @@
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"
     ></script>
+    <script>
+      function customexport(){
+        var dept = document.getElementById("dept").value;
+        var div = document.getElementById("div").value;
+        var year = document.getElementById("year").value;
+        var companyname = document.getElementById("companyname").value;
+        var startdate = document.getElementById("startdate").value;
+        var enddate = document.getElementById("enddate").value;
+
+        const URL = "/customexport";
+        const xhr = new XMLHttpRequest();
+        sender = JSON.stringify(dept,div)
+
+        xhr.onreadystatechange = function() { // listen for state changes
+        if (xhr.readyState == 4 && xhr.status == 200) { // when completed we can move away
+        window.location.href = "/search";
+        }
+        }
+
+        xhr.open('POST', URL);
+        xhr.send(sender);
+      }
+    </script>
   </body>
 </html>
