@@ -105,7 +105,7 @@
                 name="companyname"
                 type="text"
                 class="form-control"
-                placeholder="ex - Google"
+                value="{{internship.companyname}}"
                 required
               />
             </div>
@@ -121,6 +121,7 @@
                 max="5"
                 class="form-control"
                 placeholder="1 to 5"
+                value="{{internship.rating}}"
                 required
               />
             </div>
@@ -134,6 +135,7 @@
                 type="text"
                 class="form-control"
                 placeholder="ex- Machine learning, Marketing etc"
+                value="{{internship.domain}}"
                 required
               />
             </div>
@@ -142,20 +144,65 @@
               >Source of Internship
               <span style="color: red">(required)</span></label
             >
+            {% if internship.source == "VIT Internship" %}
             <div class="input-group mb-3">
               <select
                 class="custom-select"
                 name="source"
                 id="inputGroupSelect02"
               >
-                <option selected name="source">Choose...</option>
-                <option value="VIT Internship" name="source">
+                <option value="VIT Internship" name="source" selected>
                   VIT Internship
                 </option>
                 <option value="Internshala" name="source">Internshala</option>
                 <option value="Self" name="source">Self</option>
               </select>
             </div>
+            {% elif internship.source == "Internshala" %}
+            <div class="input-group mb-3">
+              <select
+                class="custom-select"
+                name="source"
+                id="inputGroupSelect02"
+              >
+                <option value="VIT Internship" name="source" >
+                  VIT Internship
+                </option>
+                <option value="Internshala" name="source" selected>Internshala</option>
+                <option value="Self" name="source">Self</option>
+              </select>
+            </div>
+            {% elif internship.source == "Internshala" %}
+            <div class="input-group mb-3">
+              <select
+                class="custom-select"
+                name="source"
+                id="inputGroupSelect02"
+              >
+                <option value="VIT Internship" name="source" >
+                  VIT Internship
+                </option>
+                <option value="Internshala" name="source">Internshala</option>
+                <option value="Self" name="source" selected>Self</option>
+              </select>
+            </div>
+            {% else %}
+            <div class="input-group mb-3">
+              <select
+                class="custom-select"
+                name="source"
+                id="inputGroupSelect02"
+              >
+                <option value = "" name = "source" selected>Choose...</option>
+                <option value="VIT Internship" name="source" >
+                  VIT Internship
+                </option>
+                <option value="Internshala" name="source">Internshala</option>
+                <option value="Self" name="source">Self</option>
+              </select>
+            </div>
+            {% endif %}
+
 
             <div class="form-row">
               <label
@@ -163,10 +210,11 @@
                 <span style="color: red">(required)</span></label
               >
               <input
-                name="skilss"
+                name="skills_acquired"
                 type="text"
                 class="form-control"
                 placeholder="ex- Machine learning, Marketing etc"
+                value="{{internship.skillsacquired}}"
                 required
               />
             </div>
@@ -186,6 +234,7 @@
                 type="text"
                 class="form-control"
                 placeholder="Name of Representative from Company"
+                value="{{internship.companyrepresentative_name}}"
                 required
               />
             </div>
@@ -196,10 +245,11 @@
                 <span style="color: red">(required)</span></label
               >
               <input
-                name="companyrepresentative_name"
+                name="companyrepresentative_contact"
                 type="text"
                 class="form-control"
                 placeholder="Contact of Representative from Company"
+                value="{{internship.companyrepresentative_contact}}"
                 required
               />
             </div>
@@ -212,6 +262,7 @@
                 name="startdate"
                 type="date"
                 class="form-control"
+                value= {{internship.startdate}}
                 required
               />
             </div>
@@ -221,7 +272,7 @@
                 >Ending date (Tentative if currently internship going on)
                 <span style="color: red">(required)</span></label
               >
-              <input name="enddate" type="date" class="form-control" required />
+              <input name="enddate" type="date" class="form-control" value="{{internship.enddate}}" required />
             </div>
           </section>
 
@@ -283,7 +334,7 @@
               <input
                 class="lastsubmit"
                 type="submit"
-                formaction="/newinternship"
+                formaction="/updateinternship"
                 class="btnContact"
                 value="SUBMIT RECORD"
               />
