@@ -188,7 +188,10 @@
                 <p>
                     <br>
                 </p>
-                <button class="editbtn" formaction="/editprofile/{{user.id}}" value="Edit">Update Profile</button>
+                <div class="row">
+                <button class=" col-5 editbtn" formaction="/editprofile/{{user.id}}" value="Edit">Update Profile</button>
+                <button class="col-5 editbtn" formmethod="GET" formaction="/profile/{{current_user.id}}" value="Back">BACK</button>
+              </div>
               </div>
 
               <div
@@ -199,66 +202,26 @@
               >
               <div class="container">
                 <div class="row">
+                  {% for internship in internships %}
                     <div class="card text-center col-11" style="margin: 3%;">
                         <div class="card-header" style="background-color: #fff;color: #266150; font-weight: bold;">
-                          Company Name
+                          Comapany Name : {{internship.companyname}}
                         </div>
                         <div class="card-body">
-                          <h6 class="card-title" style="font-style: italic;">Domain</h6>
+                          <h5 class="card-title" style="font-style: italic;">Domain : {{internship.domain}}</h5>
                           <p class="card-text" style="color: black;">
-                              Source of Internship - 
+                              Source of Internship - {{internship.source}}
                               <br>
-                              Rating - 
+                              Rating - {{internship.rating}}
                           </p>
-                          <a href="#" class="btn btn-primary" style="background-color:#266150; color: #fff;">Completion Certicate</a>
-                          <a href="#" class="btn btn-primary">EDIT</a>
-                          
+                          <a href='/downloadcompletioncert/{{internship.id}}' class="btn btn-primary" style="background-color:#266150; color: #fff;">Completion Certicate</a>
+                          <a href='/updateinternship/{{internship.id}}' class="btn btn-primary" style="background-color:blue; color: #fff;">EDIT</a>
                         </div>
                         <div class="card-footer text-muted" style="background-color: #fff;color: #266150;">
-                          start date - end date
+                          {{internship.startdate}} - {{internship.enddate}}
                         </div>
                       </div>
-
-                      <div class="card text-center col-11" style="margin: 3%;">
-                        <div class="card-header" style="background-color: #fff;color: #266150; font-weight: bold;">
-                          Company Name
-                        </div>
-                        <div class="card-body">
-                          <h6 class="card-title" style="font-style: italic;">Domain</h6>
-                          <p class="card-text" style="color: black;">
-                              Source of Internship - 
-                              <br>
-                              Rating - 
-                          </p>
-                          <a href="#" class="btn btn-primary" style="background-color:#266150; color: #fff;">Completion Certicate</a>
-                          <a href="#" class="btn btn-primary">EDIT</a>
-                          
-                        </div>
-                        <div class="card-footer text-muted" style="background-color: #fff;color: #266150;">
-                          start date - end date
-                        </div>
-                      </div>
-
-                      <div class="card text-center col-11" style="margin: 3%;">
-                        <div class="card-header" style="background-color: #fff;color: #266150; font-weight: bold;">
-                          Company Name
-                        </div>
-                        <div class="card-body">
-                          <h6 class="card-title" style="font-style: italic;">Domain</h6>
-                          <p class="card-text" style="color: black;">
-                              Source of Internship - 
-                              <br>
-                              Rating - 
-                          </p>
-                          <a href="#" class="btn btn-primary" style="background-color:#266150; color: #fff;">Completion Certicate</a>
-
-                          <a href="#" class="btn btn-primary">EDIT</a>
-                          
-                        </div>
-                        <div class="card-footer text-muted" style="background-color: #fff;color: #266150;">
-                          start date - end date
-                        </div>
-                      </div>
+                      {% endfor %}
                     </div>
                 </div>
                 </div>
@@ -282,8 +245,8 @@
                 <h6 class="mb-3 mb-lg-4 bold-text "><b>Links</b></h6>
                 <ul class="list-unstyled">
                   <li><a href="/">Home</a></li>
-                  <li><a href="/allblogs">Login</a></li>
-                  <li><a href="/news">Contact Us</a></li>
+                  <li><a href="/login">Student Login</a></li>
+                  <li><a href="/aboutus">About us</a></li>
                 </ul>
               </div>
               <div class="col-xl-2 col-md-4 col-sm-4 col-12">

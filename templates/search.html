@@ -58,12 +58,6 @@
                 ><i class="fa fa-search"> Dashboard</i></a
               >
             </li>
-            
-            <li class="nav-item">
-              <a class="nav-link" href="/aboutus"
-                ><i class="fa fa-info-circle"> About us</i></a
-              >
-            </li>
 
             {% if not current_user.is_authenticated %}
             <li class="nav-item">
@@ -202,10 +196,11 @@
         >
           <div class="col-12 col-lg-12">
             <div class="card">
-              <a class="downloadlistbutton" href="javascript:customexport()">Download Students List</a>
+              <!-- <a class="downloadlistbutton" href="javascript:customexport()">Download Students List</a> -->
               <div class="card-body text-center">
                 <h4 class="card-title m-b-0">Students</h4>
               </div>
+              {% if s %}
               <ul class="list-style-none">
                 <!-- First -->
                 {% for user in students %}
@@ -242,6 +237,9 @@
                   </div>
                 </li>
               </ul>
+              {% else %}
+              <center><h5 style="font-style: italic;">No Students Found</h5></center>
+              {% endif %}
             </div>
           </div>
         </div>

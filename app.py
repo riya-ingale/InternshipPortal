@@ -156,9 +156,9 @@ def search():
     student_data = []
     internship_data = []
     if request.method == "GET":
-        allstudents = Users.query.all()
+        allstudents = Users.query.filter(Users.id != 2).all()
         allinternships = Internships.query.all()
-        return render_template("search.html", students=allstudents, internships=allinternships)
+        return render_template("search.html", students=allstudents, internships=allinternships, s = True)
 
     if request.method == 'POST':
         searchname = request.form.get('searchname')
@@ -182,22 +182,22 @@ def search():
             allinternships = Internships.query.filter(
                 or_(Internships.companyname.like(search), Internships.domain.like(search)), Internships.startdate > startdate and Internships.enddate < enddate).all()
 
-        elif startdate and searchname:
+        elif startdate and searchname and not enddate:
             allinternships = Internships.query.filter(
                 or_(Internships.companyname.like(search), Internships.domain.like(search)), Internships.startdate > startdate).all()
-        elif enddate and searchname:
+        elif enddate and searchname and not startdate:
             allinternships = Internships.query.filter(
                 or_(Internships.companyname.like(search), Internships.domain.like(search)), Internships.endate < enddate).all()
-        elif startdate and enddate:
+        elif startdate and enddate and not searchname:
             allinternships = Internships.query.filter(
                 Internships.startdate > startdate and Internships.enddate < enddate).all()
-        elif searchname:
+        elif searchname and not enddate and not startdate :
             allinternships = Internships.query.filter(
                 or_(Internships.companyname.like(search), Internships.domain.like(search))).all()
-        elif startdate:
+        elif startdate and not searchname and not enddate:
             allinternships = Internships.query.filter(
                 Internships.startdate > startdate).all()
-        elif enddate:
+        elif enddate and not startdate and not searchname:
             allinternships = Internships.query.filter(
                 Internships.enddate < enddate).all()
         else:
@@ -205,33 +205,35 @@ def search():
         if dept and div and year:
             allstudents = Users.query.filter_by(
                 dept=dept, div=div, year=year).all()
-        elif dept and div:
+        elif dept and div and not year:
             allstudents = Users.query.filter_by(dept=dept, div=div).all()
-        elif div and year:
+        elif div and year and not dept:
             allstudents = Users.query.filter_by(div=div, year=year).all()
-        elif dept and year:
+        elif dept and year and not div:
             allstudents = Users.query.filter_by(dept=dept, year=year).all()
-        elif dept:
+        elif dept and not div and not year:
             allstudents = Users.query.filter_by(dept=dept).all()
-        elif div:
+        elif div and not dept and not year:
             allstudents = Users.query.filter_by(div=div).all()
-        elif year:
+        elif year and not div and not dept:
             allstudents = Users.query.filter_by(year=year).all()
         else:
             pass
-        if allinternships:
+        if allinternships and not allstudents:
             for internship in allinternships:
                 student = Users.query.filter_by(id=internship.user_id).first()
                 student_data.append(student)
-            return render_template("search.html", students=student_data, internships=allinternships)
-        elif allstudents:
+            return render_template("search.html", students=student_data, internships=allinternships, s = True)
+        elif allstudents and not allinternships:
             for student in allstudents:
                 student = Internships.query.filter_by(
                     user_id=student.id).first()
                 internship_data.append(student)
-            return render_template("search.html", students=allstudents, internships=internship_data)
+            return render_template("search.html", students=allstudents, internships=internship_data, s = True)
         elif allinternships and allstudents:
-            return render_template("search.html", students=allstudents, internships=allinternships)
+            return render_template("search.html", students=allstudents, internships=allinternships, s = True)
+        else:
+            return render_template("search.html",s = False)
 
 
 @app.route('/newinternship', methods=['GET', 'POST'])
@@ -266,6 +268,38 @@ def newinternship():
         flash("Record Added!")
         return redirect('/newinternship')
     return render_template("newinternship.html")
+
+
+@app.route('/updateinternship/<int:id>', methods = ['GET','POST'])
+@login_required
+def updateinternship(id):
+    internship = Internships.query.filter_by(id = id).first()
+    print(internship.companyname)
+    if request.method == 'POST':
+        internship.companyname = request.form.get('companyname')
+        internship.domain = request.form.get('domain')
+        internship.source = request.form.get('source')
+        internship.rating = request.form.get('rating')
+        internship.skills_acquired = request.form.get('skills_acquired')
+        internship.companyrepresentative_name = request.form.get(
+            'companyrepresentative_name')
+        internship.companyrepresentative_contact = request.form.get(
+            'companyrepresentative_contact')
+        startdate = request.form.get('startdate')
+        internship.startdate = datetime.strptime(startdate, '%Y-%m-%d')
+        enddate = request.form.get('enddate')
+        internship.enddate = datetime.strptime(enddate, '%Y-%m-%d')
+        offerletter = request.files['offerletter']
+        completioncert = request.files['completioncert']
+        if len(offerletter.filename) > 0:
+            internship.offerletter_filename = offerletter.filename
+            internship.offerletter = offerletter.read()
+        if len(completioncert.filename) > 0:
+            internship.completioncert_filename = completioncert.filename
+            internship.completioncert = completioncert.read()
+        db.session.commit()
+        return redirect(f'/profile/{current_user.id}')
+    return render_template('updateinternship.html', internship = internship)
 
 
 @app.route('/downloadcompletioncert/<int:internship_id>', methods=['GET', 'POST'])
@@ -326,6 +360,7 @@ def admindashboard():
 @app.route('/editprofile/<int:user_id>', methods=['GET', 'POST'])
 def editprofile(user_id):
     user = Users.query.get_or_404(user_id)
+    internships = Internships.query.filter_by(user_id=user_id).all()
     if request.method == "POST":
         user = Users.query.get_or_404(user_id)
         user.fullname = request.form.get('fullname')
@@ -337,7 +372,7 @@ def editprofile(user_id):
         user.year = request.form['year']
         db.session.commit()
         return redirect(f'/profile/{user_id}')
-    return render_template('editprofile.html', user=user)
+    return render_template('editprofile.html', user=user, internships = internships)
 
 
 @app.route('/aboutus')
