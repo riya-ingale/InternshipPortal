@@ -256,12 +256,14 @@ def newinternship():
         enddate = datetime.strptime(enddate, '%Y-%m-%d')
         offerletter = request.files['offerletter']
         completioncert = request.files['completioncert']
-        if len(offerletter.filename) > 0:
-            offerletter_filename = offerletter.filename
-            offerletter = offerletter.read()
-        if len(completioncert.filename) > 0:
-            completioncert_filename = completioncert.filename
-            completioncert = completioncert.read()
+        if offerletter:
+            if len(offerletter.filename) > 0:
+                offerletter_filename = offerletter.filename
+                offerletter = offerletter.read()
+        if completioncert:
+            if len(completioncert.filename) > 0:
+                completioncert_filename = completioncert.filename
+                completioncert = completioncert.read()
         new_internship = Internships(user_id=current_user.id, companyname=companyname, domain=domain, companyrepresentative_name=companyrepresentative_name, companyrepresentative_contact=companyrepresentative_contact, source=source, rating=rating, skills_acquired=skills_acquired, startdate=startdate, enddate=enddate,
                                      offerletter=offerletter, offerletter_filename=offerletter_filename, completioncert=completioncert, completioncert_filename=completioncert_filename)
         db.session.add(new_internship)
