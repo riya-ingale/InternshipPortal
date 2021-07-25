@@ -9,6 +9,7 @@ import os
 from datetime import datetime
 import pdfkit
 import flask_excel as excel
+from openpyxl import Workbook
 
 app = Flask(__name__)
 
@@ -383,13 +384,32 @@ def aboutus():
 @app.route("/customexport", methods=['GET', 'POST'])
 def docustomexport():
     information = request.data
+    print(information)
     print(type(information))
+    searchdata = information.decode("utf-8")
+    print(type(searchdata))
+    print(searchdata)
+    searchdata = searchdata[1:-1]
+    searchdata = searchdata.replace('"','')
+    print(searchdata)
+    searchdata = searchdata.split(",")
+    print(searchdata)
+    print("creating workbook")
+    wb = Workbook()
+    # insert value in the cells
+    ws =  wb.active
+    ws.title = "Changed Sheet"
+    ws['A1'] = "Name"
+    wb.save(filename = 'sample_book.xlsx')
+    print("Saved Excel")
+    return send_file('sample_book.xlsx', as_attachment=True, download_name='sample_book.xlsx')
 
-    query_sets = Internships.query.all()
-    print("Excel - ", query_sets)
-    column_names = ['id', 'companyname', 'domain', 'source', 'rating', 'skills_acquired',
-                    'companyrepresentative_name', 'companyrepresentative_contact', 'startdate', 'enddate']
-    return excel.make_response_from_query_sets(query_sets, column_names, 'xlsx', file_name="sheet")
+    
+    # query_sets = Internships.query.all()
+    # print("Excel - ", query_sets)
+    # column_names = ['id', 'companyname', 'domain', 'source', 'rating', 'skills_acquired',
+    #                 'companyrepresentative_name', 'companyrepresentative_contact', 'startdate', 'enddate']
+    # return excel.make_response_from_query_sets(query_sets, column_names, 'xlsx', file_name="sheet")
 
 
 if __name__ == '__main__':

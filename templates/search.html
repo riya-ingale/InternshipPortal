@@ -171,8 +171,18 @@
                         formaction="/search"
                         class="btn-search"
                         style="background-color: #02776b"
+                        onclick=""
                       >
                         SEARCH
+                      </button>
+                      <button
+                        type="submit"
+                        formaction="/search"
+                        class="btn-search"
+                        style="background-color: #02776b"
+                        onclick=""
+                      >
+                        Download List
                       </button>
                     </div>
                   </div>
@@ -196,7 +206,9 @@
         >
           <div class="col-12 col-lg-12">
             <div class="card">
-              <!-- <a class="downloadlistbutton" href="javascript:customexport()">Download Students List</a> -->
+              <a class="downloadlistbutton" href="javascript:customexport()"
+                >Download Students List</a
+              >
               <div class="card-body text-center">
                 <h4 class="card-title m-b-0">Students</h4>
               </div>
@@ -216,8 +228,12 @@
                     <div class="Company-Names">
                       {% for Internship in internships %} {% if user.id ==
                       Internship.user_id %}
-                      <div class="text-muted">Company name - {{Internship.companyname}}</div>
-                      <div class="text-muted">Domain - {{Internship.domain}}</div>
+                      <div class="text-muted">
+                        Company name - {{Internship.companyname}}
+                      </div>
+                      <div class="text-muted">
+                        Domain - {{Internship.domain}}
+                      </div>
                       <hr />
                       {% endif %} {% endfor %}
                     </div>
@@ -238,7 +254,9 @@
                 </li>
               </ul>
               {% else %}
-              <center><h5 style="font-style: italic;">No Students Found</h5></center>
+              <center>
+                <h5 style="font-style: italic">No Students Found</h5>
+              </center>
               {% endif %}
             </div>
           </div>
@@ -268,7 +286,7 @@
       });
     </script>
 
-<div
+    <div
       class="container-fluid pb-0 mb-0 justify-content-center text-light"
       style="background-color: #00887a"
     >
@@ -277,7 +295,9 @@
           <div class="col-11">
             <div class="row">
               <div class="col-xl-8 col-md-4 col-sm-4 col-12 my-auto mx-auto a">
-                <h3 class=" mb-md-0 mb-5 bold-text"  style="color: #ffffff;"> VIT Internship Portal</h3>
+                <h3 class="mb-md-0 mb-5 bold-text" style="color: #ffffff">
+                  VIT Internship Portal
+                </h3>
               </div>
               <div class="col-xl-2 col-md-4 col-sm-4 col-12">
                 <h6 class="mb-3 mb-lg-4 bold-text"><b>Links</b></h6>
@@ -288,7 +308,10 @@
                 </ul>
               </div>
               <div class="col-xl-2 col-md-4 col-sm-4 col-12">
-                <h6 class="mb-3 mb-lg-4 bold-text mt-sm-0 mt-5" style="color: #ffffff;">
+                <h6
+                  class="mb-3 mb-lg-4 bold-text mt-sm-0 mt-5"
+                  style="color: #ffffff"
+                >
                   <b>ADDRESS</b>
                 </h6>
                 <p class="mb-1">VIT</p>
@@ -307,16 +330,32 @@
               >
                 <p class="social text-muted mb-0 pb-0 bold-text">
                   <span class="mx-2"
-                    ><i class="fa fa-facebook" aria-hidden="true" style="color: #ffffff;"></i
+                    ><i
+                      class="fa fa-facebook"
+                      aria-hidden="true"
+                      style="color: #ffffff"
+                    ></i
                   ></span>
                   <span class="mx-2"
-                    ><i class="fa fa-linkedin-square" aria-hidden="true" style="color: #ffffff;"></i
+                    ><i
+                      class="fa fa-linkedin-square"
+                      aria-hidden="true"
+                      style="color: #ffffff"
+                    ></i
                   ></span>
                   <span class="mx-2"
-                    ><i class="fa fa-twitter" aria-hidden="true" style="color: #ffffff;"></i
+                    ><i
+                      class="fa fa-twitter"
+                      aria-hidden="true"
+                      style="color: #ffffff"
+                    ></i
                   ></span>
                   <span class="mx-2"
-                    ><i class="fa fa-instagram" aria-hidden="true" style="color: #ffffff;"></i
+                    ><i
+                      class="fa fa-instagram"
+                      aria-hidden="true"
+                      style="color: #ffffff"
+                    ></i
                   ></span>
                 </p>
                 <small class="rights"><span>&#174;</span>Team VIT </small>
@@ -328,7 +367,7 @@
                   align-self-end
                 "
               >
-                <h6 class="mt-55 mt-2  bold-text" style="color: #ffffff;">
+                <h6 class="mt-55 mt-2 bold-text" style="color: #ffffff">
                   <b>Contact Us</b>
                 </h6>
                 <small>
@@ -344,7 +383,7 @@
                   mt-3
                 "
               >
-                <h6 class="mt-55 mt-2 bold-text" style="color: #ffffff;">
+                <h6 class="mt-55 mt-2 bold-text" style="color: #ffffff">
                   <b>Give Your Feedback</b>
                 </h6>
                 <small>
@@ -357,7 +396,6 @@
         </div>
       </footer>
     </div>
-
 
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -375,25 +413,27 @@
       crossorigin="anonymous"
     ></script>
     <script>
-      function customexport(){
+      function customexport() {
         var dept = document.getElementById("dept").value;
         var div = document.getElementById("div").value;
         var year = document.getElementById("year").value;
         var companyname = document.getElementById("companyname").value;
         var startdate = document.getElementById("startdate").value;
         var enddate = document.getElementById("enddate").value;
-
+        const searchdata = [dept, div, year, companyname, startdate, enddate];
         const URL = "/customexport";
         const xhr = new XMLHttpRequest();
-        sender = JSON.stringify(dept,div)
+        sender = JSON.stringify(searchdata);
 
-        xhr.onreadystatechange = function() { // listen for state changes
-        if (xhr.readyState == 4 && xhr.status == 200) { // when completed we can move away
-        window.location.href = "/search";
-        }
-        }
+        xhr.onreadystatechange = function () {
+          // listen for state changes
+          if (xhr.readyState == 4 && xhr.status == 200) {
+            // when completed we can move away
+            window.location.href = "/customexport";
+          }
+        };
 
-        xhr.open('POST', URL);
+        xhr.open("POST", URL);
         xhr.send(sender);
       }
     </script>
