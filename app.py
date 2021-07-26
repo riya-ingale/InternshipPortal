@@ -156,7 +156,6 @@ def search():
     allstudents = []
     student_data = []
     internship_data = []
-    global searchname
     if request.method == "GET":
         allstudents = Users.query.filter(Users.id != 2).all()
         allinternships = Internships.query.all()
@@ -386,27 +385,112 @@ def aboutus():
 
 @app.route("/customexport", methods=['GET', 'POST'])
 def docustomexport():
-    information = request.data
-    print(information)
-    print(type(information))
-    searchdata = information.decode("utf-8")
-    print(type(searchdata))
-    print(searchdata)
-    searchdata = searchdata[1:-1]
-    searchdata = searchdata.replace('"','')
-    print(searchdata)
-    searchdata = searchdata.split(",")
-    print(searchdata)
+    allinternships = []
+    allstudents = []
+    student_data = []
+    internship_data = []
+    searchname = request.form.get('searchname')
+    dept = request.form.get('dept')
+    div = request.form.get('div')
+    year = request.form.get('year')
+    startdate = request.form.get('startdate')
+    print(startdate)
+    if startdate:
+        startdate = datetime.strptime(startdate, '%Y-%m-%d')
+    enddate = request.form.get('enddate')
+    print(enddate)
+    if enddate:
+        enddate = datetime.strptime(enddate, '%Y-%m-%d')
+
+    search = "{0}".format(searchname)
+    search = search+'%'
+    print(search)
+
+    if startdate and enddate and searchname:
+        allinternships = Internships.query.filter(
+            or_(Internships.companyname.like(search), Internships.domain.like(search)), Internships.startdate > startdate and Internships.enddate < enddate).all()
+
+    elif startdate and searchname and not enddate:
+        allinternships = Internships.query.filter(
+            or_(Internships.companyname.like(search), Internships.domain.like(search)), Internships.startdate > startdate).all()
+    elif enddate and searchname and not startdate:
+        allinternships = Internships.query.filter(
+            or_(Internships.companyname.like(search), Internships.domain.like(search)), Internships.endate < enddate).all()
+    elif startdate and enddate and not searchname:
+        allinternships = Internships.query.filter(
+            Internships.startdate > startdate and Internships.enddate < enddate).all()
+    elif searchname and not enddate and not startdate :
+        allinternships = Internships.query.filter(
+            or_(Internships.companyname.like(search), Internships.domain.like(search))).all()
+    elif startdate and not searchname and not enddate:
+        allinternships = Internships.query.filter(
+            Internships.startdate > startdate).all()
+    elif enddate and not startdate and not searchname:
+        allinternships = Internships.query.filter(
+            Internships.enddate < enddate).all()
+    else:
+        pass
+    if dept and div and year:
+        allstudents = Users.query.filter_by(
+            dept=dept, div=div, year=year).all()
+    elif dept and div and not year:
+        allstudents = Users.query.filter_by(dept=dept, div=div).all()
+    elif div and year and not dept:
+        allstudents = Users.query.filter_by(div=div, year=year).all()
+    elif dept and year and not div:
+        allstudents = Users.query.filter_by(dept=dept, year=year).all()
+    elif dept and not div and not year:
+        allstudents = Users.query.filter_by(dept=dept).all()
+    elif div and not dept and not year:
+        allstudents = Users.query.filter_by(div=div).all()
+    elif year and not div and not dept:
+        allstudents = Users.query.filter_by(year=year).all()
+    else:
+        pass
+    if allinternships and not allstudents:
+        for internship in allinternships:
+            student = Users.query.filter_by(id=internship.user_id).first()
+            student_data.append(student)
+        students=student_data
+        internships=allinternships        
+        # return render_template("search.html", students=student_data, internships=allinternships, s = True)
+    elif allstudents and not allinternships:
+        for student in allstudents:
+            student = Internships.query.filter_by(
+                user_id=student.id).first()
+            internship_data.append(student)
+        students=allstudents
+        internships=internship_data
+        # return render_template("search.html", students=allstudents, internships=internship_data, s = True)
+    elif allinternships and allstudents:
+        students=allstudents
+        internships=allinternships                
+        # return render_template("search.html", students=allstudents, internships=allinternships, s = True)
+    else:
+        pass
+        # return render_template("search.html",s = False)
+
+
+    # WorkBook Info
     print("creating workbook")
     wb = Workbook()
     # insert value in the cells
     ws =  wb.active
-    ws.title = "Changed Sheet"
-    ws['A1'] = "Name"
+    ws.title = "Students Data"
+    headings=["Fullname","Rollno","Mobileno"]
+    ws.append(headings)
+    for student in students:
+        record_student=[student.fullname,student.rollno,student.mobileno,student.email,student.dept,student.div,student.year]
+        for internship in internships:
+            if internship:
+                if student.id == internship.user_id:
+                    record_internship=[internship.companyname,internship.domain,internship.source,internship.rating,internship.skills_acquired,internship.companyrepresentative_name,internship.companyrepresentative_contact,internship.startdate ,internship.enddate]
+        record = record_student + record_internship
+        ws.append(record)
     wb.save(filename = 'sample_book.xlsx')
     print("Saved Excel")
     return send_file('sample_book.xlsx', as_attachment=True, download_name='sample_book.xlsx')
-
+   
     
     # query_sets = Internships.query.all()
     # print("Excel - ", query_sets)

@@ -904,9 +904,27 @@ legend {
   box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.15);
 }
 
+
 .s009 form .inner-form .input-field .btn-search:hover,
 .s009 form .inner-form .input-field .btn-search:focus {
   background: #00a7d3;
+}
+
+.btn-download {
+  min-width: 100px;
+  height: 40px;
+  padding: 0 15px;
+  background: #000000;
+  white-space: nowrap;
+  border-radius: 0;
+  font-size: 14px;
+  color: #fff;
+  transition: all 0.2s ease-out, color 0.2s ease-out;
+  border: 0;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.15);
+  visibility: hidden;
 }
 
 .s009 form .inner-form .input-field .btn-delete {

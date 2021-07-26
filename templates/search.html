@@ -89,6 +89,7 @@
                     type="text"
                     placeholder="Type Company Name or Domain"
                     name="searchname"
+                    oninput="handleChange()"
                   />
                   <div class="icon-wrap">
                     <svg
@@ -113,7 +114,7 @@
                 <div class="row">
                   <div class="input-field">
                     <div class="input-select">
-                      <select id="dept" data-trigger="" name="dept">
+                      <select id="dept" data-trigger="" name="dept" onchange="handleChange()">
                         <option placeholder="" name="dept" value="">
                           Department
                         </option>
@@ -127,7 +128,7 @@
                   </div>
                   <div class="input-field">
                     <div class="input-select">
-                      <select id="div" data-trigger="" name="div">
+                      <select id="div" data-trigger="" name="div" onchange="handleChange()">
                         <option placeholder="" value="" name="div">
                           Division
                         </option>
@@ -138,7 +139,7 @@
                   </div>
                   <div class="input-field">
                     <div class="input-select">
-                      <select id="year" data-trigger="" name="year">
+                      <select id="year" data-trigger="" name="year" onchange="handleChange()">
                         <option placeholder="" value="" name="year">
                           Year
                         </option>
@@ -153,11 +154,11 @@
                 <div class="row second">
                   <div class="input-field-date">
                     <label for="startdate">Start Date</label>
-                    <input id="startdate" type="date" name="startdate" />
+                    <input id="startdate" type="date" name="startdate" onchange="handleChange()"/>
                   </div>
                   <div class="input-field-date">
                     <label for="enddate">End Date</label>
-                    <input type="date" id="enddate" name="enddate" />
+                    <input type="date" id="enddate" name="enddate" onchange="handleChange()"/>
                   </div>
                 </div>
                 <div class="row third">
@@ -176,10 +177,11 @@
                         SEARCH
                       </button>
                       <button
+                        id="btn-Download"
                         type="submit"
-                        formaction="/search"
-                        class="btn-search"
-                        style="background-color: #02776b"
+                        formaction="/customexport"
+                        class="btn-download"
+                        style="background-color: #0d4b44"
                         onclick=""
                       >
                         Download List
@@ -207,7 +209,7 @@
           <div class="col-12 col-lg-12">
             <div class="card">
               <a class="downloadlistbutton" href="javascript:customexport()"
-                >Download Students List</a
+                >Download All Students List</a
               >
               <div class="card-body text-center">
                 <h4 class="card-title m-b-0">Students</h4>
@@ -254,9 +256,7 @@
                 </li>
               </ul>
               {% else %}
-              <center>
                 <h5 style="font-style: italic">No Students Found</h5>
-              </center>
               {% endif %}
             </div>
           </div>
@@ -412,7 +412,7 @@
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"
     ></script>
-    <script>
+    <!-- <script>
       function customexport() {
         var dept = document.getElementById("dept").value;
         var div = document.getElementById("div").value;
@@ -436,6 +436,23 @@
         xhr.open("POST", URL);
         xhr.send(sender);
       }
+    </script> -->
+    <script>
+      let cn=document.getElementById("companyname");
+
+      dept.onchange = handleChange;
+      
+      function handleChange() {
+        document.getElementById("btn-Download").style.visibility = "visible";
+      }
+
+      if(document.getElementById("companyname").value == null)
+    {
+      document.getElementById("btn-Download").style.visibility = "hidden";
+      console.log("This Works")
+    }
+
+      console.log("Department:",typeof(dept))
     </script>
   </body>
 </html>
