@@ -115,7 +115,11 @@ img {
 }
 
 .steps ul.step-4:before {
-  content: "Click on Submit";
+  content: "FeedBack";
+}
+
+.steps ul.step-5:before {
+  content: "Submit your Form";
 }
 
 h3 {

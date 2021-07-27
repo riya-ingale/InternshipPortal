@@ -9,22 +9,30 @@ enableAllSteps: true,
 transitionEffectSpeed: 500,
 onStepChanging: function (event, currentIndex, newIndex) {
 if ( newIndex === 1 ) {
-$('.steps ul').addClass('step-2');
-} else {
-$('.steps ul').removeClass('step-2');
+    $('.steps ul').addClass('step-2');
+} 
+else {
+    $('.steps ul').removeClass('step-2');
 }
 if ( newIndex === 2 ) {
-$('.steps ul').addClass('step-3');
-} else {
-$('.steps ul').removeClass('step-3');
+    $('.steps ul').addClass('step-3');
+} 
+else {
+    $('.steps ul').removeClass('step-3');
 }
-
 if ( newIndex === 3 ) {
-$('.steps ul').addClass('step-4');
-$('.actions ul').addClass('step-last');
-} else {
-$('.steps ul').removeClass('step-4');
-$('.actions ul').removeClass('step-last');
+    $('.steps ul').addClass('step-4');
+} 
+else {
+    $('.steps ul').removeClass('step-4');
+}
+if ( newIndex === 4 ) {
+    $('.steps ul').addClass('step-5');
+    $('.actions ul').addClass('step-last');
+} 
+else {
+    $('.steps ul').removeClass('step-5');
+    $('.actions ul').removeClass('step-last');
 }
 return true;
 },

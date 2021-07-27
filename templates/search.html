@@ -112,7 +112,7 @@
               <div class="advance-search">
                 <span class="desc">ADVANCED SEARCH</span>
                 <div class="row">
-                  <div class="input-field">
+                  <div class="input-field col-12 col-sm-4">
                     <div class="input-select">
                       <select id="dept" data-trigger="" name="dept" onchange="handleChange()">
                         <option placeholder="" name="dept" value="">
@@ -126,7 +126,7 @@
                       </select>
                     </div>
                   </div>
-                  <div class="input-field">
+                  <div class="input-field col-12 col-sm-4">
                     <div class="input-select">
                       <select id="div" data-trigger="" name="div" onchange="handleChange()">
                         <option placeholder="" value="" name="div">
@@ -137,7 +137,7 @@
                       </select>
                     </div>
                   </div>
-                  <div class="input-field">
+                  <div class="input-field col-12 col-sm-4">
                     <div class="input-select">
                       <select id="year" data-trigger="" name="year" onchange="handleChange()">
                         <option placeholder="" value="" name="year">
@@ -151,16 +151,64 @@
                     </div>
                   </div>
                 </div>
+
+               
+
                 <div class="row second">
-                  <div class="input-field-date">
+                  <div class="input-field col-12 col-sm-6">
+                    <div class="input-select">
+                      <select id="year" data-trigger="" name="satisfied" onchange="handleChange()">
+                        <option placeholder="" value="" name="satisfied">
+                          Student Satisfaction
+                        </option>
+                        <option value="Yes" name="satisfied">Satisfied</option>
+                        <option value="No" name="satisfied">Not Satisfied</option>
+                        <option value="Partly" name="satisfied">Partly Satified</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="input-field col-12 col-sm-6">
+                    <div class="input-select">
+                      <select id="domain" data-trigger="" name="domain" onchange="handleChange()">
+                        <option placeholder="" value="" name="domain">
+                          Domain
+                        </option>
+                        <option selected name="domain">Choose...</option>
+                        <option value="Web Development" name="domain">
+                          Web Development
+                        </option>
+                        <option value="Machine Learning" name="domain">
+                          Machine Learning
+                        </option>
+                        <option value="App Development" name="domain">
+                          App Development
+                        </option>
+                        <option value="Content Creation" name="domain">
+                          Content Creation
+                        </option>
+                        <option value="Sales and Marketing" name="domain">
+                          Sales and Marketing
+                        </option>
+                        <option value="Teaching" name="domain">Teaching</option>
+                        <option value="Programming" name="domain">Programming</option>
+                      </select>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="row second">
+                  <div class="input-field-date col-12 col-sm-6">
                     <label for="startdate">Start Date</label>
                     <input id="startdate" type="date" name="startdate" onchange="handleChange()"/>
                   </div>
-                  <div class="input-field-date">
+                  <div class="input-field-date col-12 col-sm-6">
                     <label for="enddate">End Date</label>
                     <input type="date" id="enddate" name="enddate" onchange="handleChange()"/>
                   </div>
                 </div>
+
                 <div class="row third">
                   <div class="input-field">
                     <div class="group-btn">
@@ -189,6 +237,7 @@
                     </div>
                   </div>
                 </div>
+
               </div>
             </div>
           </form>
@@ -208,7 +257,7 @@
         >
           <div class="col-12 col-lg-12">
             <div class="card">
-              <a class="downloadlistbutton" href="javascript:customexport()"
+              <a class="downloadlistbutton" href="/exportall"
                 >Download All Students List</a
               >
               <div class="card-body text-center">

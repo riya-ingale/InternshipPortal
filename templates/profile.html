@@ -63,7 +63,7 @@
 
             {% if not current_user.is_authenticated %}
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/login"><i class="fa fa-sign-in"> Login</i></a>
+              <a class="nav-link active" aria-current="page" href="/login"><i class="fa fa-sign-in"> Student Login</i></a>
             </li>
             {% endif %}
             
@@ -213,7 +213,7 @@
                           <p class="card-text" style="color: black;">
                               Source of Internship - {{internship.source}}
                               <br>
-                              Rating - {{internship.rating}}
+                              Position - {{internship.position}}
                           </p>
                           <a href='/downloadcompletioncert/{{internship.id}}' class="btn btn-primary" style="background-color:#266150; color: #fff;">Completion Certicate</a>
                           

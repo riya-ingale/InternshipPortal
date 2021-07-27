@@ -17,13 +17,19 @@
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
     <title>Internship Portal</title>
   </head>
-  <body style="background-color: #D3E3Fc">
+  <body style="background-color: #d3e3fc">
     <nav class="navbar navbar-expand-lg navbar-red navbar-dark">
       <div class="wrap"></div>
       <div class="container-fluid all-show">
-        <a class="navbar-brand" href="#" style="color: #C1C8E4">
-          <img src="..\static\img\VIT.png" width="70" height="30" class="d-inline-block align-top" alt="">
-          VIT Internship Portal 
+        <a class="navbar-brand" href="#" style="color: #c1c8e4">
+          <img
+            src="..\static\img\VIT.png"
+            width="70"
+            height="30"
+            class="d-inline-block align-top"
+            alt=""
+          />
+          VIT Internship Portal
         </a>
         <button
           class="navbar-toggler"
@@ -52,7 +58,6 @@
               >
             </li>
 
-            
             <li class="nav-item">
               <a class="nav-link" href="/aboutus"
                 ><i class="fa fa-info-circle"> About us</i></a
@@ -61,7 +66,7 @@
             {% if not current_user.is_authenticated %}
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="/login"
-                ><i class="fa fa-sign-in"> Login</i></a
+                ><i class="fa fa-sign-in"> Student Login</i></a
               >
             </li>
             {% endif %} {% if current_user.is_authenticated %}
@@ -76,18 +81,41 @@
       </div>
     </nav>
     <p>
-      <br>
+      <br />
+      <div>
+        {% with messages = get_flashed_messages() %} {% if messages %}
+        <div
+          class="flashes"
+          style="
+            font: sans-serif;
+            text-align: center;
+            color: #000;
+            font-style: italic;
+          "
+        >
+          {% for message in messages %}
+          <h5>{{ message }}</h5>
+          {% endfor %}
+          </div>
+          {% endif %} {% endwith %}
+      </div>
     </p>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-steps/1.1.0/jquery.steps.min.js"></script>
-    <div class="wrapper" style="height: 900px;">
+    <div class="wrapper" style="height: 900px">
       <form method="POST" enctype="multipart/form-data">
         <div id="wizard">
           <!-- SECTION 1 -->
           <h4></h4>
           <section>
-            <p style="font-size:small; font-style: italic;">(Please fill all the required fields otherwise the form won't be submitted)</p>
+            <p style="font-size: small; font-style: italic">
+              (Please fill all the required fields otherwise the form won't be
+              submitted)
+            </p>
             <div class="form-row">
-              <label>Name of the Company <span style="color: red;">(required)</span></label>
+              <label
+                >Name of the Company
+                <span style="color: red">(required)</span></label
+              >
               <input
                 name="companyname"
                 type="text"
@@ -97,29 +125,51 @@
               />
             </div>
             <div class="form-row">
-              <label>Rate your Company <span style="color: red;">(required)</span></label>
+              <label
+                >Role / Position
+                <span style="color: red">(required)</span></label
+              >
               <input
-                name="rating"
-                type="number"
-                min="1"
-                max="5"
-                class="form-control"
-                placeholder="1 to 5"
-                required
-              />
-            </div>
-            <div class="form-row">
-              <label>Domain of the Internship <span style="color: red;">(required)</span></label>
-              <input
-                name="domain"
+                name="position"
                 type="text"
                 class="form-control"
-                placeholder="ex- Machine learning, Marketing etc"
+                placeholder="ex - Web Development Intern, Business Analyst, Python Intern"
                 required
               />
             </div>
 
-            <label>Source of Internship <span style="color: red;">(required)</span></label>
+            <label>Domain <span style="color: red">(required)</span></label>
+            <div class="input-group mb-3">
+              <select
+                class="custom-select"
+                name="domain"
+                id="inputGroupSelect02"
+              >
+                <option selected name="domain">Choose...</option>
+                <option value="Web Development" name="domain">
+                  Web Development
+                </option>
+                <option value="Machine Learning" name="domain">
+                  Machine Learning
+                </option>
+                <option value="App Development" name="domain">
+                  App Development
+                </option>
+                <option value="Content Creation" name="domain">
+                  Content Creation
+                </option>
+                <option value="Sales and Marketing" name="domain">
+                  Sales and Marketing
+                </option>
+                <option value="Teaching" name="domain">Teaching</option>
+                <option value="Programming" name="domain">Programming</option>
+              </select>
+            </div>
+
+            <label
+              >Source of Internship
+              <span style="color: red">(required)</span></label
+            >
             <div class="input-group mb-3">
               <select
                 class="custom-select"
@@ -133,11 +183,13 @@
                 <option value="Internshala" name="source">Internshala</option>
                 <option value="Self" name="source">Self</option>
               </select>
-              
             </div>
 
             <div class="form-row">
-              <label>Skills Acquired <span style="color: red;">(required)</span></label>
+              <label
+                >Skills Acquired
+                <span style="color: red">(required)</span></label
+              >
               <input
                 name="skills_acquired"
                 type="text"
@@ -152,9 +204,8 @@
           <h4></h4>
 
           <section>
-
             <div class="form-row">
-              <label>Name of Representative from Company</label>
+              <label>Name of Representative/Mentor/Manager from Company</label>
               <input
                 name="companyrepresentative_name"
                 type="text"
@@ -164,7 +215,10 @@
             </div>
 
             <div class="form-row">
-              <label>Contact of Representative from Company</label>
+              <label
+                >Email/Contact of Representative/Mentor/Manager from
+                Company</label
+              >
               <input
                 name="companyrepresentative_contact"
                 type="text"
@@ -173,9 +227,10 @@
               />
             </div>
 
-
             <div class="form-row">
-              <label>Starting Date <span style="color: red;">(required)</span></label>
+              <label
+                >Starting Date <span style="color: red">(required)</span></label
+              >
               <input
                 name="startdate"
                 type="date"
@@ -187,7 +242,7 @@
             <div class="form-row">
               <label
                 >Ending date (Tentative if currently internship going on)
-                <span style="color: red;">(required)</span></label
+                <span style="color: red">(required)</span></label
               >
               <input name="enddate" type="date" class="form-control" required />
             </div>
@@ -198,18 +253,20 @@
           <h4></h4>
           <section>
             <div class="input-group mb-3">
-              <div >
-                <label  for="inputGroupFile01">Offer Letter/Email Notification Screenshot </label>
-                <input
-                  name="offerletter"
-                  type="file"
-                  id="inputGroupFile01"
-                />
+              <div>
+                <label for="inputGroupFile01"
+                  >Offer Letter/Email Notification Screenshot<span
+                    style="color: red"
+                  >
+                    (required)</span
+                  >
+                </label>
+                <input name="offerletter" type="file" id="inputGroupFile01" />
               </div>
             </div>
             <div class="input-group mb-3">
-              <div >
-                <label  for="inputGroupFile01">Completion Certificate </label>
+              <div>
+                <label for="inputGroupFile01">Completion Certificate </label>
                 <input
                   name="completioncert"
                   type="file"
@@ -217,10 +274,61 @@
                 />
               </div>
             </div>
-            
           </section>
 
           <!-- SECTION 4 -->
+          <h4></h4>
+          <section>
+            <div class="form-row">
+              <label>Feedback for the Company</label>
+              <input
+                name="feedback"
+                type="text"
+                class="form-control"
+                placeholder="Feedback for the Company"
+              />
+            </div>
+            <div class="form-row">
+              <label>Rate your Work the Environment</label>
+              <input
+                name="workenv"
+                type="number"
+                min="1"
+                max="5"
+                class="form-control"
+                placeholder="1 to 5"
+              />
+            </div>
+
+            <label>Where you Satisfied with your Internship</label>
+            <div class="input-group mb-3">
+              <select
+                class="custom-select"
+                name="satisfied"
+                id="inputGroupSelect02"
+              >
+                <option selected name="satisfied">Choose...</option>
+                <option value="Yes" name="satisfied">Yes</option>
+                <option value="No" name="satisfied">No</option>
+                <option value="Partly" name="satisfied">Partly</option>
+              </select>
+            </div>
+
+            <label>Would you Recommend your Friend to join this Company?</label>
+            <div class="input-group mb-3">
+              <select
+                class="custom-select"
+                name="recommendation"
+                id="inputGroupSelect02"
+              >
+                <option selected name="recommendation">Choose...</option>
+                <option value="Yes" name="recommendation">Yes</option>
+                <option value="No" name="recommendation">No</option>
+                <option value="Maybe" name="recommendation">Maybe</option>
+              </select>
+            </div>
+          </section>
+
           <h4></h4>
           <section>
             <svg
@@ -250,7 +358,7 @@
             </svg>
             <p><br /></p>
             <div class="lastbtndiv">
-            <!-- <div class="form-group"> -->
+              <!-- <div class="form-group"> -->
               <input
                 class="lastsubmit"
                 type="submit"
@@ -258,8 +366,8 @@
                 class="btnContact"
                 value="SUBMIT RECORD"
               />
-            <!-- </div> -->
-          </div>
+              <!-- </div> -->
+            </div>
           </section>
         </div>
       </form>
@@ -274,7 +382,9 @@
           <div class="col-11">
             <div class="row">
               <div class="col-xl-8 col-md-4 col-sm-4 col-12 my-auto mx-auto a">
-                <h3 class=" mb-md-0 mb-5 bold-text"  style="color: #ffffff;"> VIT Internship Portal</h3>
+                <h3 class="mb-md-0 mb-5 bold-text" style="color: #ffffff">
+                  VIT Internship Portal
+                </h3>
               </div>
               <div class="col-xl-2 col-md-4 col-sm-4 col-12">
                 <h6 class="mb-3 mb-lg-4 bold-text"><b>Links</b></h6>
@@ -285,7 +395,10 @@
                 </ul>
               </div>
               <div class="col-xl-2 col-md-4 col-sm-4 col-12">
-                <h6 class="mb-3 mb-lg-4 bold-text mt-sm-0 mt-5" style="color: #ffffff;">
+                <h6
+                  class="mb-3 mb-lg-4 bold-text mt-sm-0 mt-5"
+                  style="color: #ffffff"
+                >
                   <b>ADDRESS</b>
                 </h6>
                 <p class="mb-1">VIT</p>
@@ -304,16 +417,32 @@
               >
                 <p class="social text-muted mb-0 pb-0 bold-text">
                   <span class="mx-2"
-                    ><i class="fa fa-facebook" aria-hidden="true" style="color: #ffffff;"></i
+                    ><i
+                      class="fa fa-facebook"
+                      aria-hidden="true"
+                      style="color: #ffffff"
+                    ></i
                   ></span>
                   <span class="mx-2"
-                    ><i class="fa fa-linkedin-square" aria-hidden="true" style="color: #ffffff;"></i
+                    ><i
+                      class="fa fa-linkedin-square"
+                      aria-hidden="true"
+                      style="color: #ffffff"
+                    ></i
                   ></span>
                   <span class="mx-2"
-                    ><i class="fa fa-twitter" aria-hidden="true" style="color: #ffffff;"></i
+                    ><i
+                      class="fa fa-twitter"
+                      aria-hidden="true"
+                      style="color: #ffffff"
+                    ></i
                   ></span>
                   <span class="mx-2"
-                    ><i class="fa fa-instagram" aria-hidden="true" style="color: #ffffff;"></i
+                    ><i
+                      class="fa fa-instagram"
+                      aria-hidden="true"
+                      style="color: #ffffff"
+                    ></i
                   ></span>
                 </p>
                 <small class="rights"><span>&#174;</span>Team VIT </small>
@@ -325,7 +454,7 @@
                   align-self-end
                 "
               >
-                <h6 class="mt-55 mt-2  bold-text" style="color: #ffffff;">
+                <h6 class="mt-55 mt-2 bold-text" style="color: #ffffff">
                   <b>Contact Us</b>
                 </h6>
                 <small>
@@ -341,7 +470,7 @@
                   mt-3
                 "
               >
-                <h6 class="mt-55 mt-2 bold-text" style="color: #ffffff;">
+                <h6 class="mt-55 mt-2 bold-text" style="color: #ffffff">
                   <b>Give Your Feedback</b>
                 </h6>
                 <small>

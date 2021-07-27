@@ -21,9 +21,15 @@
     <nav class="navbar navbar-expand-lg navbar-red navbar-dark">
       <div class="wrap"></div>
       <div class="container-fluid all-show">
-        <a class="navbar-brand" href="#" style="color: #C1C8E4">
-          <img src="..\static\img\VIT.png" width="70" height="30" class="d-inline-block align-top" alt="">
-          VIT Internship Portal 
+        <a class="navbar-brand" href="#" style="color: #c1c8e4">
+          <img
+            src="..\static\img\VIT.png"
+            width="70"
+            height="30"
+            class="d-inline-block align-top"
+            alt=""
+          />
+          VIT Internship Portal
         </a>
         <button
           class="navbar-toggler"
@@ -82,13 +88,11 @@
     <p>
       <br />
     </p>
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-steps/1.1.0/jquery.steps.min.js"></script>
     <div class="wrapper">
-      
       <form method="POST" enctype="multipart/form-data">
         <div id="wizard">
-            
           <!-- SECTION 1 -->
           <h4></h4>
           <section>
@@ -111,33 +115,45 @@
             </div>
             <div class="form-row">
               <label
-                >Rate your Company
+                >Role / Position
                 <span style="color: red">(required)</span></label
               >
               <input
-                name="rating"
-                type="number"
-                min="1"
-                max="5"
+                name="position"
+                type="text"
                 class="form-control"
-                placeholder="1 to 5"
-                value="{{internship.rating}}"
+                placeholder="ex - Web Development Intern, Business Analyst, Python Intern"
+                value="{{internship.position}}"
                 required
               />
             </div>
-            <div class="form-row">
-              <label
-                >Domain of the Internship
-                <span style="color: red">(required)</span></label
-              >
-              <input
+
+            <label>Domain <span style="color: red">(required)</span></label>
+            <div class="input-group mb-3">
+              <select
+                class="custom-select"
                 name="domain"
-                type="text"
-                class="form-control"
-                placeholder="ex- Machine learning, Marketing etc"
-                value="{{internship.domain}}"
-                required
-              />
+                id="inputGroupSelect02"
+              >
+                <option selected name="domain">Choose...</option>
+                <option value="Web Development" name="domain">
+                  Web Development
+                </option>
+                <option value="Machine Learning" name="domain">
+                  Machine Learning
+                </option>
+                <option value="App Development" name="domain">
+                  App Development
+                </option>
+                <option value="Content Creation" name="domain">
+                  Content Creation
+                </option>
+                <option value="Sales and Marketing" name="domain">
+                  Sales and Marketing
+                </option>
+                <option value="Teaching" name="domain">Teaching</option>
+                <option value="Programming" name="domain">Programming</option>
+              </select>
             </div>
 
             <label
@@ -165,21 +181,23 @@
                 name="source"
                 id="inputGroupSelect02"
               >
-                <option value="VIT Internship" name="source" >
+                <option value="VIT Internship" name="source">
                   VIT Internship
                 </option>
-                <option value="Internshala" name="source" selected>Internshala</option>
+                <option value="Internshala" name="source" selected>
+                  Internshala
+                </option>
                 <option value="Self" name="source">Self</option>
               </select>
             </div>
-            {% elif internship.source == "Internshala" %}
+            {% elif internship.source == "Self" %}
             <div class="input-group mb-3">
               <select
                 class="custom-select"
                 name="source"
                 id="inputGroupSelect02"
               >
-                <option value="VIT Internship" name="source" >
+                <option value="VIT Internship" name="source">
                   VIT Internship
                 </option>
                 <option value="Internshala" name="source">Internshala</option>
@@ -193,8 +211,8 @@
                 name="source"
                 id="inputGroupSelect02"
               >
-                <option value = "" name = "source" selected>Choose...</option>
-                <option value="VIT Internship" name="source" >
+                <option value="" name="source" selected>Choose...</option>
+                <option value="VIT Internship" name="source">
                   VIT Internship
                 </option>
                 <option value="Internshala" name="source">Internshala</option>
@@ -202,7 +220,6 @@
               </select>
             </div>
             {% endif %}
-
 
             <div class="form-row">
               <label
@@ -214,7 +231,7 @@
                 type="text"
                 class="form-control"
                 placeholder="ex- Machine learning, Marketing etc"
-                value="{{internship.skillsacquired}}"
+                value="{{internship.skills_acquired}}"
                 required
               />
             </div>
@@ -262,7 +279,7 @@
                 name="startdate"
                 type="date"
                 class="form-control"
-                value= {{internship.startdate}}
+                value="{{internship.startdate}}"
                 required
               />
             </div>
@@ -272,7 +289,13 @@
                 >Ending date (Tentative if currently internship going on)
                 <span style="color: red">(required)</span></label
               >
-              <input name="enddate" type="date" class="form-control" value="{{internship.enddate}}" required />
+              <input
+                name="enddate"
+                type="date"
+                class="form-control"
+                value="{{internship.enddate}}"
+                required
+              />
             </div>
           </section>
 
@@ -301,6 +324,144 @@
           </section>
 
           <!-- SECTION 4 -->
+          <h4></h4>
+          <section>
+            <div class="form-row">
+              <label>Feedback for the Company</label>
+              <input
+                name="feedback"
+                type="text"
+                class="form-control"
+                placeholder="Feedback for the Company"
+                value="{{internship.feedback}}"
+              />
+            </div>
+            <div class="form-row">
+              <label>Rate your Work the Environment</label>
+              <input
+                name="workenv"
+                type="number"
+                min="1"
+                max="5"
+                class="form-control"
+                placeholder="1 to 5"
+                value="{{internship.workenv}}"
+              />
+            </div>
+
+            <label>Where you Satisfied with your Internship</label>
+            {% if internship.satisfied == "Yes" %}
+            <div class="input-group mb-3">
+              <select
+                class="custom-select"
+                name="satisfied"
+                id="inputGroupSelect02"
+              >
+                <option name="satisfied">Choose...</option>
+                <option value="Yes" name="satisfied" selected>Yes</option>
+                <option value="No" name="satisfied">No</option>
+                <option value="Partly" name="satisfied">Partly</option>
+              </select>
+            </div>
+            {% elif internship.satisfied == "No" %}
+            <div class="input-group mb-3">
+              <select
+                class="custom-select"
+                name="satisfied"
+                id="inputGroupSelect02"
+              >
+                <option name="satisfied">Choose...</option>
+                <option value="Yes" name="satisfied">Yes</option>
+                <option value="No" name="satisfied" selected>No</option>
+                <option value="Partly" name="satisfied">Partly</option>
+              </select>
+            </div>
+            {% elif internship.satisfied == "Partly" %}
+            <div class="input-group mb-3">
+              <select
+                class="custom-select"
+                name="satisfied"
+                id="inputGroupSelect02"
+              >
+                <option name="satisfied">Choose...</option>
+                <option value="Yes" name="satisfied">Yes</option>
+                <option value="No" name="satisfied">No</option>
+                <option value="Partly" name="satisfied" selected>Partly</option>
+              </select>
+            </div>
+            {% else %}
+            <div class="input-group mb-3">
+              <select
+                class="custom-select"
+                name="satisfied"
+                id="inputGroupSelect02"
+              >
+                <option selected name="satisfied">Choose...</option>
+                <option value="Yes" name="satisfied">Yes</option>
+                <option value="No" name="satisfied">No</option>
+                <option value="Partly" name="satisfied">Partly</option>
+              </select>
+            </div>
+            {% endif %}
+
+            <label>Would you Recommend your Friend to join this Company?</label>
+            {% if internship.recommendation == "Yes" %}
+            <div class="input-group mb-3">
+              <select
+                class="custom-select"
+                name="recommendation"
+                id="inputGroupSelect02"
+              >
+                <option name="recommendation">Choose...</option>
+                <option value="Yes" name="recommendation" selected>Yes</option>
+                <option value="No" name="recommendation">No</option>
+                <option value="Maybe" name="recommendation">Maybe</option>
+              </select>
+            </div>
+            {% elif internship.recommendation == "No" %}
+            <div class="input-group mb-3">
+              <select
+                class="custom-select"
+                name="recommendation"
+                id="inputGroupSelect02"
+              >
+                <option name="recommendation">Choose...</option>
+                <option value="Yes" name="recommendation">Yes</option>
+                <option value="No" name="recommendation" selected>No</option>
+                <option value="Maybe" name="recommendation">Maybe</option>
+              </select>
+            </div>
+            {% elif internship.recommendation == "Maybe" %}
+            <div class="input-group mb-3">
+              <select
+                class="custom-select"
+                name="recommendation"
+                id="inputGroupSelect02"
+              >
+                <option name="recommendation">Choose...</option>
+                <option value="Yes" name="recommendation">Yes</option>
+                <option value="No" name="recommendation">No</option>
+                <option value="Maybe" name="recommendation" selected>
+                  Maybe
+                </option>
+              </select>
+            </div>
+            {% else%}
+            <div class="input-group mb-3">
+              <select
+                class="custom-select"
+                name="recommendation"
+                id="inputGroupSelect02"
+              >
+                <option selected name="recommendation">Choose...</option>
+                <option value="Yes" name="recommendation">Yes</option>
+                <option value="No" name="recommendation">No</option>
+                <option value="Maybe" name="recommendation">Maybe</option>
+              </select>
+            </div>
+            {% endif %}
+          </section>
+
           <h4></h4>
           <section>
             <svg
@@ -334,7 +495,7 @@
               <input
                 class="lastsubmit"
                 type="submit"
-                formaction="/updateinternship"
+                formaction="/newinternship"
                 class="btnContact"
                 value="SUBMIT RECORD"
               />
@@ -347,7 +508,7 @@
 
     <div
       class="container-fluid pb-0 mb-0 justify-content-center text-light"
-      style="background-color: rgba(0, 77, 77, 0.9)"
+      style="background-color: #00887a"
     >
       <footer>
         <div class="row my-5 justify-content-center py-5">

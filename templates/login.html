@@ -4,9 +4,14 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+      crossorigin="anonymous"
+    />
     <link rel="stylesheet" href="../static/css/styles.css" />
-    <link rel="stylesheet" href="../static/css/login.css"/>
+    <link rel="stylesheet" href="../static/css/login.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -18,13 +23,18 @@
     <title>Internship Portal</title>
   </head>
   <body style="background-color: #d3e3fc">
-    
     <nav class="navbar navbar-expand-lg navbar-red navbar-dark">
       <div class="wrap"></div>
       <div class="container-fluid all-show">
-        <a class="navbar-brand" href="#" style="color: #C1C8E4">
-          <img src="..\static\img\VIT.png" width="70" height="30" class="d-inline-block align-top" alt="">
-          VIT Internship Portal 
+        <a class="navbar-brand" href="#" style="color: #c1c8e4">
+          <img
+            src="..\static\img\VIT.png"
+            width="70"
+            height="30"
+            class="d-inline-block align-top"
+            alt=""
+          />
+          VIT Internship Portal
         </a>
         <button
           class="navbar-toggler"
@@ -52,7 +62,7 @@
                 ><i class="fa fa-user"> User</i></a
               >
             </li>
-            
+
             <li class="nav-item">
               <a class="nav-link" href="/aboutus"
                 ><i class="fa fa-info-circle"> About us</i></a
@@ -77,218 +87,220 @@
     </nav>
 
     <p><br /></p>
-  <div class="container">
-    <div class="row">
-      <div class="col-12 col-md-6 mx-auto p-0">
-        <div class="card">
-          <div class="login-box">
-            <div class="login-snip">
-              <input
-                id="tab-1"
-                type="radio"
-                name="tab"
-                class="sign-in"
-                checked
-              /><label for="tab-1" class="tab">Login</label>
-              <input id="tab-2" type="radio" name="tab" class="sign-up" /><label
-                for="tab-2"
-                class="tab"
-                >Sign Up</label
-              >
-              <div class="login-space">
-                <div class="login">
-                  <form method="POST">
-                    <p>
-                      <br />
-                    </p>
-                    <div>
-                      {% with messages = get_flashed_messages() %} {% if
-                      messages %}
-                      <div
-                        class="flashes"
-                        style="
-                          font: sans-serif;
-                          text-align: center;
-                          color: #fff;
-                          font-style: italic;
-                        "
-                      >
-                        {% for message in messages %}
-                        <h6>{{ message }}</h6>
-                        {% endfor %}
+    <div class="container">
+      <div class="row">
+        <div class="col-12 col-md-6 mx-auto p-0">
+          <div class="card">
+            <div class="login-box">
+              <div class="login-snip">
+                <input
+                  id="tab-1"
+                  type="radio"
+                  name="tab"
+                  class="sign-in"
+                  checked
+                /><label for="tab-1" class="tab">Login</label>
+                <input
+                  id="tab-2"
+                  type="radio"
+                  name="tab"
+                  class="sign-up"
+                /><label for="tab-2" class="tab">Sign Up</label>
+                <div class="login-space">
+                  <div class="login">
+                    <form method="POST">
+                      <p>
+                        <br />
+                      </p>
+                      <div>
+                        {% with messages = get_flashed_messages() %} {% if
+                        messages %}
+                        <div
+                          class="flashes"
+                          style="
+                            font: sans-serif;
+                            text-align: center;
+                            color: #fff;
+                            font-style: italic;
+                          "
+                        >
+                          {% for message in messages %}
+                          <h6>{{ message }}</h6>
+                          {% endfor %}
+                        </div>
+                        {% endif %} {% endwith %}
                       </div>
-                      {% endif %} {% endwith %}
-                    </div>
-                    <p>
-                      <br />
-                    </p>
+                      <p>
+                        <br />
+                      </p>
 
-                    <div class="group">
-                      <label for="login-rollno" class="label"
-                        >Roll Number</label
-                      >
-                      <input
-                        id="login-rollno"
-                        type="text"
-                        class="input"
-                        name="rollno"
-                        placeholder="Enter your Roll Number"
-                      />
-                    </div>
-                    <div class="group">
-                      <label for="login-pass" class="label">Password</label>
-                      <input
-                        name="password"
-                        id="login-pass"
-                        type="password"
-                        class="input"
-                        data-type="password"
-                        placeholder="Enter your Password"
-                      />
-                    </div>
+                      <div class="group">
+                        <label for="login-rollno" class="label"
+                          >Roll Number</label
+                        >
+                        <input
+                          id="login-rollno"
+                          type="text"
+                          class="input"
+                          name="rollno"
+                          placeholder="Enter your Roll Number"
+                        />
+                      </div>
+                      <div class="group">
+                        <label for="login-pass" class="label">Password</label>
+                        <input
+                          name="password"
+                          id="login-pass"
+                          type="password"
+                          class="input"
+                          data-type="password"
+                          placeholder="Enter your Password"
+                        />
+                      </div>
 
-                    <div class="group">
-                      <input
-                        type="submit"
-                        class="button"
-                        formaction="/login"
-                        value="Sign In"
-                      />
-                    </div>
-                    <div class="hr"></div>
-                    <div class="foot"><a href="#">Forgot Password?</a></div>
-                    <p>
-                      <br />
-                    </p>
-                  </form>
-                </div>
+                      <div class="group">
+                        <input
+                          type="submit"
+                          class="button"
+                          formaction="/login"
+                          value="Sign In"
+                        />
+                      </div>
+                      <div class="hr"></div>
+                      <div class="foot"><a href="#">Forgot Password?</a></div>
+                      <p>
+                        <br />
+                      </p>
+                    </form>
+                  </div>
 
-                <div class="sign-up-form">
-                  <form method="POST">
-                    <div class="group">
-                      <label for="rollno" class="label">Full Name</label>
-                      <input
-                        name="fullname"
-                        id="fullname"
-                        type="text"
-                        class="input"
-                        placeholder="Enter your Full Name"
-                      />
-                    </div>
-                    <div class="group">
-                      <label for="rollno" class="label">Roll Number</label>
-                      <input
-                        name="rollno"
-                        id="rollno"
-                        type="text"
-                        class="input"
-                        placeholder="Enter your Roll Number"
-                      />
-                    </div>
-                    <div class="group">
-                      <label for="pass" class="label">Create Password</label>
-                      <input
-                        name="password"
-                        id="pass"
-                        type="password"
-                        class="input"
-                        data-type="password"
-                        placeholder="Create your password"
-                      />
-                    </div>
-                    <div class="group">
-                      <label for="cpass" class="label">Confirm Password</label>
-                      <input
-                        name="cpassword"
-                        id="cpass"
-                        type="password"
-                        class="input"
-                        data-type="password"
-                        placeholder="Confirm your password"
-                      />
-                    </div>
-                    <div class="group">
-                      <label for="email" class="label">Email Address</label>
-                      <input
-                        name="email"
-                        id="email"
-                        type="text"
-                        class="input"
-                        placeholder="Enter your Email address"
-                      />
-                    </div>
+                  <div class="sign-up-form">
+                    <form method="POST">
+                      <div class="group">
+                        <label for="rollno" class="label">Full Name</label>
+                        <input
+                          name="fullname"
+                          id="fullname"
+                          type="text"
+                          class="input"
+                          placeholder="Enter your Full Name"
+                        />
+                      </div>
+                      <div class="group">
+                        <label for="rollno" class="label">Roll Number</label>
+                        <input
+                          name="rollno"
+                          id="rollno"
+                          type="text"
+                          class="input"
+                          placeholder="Enter your Roll Number"
+                        />
+                      </div>
+                      <div class="group">
+                        <label for="pass" class="label">Create Password</label>
+                        <input
+                          name="password"
+                          id="pass"
+                          type="password"
+                          class="input"
+                          data-type="password"
+                          placeholder="Create your password"
+                        />
+                      </div>
+                      <div class="group">
+                        <label for="cpass" class="label"
+                          >Confirm Password</label
+                        >
+                        <input
+                          name="cpassword"
+                          id="cpass"
+                          type="password"
+                          class="input"
+                          data-type="password"
+                          placeholder="Confirm your password"
+                        />
+                      </div>
+                      <div class="group">
+                        <label for="email" class="label">Email Address</label>
+                        <input
+                          name="email"
+                          id="email"
+                          type="text"
+                          class="input"
+                          placeholder="Enter your Email address"
+                        />
+                      </div>
 
-                    <div class="group">                                      
-                      <label for="branch" class="label">Department</label>
-                      <select 
-                        name="dept"
-                        id="branch"
-                        type="text"
-                        class="input-dropdown"
-                        placeholder="Enter your Branch"                   
-                      >
-                        <option value="CMPN">CMPN</option>
-                        <option value="INFT">INFT</option>
-                        <option value="EXTC">EXTC</option>
-                        <option value="ETRX">ETRX</option>
-                        <option value="BIOMED">BIOMED</option>
+                      <div class="group">
+                        <label for="branch" class="label">Department</label>
+                        <select
+                          name="dept"
+                          id="branch"
+                          type="text"
+                          class="input-dropdown"
+                          placeholder="Enter your Branch"
+                        >
+                          <option value="CMPN">CMPN</option>
+                          <option value="INFT">INFT</option>
+                          <option value="EXTC">EXTC</option>
+                          <option value="ETRX">ETRX</option>
+                          <option value="BIOMED">BIOMED</option>
+                        </select>
+                      </div>
+                      <div class="group">
+                        <label for="branch" class="label">Year</label>
+                        <select
+                          name="year"
+                          id="year"
+                          type="text"
+                          class="input-dropdown"
+                          placeholder="Enter your year of study"
+                        >
+                          <option value="FE">FE</option>
+                          <option value="SE">SE</option>
+                          <option value="TE">TE</option>
+                          <option value="BE">BE</option>
+                        </select>
+                      </div>
 
-                      </select>
-                    </div>
-                    <div class="group">                     
-                      <label for="branch" class="label">Year</label>
-                      <select 
-                        name="year"
-                        id="year"
-                        type="text"
-                        class="input-dropdown"
-                        placeholder="Enter your year of study"                    
-                      >
-                        <option value="FE">FE</option>
-                        <option value="SE">SE</option>
-                        <option value="TE">TE</option>
-                        <option value="BE">BE</option>
+                      <div class="group">
+                        <label for="div" class="label">Division</label>
+                        <select
+                          name="div"
+                          id="div"
+                          type="text"
+                          class="input-dropdown"
+                          placeholder="Enter your Division"
+                        >
+                          <option value="A">A</option>
+                          <option value="B">B</option>
+                          <option value="C">C</option>
+                        </select>
+                      </div>
 
-                      </select>
-                    </div>
+                      <div class="group">
+                        <label for="div" class="label">Mobile Number</label>
+                        <input
+                          name="mobileno"
+                          id="mobileno"
+                          type="tel"
+                          class="input"
+                          placeholder="Enter your Contact"
+                        />
+                      </div>
 
-                    <div class="group">
-                      <label for="div" class="label">Division</label>
-                      <select 
-                        name="div"
-                        id="div"
-                        type="text"
-                        class="input-dropdown"
-                        placeholder="Enter your Division"                      
-                      >
-                        <option value="A">A</option>
-                        <option value="B">B</option>
-                        <option value="C">C</option>
-                      </select>
-                    </div>
-
-                    <div class="group">
-                      <label for="div" class="label">Mobile Number</label>
-                      <input
-                        name="mobileno"
-                        id="mobileno"
-                        type="tel"
-                        class="input"
-                        placeholder="Enter your Contact"
-                      />
-                    </div>
-
-                    <div class="group">
-                      <input
-                        style="color: #4f4846"
-                        type="submit"
-                        class="button"
-                        formaction="/signup"
-                        value="Sign Up"
-                      />
-                    </div>
-                    <div class="hr"></div>
-                  </form>
+                      <div class="group">
+                        <input
+                          style="color: #4f4846"
+                          type="submit"
+                          class="button"
+                          formaction="/signup"
+                          value="Sign Up"
+                        />
+                      </div>
+                      <div class="hr"></div>
+                    </form>
+                  </div>
                 </div>
               </div>
             </div>
@@ -296,7 +308,6 @@
         </div>
       </div>
     </div>
-  </div>
     <p>
       <br />
     </p>
