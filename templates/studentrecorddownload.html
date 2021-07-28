@@ -23,7 +23,7 @@
 </head>
 <body>
     <h2 style="font-style: italic;">Student General Details</h2>
-    <div style="overflow-x:auto;">
+    <div style="overflow-x:auto; font-size: large;">
     <table class="table">
         <tbody>
           <tr>
@@ -60,11 +60,11 @@
     <hr>
     <h2 style="font-style: italic;">Student Internship Details</h2>
     {% for internship in internships %}
-    <div>
+    <div style="font-size:large">
     <h3>{{internship.companyname}}</h3>
         <p>Domain - {{internship.domain}}
             <br>
-            Rating - {{internship.rating}}
+            Position - {{internship.position}}
             <br>
             Skills Acquired - {{internship.skill_acquired}}
             <br>
@@ -72,12 +72,41 @@
             <br>
             End Date - {{internship.enddate}}
             <br>
+            {% if internship.companyrepresentative_name  %}
             Company Representative - {{internship.companyrepresentative_name}}
+            {% endif %}
             <br>
+            {% if internship.companyrepresentative_contact %}
             Company Representative Contact - {{internship.companyrepresentative_contact}}
             <br>
+            {% endif %}
+            
             Source of Internship - {{internship.source}}
             <br>
+
+            <p style="font-size:larger">FeedBack</p>
+
+            {% if internship.feedback  %}
+            Feedback - {{internship.feedback}}
+            <br>
+            {% endif %}
+            
+            {% if internship.satisfied %}
+            Satisfied with the Internship? - {{internship.satisfied}}
+            <br>
+            {% endif %}
+            
+            {% if internship.workenv %}
+            Rate the Work environment (out of 5) - {{internship.workenv}}
+            <br>
+            {% endif %}
+            
+            {% if internship.recommendation %}
+            Would you recommmed this company to a Friend? - {{internship.recommendation}}
+            <br>
+            {% endif %}
+            
+
         </p>
     </div>
     {% endfor %}

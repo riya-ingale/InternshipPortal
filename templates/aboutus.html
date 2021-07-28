@@ -41,18 +41,21 @@
             <li class="nav-item">
               <a class="nav-link" href="/"><i class="fa fa-home"> Home</i></a>
             </li>
+            {% if current_user.is_authenticated %} 
             {% if not current_user.role == "admin" %}
             <li class="nav-item">
               <a class="nav-link" href="/newinternship"
                 ><i class="fa fa-plus"> New Internship</i></a
               >
             </li>
+
             <li class="nav-item">
               <a class="nav-link" href="/profile/{{current_user.id}}"
                 ><i class="fa fa-user"> User</i></a
               >
             </li>
-            {% endif %}
+            {% endif %} 
+            {% endif %} 
             {% if current_user.role == "admin" %}
             <li class="nav-item">
               <a class="nav-link" href="/search"
@@ -74,10 +77,18 @@
             {% if not current_user.is_authenticated %}
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="/login"
-                ><i class="fa fa-sign-in"> Login</i></a
+                ><i class="fa fa-sign-in"> Student Login</i></a
               >
             </li>
-            {% endif %} {% if current_user.is_authenticated %}
+            {% endif %} 
+            {% if not current_user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/admin/login"
+                ><i class="fa fa-sign-in"> Admin Login</i></a
+              >
+            </li>
+            {% endif %}
+            {% if current_user.is_authenticated %}
             <li class="nav-item">
               <a class="nav-link" href="/logout"
                 ><i class="fa fa-sign-out"> Logout</i></a
