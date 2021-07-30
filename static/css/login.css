@@ -22,7 +22,7 @@ body {
   height: 100%;
   position: absolute;
   padding: 90px 70px 50px 70px;
-  background: rgba(0, 77, 77, 0.9);
+  background: #151226;
 }
 
 .login-snip .login,

@@ -12,12 +12,16 @@ rgba(0, 77, 77, 0.9)
 5AB9EA*/
 
 @import url("https://fonts.googleapis.com/css2?family=Allerta+Stencil&display=swap");
-
+:root {
+  --direction: -45deg;
+}
 
 
 body {
-  background-color: #5AB9EA;
+  margin: 0;
+  padding: 0;
 }
+
 
 .navbar-nav > li > a {
   text-transform: uppercase;
@@ -43,7 +47,7 @@ body {
   width: 100%;
   position: absolute;
   height: 100%;
-  background-color: #FFCCBC;
+  background-color: #d10047;
   clip-path: polygon(81% 0, 100% 0, 100% 50%, 100% 100%, 71% 100%);
   transition: 1s all;
 }
@@ -64,7 +68,7 @@ body {
 }
 
 .navbar-red {
-  background-color: #02776b;
+  background-color: #151226;
   color: #266150;
 }
 
@@ -85,3 +89,4 @@ address {
   margin: 0px;
   color: #0f0f0f;
 }
+/* End Background */

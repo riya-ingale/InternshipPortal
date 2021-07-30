@@ -93,7 +93,7 @@ img {
 
 .steps ul li.first a,
 .steps ul li.checked a {
-  background: #00887a;
+  background: #d10047;
   transition: all 0.5s ease;
 }
 
@@ -222,7 +222,7 @@ textarea.form-control {
   height: 51px;
   width: 135px;
   align-items: center;
-  background: #00887a;
+  background: #151226;
   cursor: pointer;
   color: #fff !important;
   position: relative;
@@ -243,7 +243,7 @@ textarea.form-control {
   height: 51px;
   width: 180px;
   align-items: center;
-  background: #266150;
+  background: #151226;
   cursor: pointer;
   color: #fff !important;
   position: relative;

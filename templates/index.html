@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../static/css/styles.css" />
+    <link rel="stylesheet" href="../static/css/index.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -16,293 +16,48 @@
     <title>Internship Portal</title>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-red navbar-dark">
-      <div class="wrap"></div>
-      <div class="container-fluid all-show">
-        <a class="navbar-brand" href="#" style="color: #c1c8e4">
-          <img
-            src="..\static\img\VIT.png"
-            width="70"
-            height="30"
-            class="d-inline-block align-top"
-            alt=""
-          />
-          VIT Internship Portal
-        </a>
-        <!-- <a class="navbar-brand" href="#" style="color: #C1C8E4">VIT Internship Portal</a> -->
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link" href="/"><i class="fa fa-home"> Home</i></a>
-            </li>
-
-            {% if current_user.is_authenticated %} 
-            {% if not current_user.role == "admin" %}
-            <li class="nav-item">
-              <a class="nav-link" href="/newinternship"
-                ><i class="fa fa-plus"> New Internship</i></a
-              >
-            </li>
-
-            <li class="nav-item">
-              <a class="nav-link" href="/profile/{{current_user.id}}"
-                ><i class="fa fa-user"> User</i></a
-              >
-            </li>
-            {% endif %} 
-            {% endif %} 
-            {% if current_user.role == "admin" %}
-            <li class="nav-item">
-              <a class="nav-link" href="/search"
-                ><i class="fa fa-search"> Search</i></a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/admin/dashboard"
-                ><i class="fa fa-search"> Dashboard</i></a
-              >
-            </li>
-            {% endif %}
-
-            <li class="nav-item">
-              <a class="nav-link" href="/aboutus"
-                ><i class="fa fa-info-circle"> About us</i></a
-              >
-            </li>
-            {% if not current_user.is_authenticated %}
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/login"
-                ><i class="fa fa-sign-in"> Student Login</i></a
-              >
-            </li>
-            {% endif %} 
-            {% if not current_user.is_authenticated %}
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/admin/login"
-                ><i class="fa fa-sign-in"> Admin Login</i></a
-              >
-            </li>
-            {% endif %} 
-            {% if current_user.is_authenticated %}
-            <li class="nav-item">
-              <a class="nav-link" href="/logout"
-                ><i class="fa fa-sign-out"> Logout</i></a
-              >
-            </li>
-            {% endif %}
-          </ul>
-        </div>
+    <div class= 'container'>
+      <div class="container_content">
+      <div class="container_content_inner">
+      <div class="title">
+        <h1>Internship Portal</h1>
       </div>
-    </nav>
-    <!--Carousel Wrapper-->
-    <div
-      id="carousel-example-2"
-      class="carousel slide carousel-fade"
-      data-ride="carousel"
-    >
-      <!--Indicators-->
-      <ol class="carousel-indicators">
-        <li
-          data-target="#carousel-example-2"
-          data-slide-to="0"
-          class="active"
-        ></li>
-        <li data-target="#carousel-example-2" data-slide-to="1"></li>
-        <li data-target="#carousel-example-2" data-slide-to="2"></li>
-      </ol>
-      <!--/.Indicators-->
-      <!--Slides-->
-      <div class="carousel-inner" role="listbox">
-        <div class="carousel-item active">
-          <div class="view">
-            <img
-              class="d-block w-100"
-              src="https://mdbootstrap.com/img/Photos/Slides/img%20(68).jpg"
-              alt="First slide"
-            />
-            <div class="mask rgba-black-light"></div>
-          </div>
-          <div class="carousel-caption">
-            <h3 class="h3-responsive">Light mask</h3>
-            <p>First text</p>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <!--Mask color-->
-          <div class="view">
-            <img
-              class="d-block w-100"
-              src="https://mdbootstrap.com/img/Photos/Slides/img%20(6).jpg"
-              alt="Second slide"
-            />
-            <div class="mask rgba-black-strong"></div>
-          </div>
-          <div class="carousel-caption">
-            <h3 class="h3-responsive">Strong mask</h3>
-            <p>Secondary text</p>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <!--Mask color-->
-          <div class="view">
-            <img
-              class="d-block w-100"
-              src="https://mdbootstrap.com/img/Photos/Slides/img%20(9).jpg"
-              alt="Third slide"
-            />
-            <div class="mask rgba-black-slight"></div>
-          </div>
-          <div class="carousel-caption">
-            <h3 class="h3-responsive">Slight mask</h3>
-            <p>Third text</p>
-          </div>
-        </div>
+      <div class="par">
+      <p>
+      One Stop For All your Internship Data!
+      </p>
       </div>
-      <!--/.Slides-->
-      <!--Controls-->
-      <a
-        class="carousel-control-prev"
-        href="#carousel-example-2"
-        role="button"
-        data-slide="prev"
-      >
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-      </a>
-      <a
-        class="carousel-control-next"
-        href="#carousel-example-2"
-        role="button"
-        data-slide="next"
-      >
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-      </a>
-      <!--/.Controls-->
-    </div>
-    <!--/.Carousel Wrapper-->
-
-    <div
-      class="container-fluid pb-0 mb-0 justify-content-center text-light"
-      style="background-color: #00887a"
-    >
-      <footer>
-        <div class="row my-5 justify-content-center py-5">
-          <div class="col-11">
-            <div class="row">
-              <div class="col-xl-8 col-md-4 col-sm-4 col-12 my-auto mx-auto a">
-                <h3 class="mb-md-0 mb-5 bold-text" style="color: #ffffff">
-                  VIT Internship Portal
-                </h3>
-              </div>
-              <div class="col-xl-2 col-md-4 col-sm-4 col-12">
-                <h6 class="mb-3 mb-lg-4 bold-text"><b>Links</b></h6>
-                <ul class="list-unstyled">
-                  <li><a href="/">Home</a></li>
-                  <li><a href="/allblogs">Login</a></li>
-                  <li><a href="/news">Contact Us</a></li>
-                </ul>
-              </div>
-              <div class="col-xl-2 col-md-4 col-sm-4 col-12">
-                <h6
-                  class="mb-3 mb-lg-4 bold-text mt-sm-0 mt-5"
-                  style="color: #ffffff"
-                >
-                  <b>ADDRESS</b>
-                </h6>
-                <p class="mb-1">VIT</p>
-                <p>Wadala, Mumbai</p>
-              </div>
-            </div>
-            <div class="row">
-              <div
-                class="
-                  col-xl-8 col-md-4 col-sm-4 col-auto
-                  my-md-0
-                  mt-5
-                  order-sm-1 order-3
-                  align-self-end
-                "
-              >
-                <p class="social text-muted mb-0 pb-0 bold-text">
-                  <span class="mx-2"
-                    ><i
-                      class="fa fa-facebook"
-                      aria-hidden="true"
-                      style="color: #ffffff"
-                    ></i
-                  ></span>
-                  <span class="mx-2"
-                    ><i
-                      class="fa fa-linkedin-square"
-                      aria-hidden="true"
-                      style="color: #ffffff"
-                    ></i
-                  ></span>
-                  <span class="mx-2"
-                    ><i
-                      class="fa fa-twitter"
-                      aria-hidden="true"
-                      style="color: #ffffff"
-                    ></i
-                  ></span>
-                  <span class="mx-2"
-                    ><i
-                      class="fa fa-instagram"
-                      aria-hidden="true"
-                      style="color: #ffffff"
-                    ></i
-                  ></span>
-                </p>
-                <small class="rights"><span>&#174;</span>Team VIT </small>
-              </div>
-              <div
-                class="
-                  col-xl-2 col-md-4 col-sm-4 col-auto
-                  order-1
-                  align-self-end
-                "
-              >
-                <h6 class="mt-55 mt-2 bold-text" style="color: #ffffff">
-                  <b>Contact Us</b>
-                </h6>
-                <small>
-                  <span><i class="fa fa-info" aria-hidden="true"></i></span>
-                  <a href="/aboutus">About Us</a></small
-                >
-              </div>
-              <div
-                class="
-                  col-xl-2 col-md-4 col-sm-4 col-auto
-                  order-2
-                  align-self-end
-                  mt-3
-                "
-              >
-                <h6 class="mt-55 mt-2 bold-text" style="color: #ffffff">
-                  <b>Give Your Feedback</b>
-                </h6>
-                <small>
-                  <span><i class="fa fa-envelope" aria-hidden="true"></i></span>
-                  contact@gmail.com</small
-                >
-              </div>
-            </div>
-          </div>
+      <form method="GET">
+        <div class="btns">
+        {% if not current_user.is_authenticated %}
+        <button class='btns_more' formaction="/login"> Student Login</button>
+        <button class='btns_more' formaction="/admin/login"> Admin Login </button>
+        {% endif %} 
+        {% if current_user.is_authenticated %}
+        <button class='btns_more' formaction="/admin/login"> Log Out </button>
+        {% endif %} 
+        <button class='btns_more' formaction="/aboutus"> About Us</button>        
+        {% if current_user.is_authenticated %} 
+        {% if not current_user.role == "admin" %}
+        <button class='btns_more' formaction="/newinternship">New Internship</button>
+        <button class='btns_more' formaction="/profile/{{current_user.id}}"> Profile</button>
+        {% endif %} 
+        {% endif %} 
+        {% if current_user.role == "admin" %}
+        <button class='btns_more' formaction="/search">Search</button>        
+        <button class='btns_more' formaction="/admin/dashboard">Admin DashBoard</button>
+        {% endif %}
         </div>
-      </footer>
-    </div>
+      </form>
+      </div>
+      </div>
+       <div class="container_outer_img">
+       <div class="img-inner">
+       <img src='../static/img/Library.jpg'  alt="" class="container_img"/>
+             </div>
+           </div>
+        </div>
+      <div class="overlay"></div>
 
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -319,5 +74,19 @@
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"
     ></script>
+    <!-- Load React. -->
+  <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+  <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+    <script>
+      let c = 45;
+    function draw(){
+    x = document.getElementById("cv");
+    x.style.setProperty('--direction', c++ + 'deg');
+    requestAnimationFrame(draw);
+    }
+
+    requestAnimationFrame(draw);
+    </script>
   </body>
 </html>

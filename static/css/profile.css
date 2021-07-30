@@ -30,7 +30,7 @@
   color: #333;
 }
 .profile-head h6 {
-  color: #266150;
+  color: #151226;
 }
 .profile-edit-btn {
   border: none;
@@ -60,7 +60,7 @@
 }
 .profile-head .nav-tabs .nav-link.active {
   border: none;
-  border-bottom: 2px solid #266150;
+  border-bottom: 2px solid #151226;
   background-color: #fdf8f5;
 }
 .profile-work {
@@ -98,7 +98,7 @@
   height: 51px;
   width: 200px;
   align-items: center;
-  background: #266150;
+  background: #151226;
   cursor: pointer;
   color: #fff !important;
   position: relative;

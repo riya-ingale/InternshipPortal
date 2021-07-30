@@ -14,7 +14,7 @@ html {
    */
 body {
   margin: 0;
-  background-color: #d3e3fc;
+  background-color: #ffe4e1;
 }
 
 /**
@@ -1298,7 +1298,7 @@ ul.list-style-none li a {
   height: 51px;
   width: 100%;
   align-items: center;
-  background: #02776b;
+  background: #151226;
   cursor: pointer;
   color: #fff !important;
   position: relative;
