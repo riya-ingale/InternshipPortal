@@ -9,7 +9,7 @@ import os
 from datetime import datetime
 import pdfkit
 import flask_excel as excel
-from openpyxl import Workbook
+from openpyxl import Workbook, load_workbook
 
 app = Flask(__name__)
 
@@ -369,8 +369,57 @@ def adminlogin():
 
 @app.route('/admin/dashboard', methods=['GET', 'POST'])
 def admindashboard():
-    if current_user.role == "admin":
-        return render_template('admindashboard.html')
+    if current_user.is_authenticated:
+        if current_user.role == "admin":
+            if request.method == "POST":
+                sheet = request.files['Excel']
+                data_file = save_excel(sheet)
+                # Load the entire workbook.
+                wb = load_workbook(data_file, data_only=True)
+                # Load one worksheet.
+                ws = wb['Sheet1']
+                all_rows = list(ws.rows)
+
+                # Pull information from specific cells.
+                for row in all_rows[1:10]:
+                    rollno = row[0].value
+                    fullname = row[1].value
+                    dept = row[2].value
+                    div = row[3].value
+                    mobileno = row[4].value
+                    email = row[5].value
+                    year = row[6].value
+
+                    companyname= row[7].value
+                    position= row[8].value
+                    domain= row[9].value
+                    source= row[10].value
+                    skills_acquired= row[11].value
+                    companyrepresentative_name= row[12].value
+                    companyrepresentative_contact= row[13].value
+                    startdate= row[14].value
+                    enddate= row[15].value
+                    feedback = row[16].value
+                    workenv = row[17].value
+                    satisfied= row[18].value
+                    recommendation = row[19].value
+
+                    startdate = datetime.strptime(startdate, '%Y-%m-%d')
+                    enddate = datetime.strptime(enddate, '%Y-%m-%d')
+
+                    newstudent = Users(fullname = fullname, rollno = rollno, dept = dept, div = div, year  = year, email = email, mobileno = mobileno) 
+                    db.session.add(newstudent)
+                    db.session.commit()
+                    student = Users.query.filter_by(rollno = rollno, fullname = fullname, year = year).first()
+                    user_id = student.id
+                    newinternship = Internships(user_id = user_id, companyname = companyname, position = position, domain = domain, source = source, skills_acquired = skills_acquired, companyrepresentative_contact = companyrepresentative_contact, companyrepresentative_name = companyrepresentative_name, startdate = startdate, enddate = enddate, feedback = feedback, workenv = workenv, satisfied = satisfied, recommendation = recommendation)
+                    db.session.add(newinternship)
+                    db.session.commit()
+                flash('Record Added')
+                return redirect('/admin/dashboard')
+            return render_template('admindashboard.html')
+        else:
+            return "Page for Admin Users Only"    
     else:
         return "Page Not Found"
 
@@ -559,6 +608,10 @@ def docustomexport():
     # column_names = ['id', 'companyname', 'domain', 'source', 'rating', 'skills_acquired',
     #                 'companyrepresentative_name', 'companyrepresentative_contact', 'startdate', 'enddate']
     # return excel.make_response_from_query_sets(query_sets, column_names, 'xlsx', file_name="sheet")
+
+
+# @app.route('/uploadexceldata', methods=['GET','POST'])
+# def uploadexceldata():
 
 
 if __name__ == '__main__':

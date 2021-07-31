@@ -33,20 +33,26 @@
         <button class='btns_more' formaction="/login"> Student Login</button>
         <button class='btns_more' formaction="/admin/login"> Admin Login </button>
         {% endif %} 
-        {% if current_user.is_authenticated %}
-        <button class='btns_more' formaction="/admin/login"> Log Out </button>
-        {% endif %} 
-        <button class='btns_more' formaction="/aboutus"> About Us</button>        
+        
         {% if current_user.is_authenticated %} 
+
         {% if not current_user.role == "admin" %}
         <button class='btns_more' formaction="/newinternship">New Internship</button>
         <button class='btns_more' formaction="/profile/{{current_user.id}}"> Profile</button>
         {% endif %} 
-        {% endif %} 
         {% if current_user.role == "admin" %}
         <button class='btns_more' formaction="/search">Search</button>        
-        <button class='btns_more' formaction="/admin/dashboard">Admin DashBoard</button>
+        <button class='btns_more' formaction="/admin/dashboard">Upload Data</button>
         {% endif %}
+
+        {% endif %} 
+
+        <button class='btns_more' formaction="/aboutus"> About Us</button> 
+
+        {% if current_user.is_authenticated %}
+        <button class='btns_more' formaction="/logout"> Log Out </button>
+        {% endif %} 
+
         </div>
       </form>
       </div>

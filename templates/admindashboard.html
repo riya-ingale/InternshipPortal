@@ -61,7 +61,7 @@
 
             <li class="nav-item">
               <a class="nav-link" href="/admin/dashboard"
-                ><i class="fa fa-search"> Dashboard</i></a
+                ><i class="fa fa-upload"> Upload Data</i></a
               >
             </li>
             
@@ -88,20 +88,41 @@
     
     <center><h2 style="font-style: italic; margin-top: 5%;">Admin Dashboard to upload Excel Sheets of Student INFO</h2></center>
     <div class = "container">
+      <div>
+        <div>
+          {% with messages = get_flashed_messages() %} {% if
+          messages %}
+          <div
+            class="flashes"
+            style="
+              font: sans-serif;
+              text-align: center;
+              color: #fff;
+              font-style: italic;
+            "
+          >
+            {% for message in messages %}
+            <h6>{{ message }}</h6>
+            {% endfor %}
+          </div>
+          {% endif %} {% endwith %}
+        </div>
+      <form method="POST" enctype="multipart/form-data">
       <div class= "row justify-content-center" >
+        
         <div class="col-12 col-lg-6">
-          <form action="upload.php" method="POST">
             <input type="file" multiple>
             <p>Drag your files here or click in this area.</p>                 
         </div>
       </div>
       <p></p>
-      <div class= "row justify-content-center" >
-        <div class="col-12 col-lg-6">
-          <button type="submit">Upload</button>
-        </div>
-      </form>
+      <div class= "row justify-content-center">
+          <div class="col-12 col-lg-6">
+            <button type="submit" formaction="/admin/dashboard">Upload</button>
+          </div>
       </div>
+    </form>
+    </div>
     </div>
     
 
