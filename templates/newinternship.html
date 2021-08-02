@@ -120,7 +120,7 @@
                 name="companyname"
                 type="text"
                 class="form-control"
-                placeholder="ex - Google"
+                placeholder="ex - Google, Facebook"
                 required
               />
             </div>
@@ -161,8 +161,7 @@
                 <option value="Sales and Marketing" name="domain">
                   Sales and Marketing
                 </option>
-                <option value="Teaching" name="domain">Teaching</option>
-                <option value="Programming" name="domain">Programming</option>
+                <option value="Other" name="domain">Other</option>
               </select>
             </div>
 
@@ -205,25 +204,24 @@
 
           <section>
             <div class="form-row">
-              <label>Name of Representative/Mentor/Manager from Company</label>
+              <label>Name of Company Representative</label>
               <input
                 name="companyrepresentative_name"
                 type="text"
                 class="form-control"
-                placeholder="Name of Representative from Company"
+                placeholder="Name of Manager/Mentor/Counseller/Representative from Company"
               />
             </div>
 
             <div class="form-row">
               <label
-                >Email/Contact of Representative/Mentor/Manager from
-                Company</label
+                >Email/Contact of Company Representative</label
               >
               <input
                 name="companyrepresentative_contact"
                 type="text"
                 class="form-control"
-                placeholder="Contact of Representative from Company"
+                placeholder="Contact of Company Representative"
               />
             </div>
 
@@ -279,28 +277,8 @@
           <!-- SECTION 4 -->
           <h4></h4>
           <section>
-            <div class="form-row">
-              <label>Feedback for the Company</label>
-              <input
-                name="feedback"
-                type="text"
-                class="form-control"
-                placeholder="Feedback for the Company"
-              />
-            </div>
-            <div class="form-row">
-              <label>Rate your Work the Environment</label>
-              <input
-                name="workenv"
-                type="number"
-                min="1"
-                max="5"
-                class="form-control"
-                placeholder="1 to 5"
-              />
-            </div>
 
-            <label>Where you Satisfied with your Internship</label>
+            <label>Are you satisfied with your Internship<span style="color: red"> (required)</span></label>
             <div class="input-group mb-3">
               <select
                 class="custom-select"
@@ -314,7 +292,33 @@
               </select>
             </div>
 
-            <label>Would you Recommend your Friend to join this Company?</label>
+            <label>Type of Internship<span style="color: red"> (required)</span></label>
+            <div class="input-group mb-3">
+              <select
+                class="custom-select"
+                name="satisfied"
+                id="inputGroupSelect02"
+              >
+                <option selected name="type" value="">Choose...</option>
+                <option value="Only Certificates" name="type">Only Certificates</option>
+                <option value="Stipend" name="type">Stipend</option>
+                <option value="Pay to Company" name="type">Pay to Company</option>
+              </select>
+            </div>
+            
+            <div class="form-row">
+              <label>Rate the Work Environment <span style="color: red">(required)</span></label>
+              <input
+                name="workenv"
+                type="number"
+                min="1"
+                max="5"
+                class="form-control"
+                placeholder="1 to 5"
+              />
+            </div>
+
+            <label>Would you Recommend your Friend to join this Company? <span style="color: red">(required)</span></label>
             <div class="input-group mb-3">
               <select
                 class="custom-select"
@@ -327,6 +331,17 @@
                 <option value="Maybe" name="recommendation">Maybe</option>
               </select>
             </div>
+
+            <div class="form-row">
+              <label>Other Feedback for the Company</label>
+              <input
+                name="feedback"
+                type="text"
+                class="form-control"
+                placeholder="related to dinning, exposure, etc"
+              />
+            </div>
+
           </section>
 
           <h4></h4>
@@ -390,8 +405,8 @@
                 <h6 class="mb-3 mb-lg-4 bold-text"><b>Links</b></h6>
                 <ul class="list-unstyled">
                   <li><a href="/">Home</a></li>
-                  <li><a href="/allblogs">Login</a></li>
-                  <li><a href="/news">Contact Us</a></li>
+                  <li><a href="/login">Student Login</a></li>
+                  <li><a href="/aboutus">About Us</a></li>
                 </ul>
               </div>
               <div class="col-xl-2 col-md-4 col-sm-4 col-12">
