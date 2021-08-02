@@ -177,6 +177,8 @@ def search():
                 dept = request.form.get('dept')
                 div = request.form.get('div')
                 year = request.form.get('year')
+                domain = request.form.get('domain')
+                satisfied = request.form.get('satisfied')
                 startdate = request.form.get('startdate')
                 if startdate:
                     startdate = datetime.strptime(startdate, '%Y-%m-%d')
@@ -211,6 +213,39 @@ def search():
                         Internships.enddate < enddate).all()
                 else:
                     pass
+                
+                
+                if not allinternships:
+                    if domain and satisfied:
+                        allinternships = Internships.query.filter_by(domain = domain, satisfied = satisfied).all()
+                    elif domain and not satisfied:
+                        allinternships = Internships.query.filter_by(domain = domain).all()  
+                    elif satisfied and not domain:
+                        allinternships = Internships.query.filter_by(satisfied = satisfied).all()
+                    else:
+                        pass    
+                else:        
+                    if domain and satisfied:
+                        for internship in allinternships:
+                            if internship.domain == domain and internship.satisfied == satisfied:
+                                pass
+                            else:
+                                allinternships.remove(internship)
+                    elif domain and not satisfied:
+                        for internship in allinternships:
+                            if internship.domain == domain:
+                                pass
+                            else:
+                                allinternships.remove(internship)
+                    elif satisfied and not domain:
+                        for internship in allinternships:
+                            if internship.satisfied == satisfied:
+                                pass
+                            else:
+                                allinternships.remove(internship)            
+                    else:
+                        pass
+
                 if dept and div and year:
                     allstudents = Users.query.filter_by(
                         dept=dept, div=div, year=year).all()
