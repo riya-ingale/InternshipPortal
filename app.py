@@ -66,6 +66,7 @@ class Internships(db.Model):
     workenv = db.Column(db.Integer)
     satisfied = db.Column(db.Text)
     recommendation = db.Column(db.Text)
+    typeofinternship = db.Column(db.Text)
 
 
 @app.route('/')
@@ -213,18 +214,20 @@ def search():
                         Internships.enddate < enddate).all()
                 else:
                     pass
-                
-                
+
                 if not allinternships:
                     if domain and satisfied:
-                        allinternships = Internships.query.filter_by(domain = domain, satisfied = satisfied).all()
+                        allinternships = Internships.query.filter_by(
+                            domain=domain, satisfied=satisfied).all()
                     elif domain and not satisfied:
-                        allinternships = Internships.query.filter_by(domain = domain).all()  
+                        allinternships = Internships.query.filter_by(
+                            domain=domain).all()
                     elif satisfied and not domain:
-                        allinternships = Internships.query.filter_by(satisfied = satisfied).all()
+                        allinternships = Internships.query.filter_by(
+                            satisfied=satisfied).all()
                     else:
-                        pass    
-                else:        
+                        pass
+                else:
                     if domain and satisfied:
                         for internship in allinternships:
                             if internship.domain == domain and internship.satisfied == satisfied:
@@ -242,7 +245,7 @@ def search():
                             if internship.satisfied == satisfied:
                                 pass
                             else:
-                                allinternships.remove(internship)            
+                                allinternships.remove(internship)
                     else:
                         pass
 
@@ -317,8 +320,9 @@ def newinternship():
         workenv = request.form.get('workenv')
         satisfied = request.form.get('satisfied')
         recommendation = request.form.get('recommendation')
+        typeofinternship = request.form.get('type')
         new_internship = Internships(user_id=current_user.id, companyname=companyname, domain=domain, companyrepresentative_name=companyrepresentative_name, companyrepresentative_contact=companyrepresentative_contact, source=source, position=position, skills_acquired=skills_acquired, startdate=startdate, enddate=enddate,
-                                     offerletter=offerletter, offerletter_filename=offerletter_filename, completioncert=completioncert, completioncert_filename=completioncert_filename, feedback=feedback, workenv=workenv, satisfied=satisfied, recommendation=recommendation)
+                                     offerletter=offerletter, offerletter_filename=offerletter_filename, completioncert=completioncert, completioncert_filename=completioncert_filename, feedback=feedback, workenv=workenv, satisfied=satisfied, recommendation=recommendation, typeofinternship=typeofinternship)
         db.session.add(new_internship)
         db.session.commit()
         flash("Record Added!")
@@ -333,6 +337,7 @@ def updateinternship(id):
     print(internship.companyname)
     if request.method == 'POST':
         internship.companyname = request.form.get('companyname')
+        internship.position = request.form.get('position')
         internship.domain = request.form.get('domain')
         internship.source = request.form.get('source')
         internship.rating = request.form.get('rating')
@@ -341,10 +346,12 @@ def updateinternship(id):
             'companyrepresentative_name')
         internship.companyrepresentative_contact = request.form.get(
             'companyrepresentative_contact')
+
         startdate = request.form.get('startdate')
         internship.startdate = datetime.strptime(startdate, '%Y-%m-%d')
         enddate = request.form.get('enddate')
         internship.enddate = datetime.strptime(enddate, '%Y-%m-%d')
+
         offerletter = request.files['offerletter']
         completioncert = request.files['completioncert']
         if len(offerletter.filename) > 0:
@@ -353,8 +360,15 @@ def updateinternship(id):
         if len(completioncert.filename) > 0:
             internship.completioncert_filename = completioncert.filename
             internship.completioncert = completioncert.read()
+
+        internship.typeofinternship = request.form.get('type')
+        internship.satisfied = request.form.get('satisfied')
+        internship.workenv = request.form.get('workenv')
+        internship.recommendation = request.form.get('recommendation')
+        internship.feedback = request.form.get('feedback')
         db.session.commit()
         return redirect(f'/profile/{current_user.id}')
+
     return render_template('updateinternship.html', internship=internship)
 
 
@@ -416,7 +430,7 @@ def admindashboard():
                 all_rows = list(ws.rows)
 
                 # Pull information from specific cells.
-                for row in all_rows[1:10]:
+                for row in all_rows:
                     rollno = row[0].value
                     fullname = row[1].value
                     dept = row[2].value
@@ -425,36 +439,39 @@ def admindashboard():
                     email = row[5].value
                     year = row[6].value
 
-                    companyname= row[7].value
-                    position= row[8].value
-                    domain= row[9].value
-                    source= row[10].value
-                    skills_acquired= row[11].value
-                    companyrepresentative_name= row[12].value
-                    companyrepresentative_contact= row[13].value
-                    startdate= row[14].value
-                    enddate= row[15].value
-                    feedback = row[16].value
-                    workenv = row[17].value
-                    satisfied= row[18].value
-                    recommendation = row[19].value
+                    # companyname = row[7].value
+                    # position = row[8].value
+                    # domain = row[9].value
+                    # source = row[10].value
+                    # skills_acquired = row[11].value
+                    # companyrepresentative_name = row[12].value
+                    # companyrepresentative_contact = row[13].value
+                    # startdate = row[14].value
+                    # enddate = row[15].value
+                    # feedback = row[16].value
+                    # workenv = row[17].value
+                    # satisfied = row[18].value
+                    # recommendation = row[19].value
 
-                    startdate = datetime.strptime(startdate, '%Y-%m-%d')
-                    enddate = datetime.strptime(enddate, '%Y-%m-%d')
+                    # startdate = datetime.strptime(startdate, '%Y-%m-%d')
+                    # enddate = datetime.strptime(enddate, '%Y-%m-%d')
 
-                    newstudent = Users(fullname = fullname, rollno = rollno, dept = dept, div = div, year  = year, email = email, mobileno = mobileno) 
+                    newstudent = Users(fullname=fullname, rollno=rollno, dept=dept,
+                                       div=div, year=year, email=email, mobileno=mobileno)
                     db.session.add(newstudent)
                     db.session.commit()
-                    student = Users.query.filter_by(rollno = rollno, fullname = fullname, year = year).first()
-                    user_id = student.id
-                    newinternship = Internships(user_id = user_id, companyname = companyname, position = position, domain = domain, source = source, skills_acquired = skills_acquired, companyrepresentative_contact = companyrepresentative_contact, companyrepresentative_name = companyrepresentative_name, startdate = startdate, enddate = enddate, feedback = feedback, workenv = workenv, satisfied = satisfied, recommendation = recommendation)
-                    db.session.add(newinternship)
-                    db.session.commit()
+                    # student = Users.query.filter_by(
+                    #     rollno=rollno, fullname=fullname, year=year).first()
+                    # user_id = student.id
+                    # newinternship = Internships(user_id=user_id, companyname=companyname, position=position, domain=domain, source=source, skills_acquired=skills_acquired, companyrepresentative_contact=companyrepresentative_contact,
+                    #                             companyrepresentative_name=companyrepresentative_name, startdate=startdate, enddate=enddate, feedback=feedback, workenv=workenv, satisfied=satisfied, recommendation=recommendation)
+                    # db.session.add(newinternship)
+                    # db.session.commit()
                 flash('Record Added')
                 return redirect('/admin/dashboard')
             return render_template('admindashboard.html')
         else:
-            return "Page for Admin Users Only"    
+            return "Page for Admin Users Only"
     else:
         return "Page Not Found"
 
@@ -647,6 +664,11 @@ def docustomexport():
 
 # @app.route('/uploadexceldata', methods=['GET','POST'])
 # def uploadexceldata():
+
+
+@app.route('/excelformatdownload')
+def excelformatdownload():
+    return send_file('Excel Format for Upload to Internship Portal.xlsx', as_attachment=True, download_name='Excel Format for Upload to Internship Portal.xlsx')
 
 
 if __name__ == '__main__':

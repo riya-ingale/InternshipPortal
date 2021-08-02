@@ -59,11 +59,6 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="/search"
-                ><i class="fa fa-search"> Search</i></a
-              >
-            </li>
-            <li class="nav-item">
               <a class="nav-link" href="/aboutus"
                 ><i class="fa fa-info-circle"> About us</i></a
               >
@@ -151,8 +146,7 @@
                 <option value="Sales and Marketing" name="domain">
                   Sales and Marketing
                 </option>
-                <option value="Teaching" name="domain">Teaching</option>
-                <option value="Programming" name="domain">Programming</option>
+                <option value="Other" name="domain">Other</option>
               </select>
             </div>
 
@@ -326,30 +320,86 @@
           <!-- SECTION 4 -->
           <h4></h4>
           <section>
-            <div class="form-row">
-              <label>Feedback for the Company</label>
-              <input
-                name="feedback"
-                type="text"
-                class="form-control"
-                placeholder="Feedback for the Company"
-                value="{{internship.feedback}}"
-              />
-            </div>
-            <div class="form-row">
-              <label>Rate your Work the Environment</label>
-              <input
-                name="workenv"
-                type="number"
-                min="1"
-                max="5"
-                class="form-control"
-                placeholder="1 to 5"
-                value="{{internship.workenv}}"
-              />
-            </div>
+            <label
+              >Type of Internship<span style="color: red">
+                (required)</span
+              ></label
+            >
 
-            <label>Where you Satisfied with your Internship</label>
+            {% if internship.typeofinternship == "Only Certificates" %}
+            <div class="input-group mb-3">
+              <select
+                class="custom-select"
+                name="satisfied"
+                id="inputGroupSelect02"
+              >
+                <option name="type" value="">Choose...</option>
+                <option selected value="Only Certificates" name="type">
+                  Only Certificates
+                </option>
+                <option value="Stipend" name="type">Stipend</option>
+                <option value="Pay to Company" name="type">
+                  Pay to Company
+                </option>
+              </select>
+            </div>
+            {% elif internship.typeofinternship == "Stipend" %}
+            <div class="input-group mb-3">
+              <select
+                class="custom-select"
+                name="satisfied"
+                id="inputGroupSelect02"
+              >
+                <option name="type" value="">Choose...</option>
+                <option value="Only Certificates" name="type">
+                  Only Certificates
+                </option>
+                <option selected value="Stipend" name="type">Stipend</option>
+                <option value="Pay to Company" name="type">
+                  Pay to Company
+                </option>
+              </select>
+            </div>
+            {% elif internship.typeofinternship == "Pay to Company" %}
+            <div class="input-group mb-3">
+              <select
+                class="custom-select"
+                name="satisfied"
+                id="inputGroupSelect02"
+              >
+                <option name="type" value="">Choose...</option>
+                <option value="Only Certificates" name="type">
+                  Only Certificates
+                </option>
+                <option value="Stipend" name="type">Stipend</option>
+                <option selected value="Pay to Company" name="type">
+                  Pay to Company
+                </option>
+              </select>
+            </div>
+            {% else %}
+            <div class="input-group mb-3">
+              <select
+                class="custom-select"
+                name="satisfied"
+                id="inputGroupSelect02"
+              >
+                <option selected name="type" value="">Choose...</option>
+                <option value="Only Certificates" name="type">
+                  Only Certificates
+                </option>
+                <option value="Stipend" name="type">Stipend</option>
+                <option value="Pay to Company" name="type">
+                  Pay to Company
+                </option>
+              </select>
+            </div>
+            {% endif %}
+
+            <label
+              >Are you Satisfied with your Internship
+              <span style="color: red">(required)</span></label
+            >
             {% if internship.satisfied == "Yes" %}
             <div class="input-group mb-3">
               <select
@@ -404,7 +454,10 @@
             </div>
             {% endif %}
 
-            <label>Would you Recommend your Friend to join this Company?</label>
+            <label
+              >Would you Recommend your Friend to join this Company?
+              <span style="color: red">(required)</span></label
+            >
             {% if internship.recommendation == "Yes" %}
             <div class="input-group mb-3">
               <select
@@ -460,6 +513,32 @@
               </select>
             </div>
             {% endif %}
+            <div class="form-row">
+              <label
+                >Rate the Work Environment
+                <span style="color: red">(required)</span></label
+              >
+              <input
+                name="workenv"
+                type="number"
+                min="1"
+                max="5"
+                class="form-control"
+                placeholder="1 to 5"
+                value="{{internship.workenv}}"
+              />
+            </div>
+
+            <div class="form-row">
+              <label>Other Feedback for the Company</label>
+              <input
+                name="feedback"
+                type="text"
+                class="form-control"
+                placeholder="related to dinning, exposure, etc"
+                value="{{internship.feedback}}"
+              />
+            </div>
           </section>
 
           <h4></h4>

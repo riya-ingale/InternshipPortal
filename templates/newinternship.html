@@ -120,7 +120,7 @@
                 name="companyname"
                 type="text"
                 class="form-control"
-                placeholder="ex - Google"
+                placeholder="ex - Google, Facebook"
                 required
               />
             </div>
@@ -161,8 +161,7 @@
                 <option value="Sales and Marketing" name="domain">
                   Sales and Marketing
                 </option>
-                <option value="Teaching" name="domain">Teaching</option>
-                <option value="Programming" name="domain">Programming</option>
+                <option value="Other" name="domain">Other</option>
               </select>
             </div>
 
@@ -205,24 +204,24 @@
 
           <section>
             <div class="form-row">
-              <label>Name of compnay representative </label>
+              <label>Name of company representative</label>
               <input
                 name="companyrepresentative_name"
                 type="text"
                 class="form-control"
-                placeholder="Name of compnay representative/mentor/manager"
+                placeholder="Name of compnay's manager/mentor/counseller/representative"
               />
             </div>
 
             <div class="form-row">
               <label
-                >Email/Contact of compnay representative </label
+                >Email/Contact of rompany representative</label
               >
               <input
                 name="companyrepresentative_contact"
                 type="text"
                 class="form-control"
-                placeholder="Contact of compnay representative/mentor/manager"
+                placeholder="Contact of company representative"
               />
             </div>
 
@@ -253,18 +252,14 @@
             <div class="input-group mb-3">
               <div>
                 <label for="inputGroupFile01"
-                  >Offer Letter/Email Notification Screenshot<span
-                    style="color: red"
-                  >
-                    (required)</span
-                  >
+                  >Offer Letter/Email notification screenshot<span style="color: red">(required)</span>
                 </label>
                 <input name="offerletter" type="file" id="inputGroupFile01" />
               </div>
             </div>
             <div class="input-group mb-3">
               <div>
-                <label for="inputGroupFile01">Completion Certificate </label>
+                <label for="inputGroupFile01">Completion certificate </label>
                 <input
                   name="completioncert"
                   type="file"
@@ -277,8 +272,8 @@
           <!-- SECTION 4 -->
           <h4></h4>
           <section>
-    
-              <label>Where you satisfied with your internship <span style="color: red">(required)</span></label>
+
+            <label>Are you satisfied with your internship <span style="color: red"> (required)</span></label>
             <div class="input-group mb-3">
               <select
                 class="custom-select"
@@ -302,23 +297,24 @@
                 <option selected name="type">Choose...</option>
                 <option value="Pay to compnay" name="type">Pay to compnay</option>
                 <option value="Only certificate" name="type">Only certificate</option>
-                <option value="Stipen" name="type">Stipen</option>
+                <option value="Stipend" name="type">Stipend</option>
               </select>
             </div>
 
             <div class="form-row">
-              <label>Rate your Work the Environment <span style="color: red">(required)</span></label>
+              <label>Rate the work  environment <span style="color: red">(required)</span></label>
               <input
                 name="workenv"
                 type="number"
                 min="1"
                 max="5"
                 class="form-control"
-                placeholder="1 to 5"
+                placeholder="1 to 5" 
+                required
               />
             </div>
 
-            <label>Would you Recommend your Friend to join this Company? <span style="color: red">(required)</span></label>
+            <label>Would you recommend your friend to join this Company? <span style="color: red">(required)</span></label>
             <div class="input-group mb-3">
               <select
                 class="custom-select"
@@ -331,15 +327,17 @@
                 <option value="Maybe" name="recommendation">Maybe</option>
               </select>
             </div>
+
             <div class="form-row">
-              <label>Feedback for the Company</label>
+              <label>Other feedback for the company</label>
               <input
                 name="feedback"
                 type="text"
                 class="form-control"
-                placeholder="Related to your work"
+                placeholder="Related to dinning, exposure, work etc"
               />
             </div>
+
           </section>
 
           <h4></h4>
@@ -403,8 +401,8 @@
                 <h6 class="mb-3 mb-lg-4 bold-text"><b>Links</b></h6>
                 <ul class="list-unstyled">
                   <li><a href="/">Home</a></li>
-                  <li><a href="/allblogs">Login</a></li>
-                  <li><a href="/news">Contact Us</a></li>
+                  <li><a href="/login">Student Login</a></li>
+                  <li><a href="/aboutus">About Us</a></li>
                 </ul>
               </div>
               <div class="col-xl-2 col-md-4 col-sm-4 col-12">
