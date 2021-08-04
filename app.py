@@ -181,6 +181,7 @@ def search():
                 domain = request.form.get('domain')
                 satisfied = request.form.get('satisfied')
                 startdate = request.form.get('startdate')
+                rollno = request.form.get('rollno')
                 if startdate:
                     startdate = datetime.strptime(startdate, '%Y-%m-%d')
                 enddate = request.form.get('enddate')
@@ -269,6 +270,23 @@ def search():
                     allstudents = Users.query.filter_by(year=year).all()
                 else:
                     pass
+
+                if not allstudents:
+                    if rollno:
+                        allstudents = Users.query.filter_by(
+                            rollno=rollno).all()
+                    else:
+                        pass
+                else:
+                    if rollno:
+                        for student in allstudents:
+                            if student.rollno == rollno:
+                                pass
+                            else:
+                                allstudents.remove(student)
+                    else:
+                        pass
+
                 if allinternships and not allstudents:
                     for internship in allinternships:
                         student = Users.query.filter_by(
@@ -511,7 +529,7 @@ def exportall():
         ws = wb.active
         ws.title = "Students Data"
         headings = ["Fullname", "Rollno", "Mobileno", "Email", "Department", "Division", "Year", "Company Name", "Position", "Domain", "Source", "skills_required",
-                    "Company Representative Name", "Company Representative Contact", "Start Date", "End Date", "Feedback", "Work Environment Rating", "Satisfaction", "Would student recommend?"]
+                    "Company Representative Name", "Company Representative Contact", "Start Date", "End Date", "Feedback", "Work Environment Rating", "Satisfaction", "Would student recommend?", "Completion Certificate"]
         ws.append(headings)
         for student in students:
             record_student = [student.fullname, student.rollno, student.mobileno,
@@ -526,9 +544,10 @@ def exportall():
                             internship.enddate = internship.enddate.strftime(
                                 "%d/ %m/ %y")
                         record_internship = [internship.companyname, internship.position, internship.domain, internship.source, internship.skills_acquired,
-                                             internship.companyrepresentative_name, internship.companyrepresentative_contact, internship.startdate, internship.enddate, internship.feedback, internship.workenv, internship.satisfied, internship.recommendation]
-            record = record_student + record_internship
-            ws.append(record)
+                                             internship.companyrepresentative_name, internship.companyrepresentative_contact, internship.startdate, internship.enddate, internship.feedback, internship.workenv, internship.satisfied, internship.recommendation, '=HYPERLINK("{}", "{}")'.format(f"http://127.0.0.1:5000/downloadcompletioncert/{internship.id}", "Download Cert")]
+                    record = record_student + record_internship
+                    ws.append(record)
+                    record_internship = []
         wb.save(filename='sample_book.xlsx')
         print("Saved Excel")
         return send_file('sample_book.xlsx', as_attachment=True, download_name='sample_book.xlsx')
@@ -548,6 +567,10 @@ def docustomexport():
     year = request.form.get('year')
     satisfied = request.form.get('satisfied')
     startdate = request.form.get('startdate')
+    domain = request.form.get('domain')
+    satisfied = request.form.get('satisfied')
+    rollno = request.form.get('rollno')
+
     print(startdate)
     if startdate:
         startdate = datetime.strptime(startdate, '%Y-%m-%d')
@@ -560,16 +583,15 @@ def docustomexport():
     search = search+'%'
     print(search)
 
-    if startdate and enddate and searchname and satisfied:
-        allinternships = Internships.query.filter(
-            or_(Internships.companyname.like(search), Internships.domain.like(search)), Internships.startdate > startdate and Internships.enddate < enddate).all()
-
+    if startdate and enddate and searchname:
+        allinternships = Internships.query.filter(or_(Internships.companyname.like(search), Internships.domain.like(
+            search)), Internships.startdate > startdate and Internships.enddate < enddate).all()
     elif startdate and searchname and not enddate:
-        allinternships = Internships.query.filter(
-            or_(Internships.companyname.like(search), Internships.domain.like(search)), Internships.startdate > startdate).all()
+        allinternships = Internships.query.filter(or_(Internships.companyname.like(
+            search), Internships.domain.like(search)), Internships.startdate > startdate).all()
     elif enddate and searchname and not startdate:
-        allinternships = Internships.query.filter(
-            or_(Internships.companyname.like(search), Internships.domain.like(search)), Internships.endate < enddate).all()
+        allinternships = Internships.query.filter(or_(Internships.companyname.like(
+            search), Internships.domain.like(search)), Internships.endate < enddate).all()
     elif startdate and enddate and not searchname:
         allinternships = Internships.query.filter(
             Internships.startdate > startdate and Internships.enddate < enddate).all()
@@ -584,15 +606,53 @@ def docustomexport():
             Internships.enddate < enddate).all()
     else:
         pass
+
+    if not allinternships:
+        if domain and satisfied:
+            allinternships = Internships.query.filter_by(
+                domain=domain, satisfied=satisfied).all()
+        elif domain and not satisfied:
+            allinternships = Internships.query.filter_by(
+                domain=domain).all()
+        elif satisfied and not domain:
+            allinternships = Internships.query.filter_by(
+                satisfied=satisfied).all()
+        else:
+            pass
+    else:
+        if domain and satisfied:
+            for internship in allinternships:
+                if internship.domain == domain and internship.satisfied == satisfied:
+                    pass
+                else:
+                    allinternships.remove(internship)
+        elif domain and not satisfied:
+            for internship in allinternships:
+                if internship.domain == domain:
+                    pass
+                else:
+                    allinternships.remove(internship)
+        elif satisfied and not domain:
+            for internship in allinternships:
+                if internship.satisfied == satisfied:
+                    pass
+                else:
+                    allinternships.remove(internship)
+        else:
+            pass
+
     if dept and div and year:
         allstudents = Users.query.filter_by(
             dept=dept, div=div, year=year).all()
     elif dept and div and not year:
-        allstudents = Users.query.filter_by(dept=dept, div=div).all()
+        allstudents = Users.query.filter_by(
+            dept=dept, div=div).all()
     elif div and year and not dept:
-        allstudents = Users.query.filter_by(div=div, year=year).all()
+        allstudents = Users.query.filter_by(
+            div=div, year=year).all()
     elif dept and year and not div:
-        allstudents = Users.query.filter_by(dept=dept, year=year).all()
+        allstudents = Users.query.filter_by(
+            dept=dept, year=year).all()
     elif dept and not div and not year:
         allstudents = Users.query.filter_by(dept=dept).all()
     elif div and not dept and not year:
@@ -601,6 +661,22 @@ def docustomexport():
         allstudents = Users.query.filter_by(year=year).all()
     else:
         pass
+
+    if not allstudents:
+        if rollno:
+            allstudents = Users.query.filter_by(rollno=rollno).all()
+        else:
+            pass
+    else:
+        if rollno:
+            for student in allstudents:
+                if student.rollno == rollno:
+                    pass
+                else:
+                    allstudents.remove(student)
+        else:
+            pass
+
     if allinternships and not allstudents:
         for internship in allinternships:
             student = Users.query.filter_by(id=internship.user_id).first()
@@ -621,6 +697,8 @@ def docustomexport():
         internships = allinternships
         # return render_template("search.html", students=allstudents, internships=allinternships, s = True)
     else:
+        students = []
+        internships = []
         pass
         # return render_template("search.html",s = False)
 
@@ -632,7 +710,7 @@ def docustomexport():
         ws = wb.active
         ws.title = "Students Data"
         headings = ["Fullname", "Rollno", "Mobileno", "Email", "Department", "Division", "Year", "Company Name", "Position", "Domain", "Source", "skills_required",
-                    "Company Representative Name", "Company Representative Contact", "Start Date", "End Date", "Feedback", "Work Environment Rating", "Satisfaction", "Would student recommend?"]
+                    "Company Representative Name", "Company Representative Contact", "Start Date", "End Date", "Feedback", "Work Environment Rating", "Satisfaction", "Would student recommend?", "Completition Certificate"]
         ws.append(headings)
         for student in students:
             record_student = [student.fullname, student.rollno, student.mobileno,
@@ -647,23 +725,14 @@ def docustomexport():
                             internship.enddate = internship.enddate.strftime(
                                 "%d/ %m/ %y")
                         record_internship = [internship.companyname, internship.position, internship.domain, internship.source, internship.skills_acquired,
-                                             internship.companyrepresentative_name, internship.companyrepresentative_contact, internship.startdate, internship.enddate, internship.feedback, internship.workenv, internship.satisfied, internship.recommendation]
-            record = record_student + record_internship
-            ws.append(record)
+                                             internship.companyrepresentative_name, internship.companyrepresentative_contact, internship.startdate, internship.enddate, internship.feedback, internship.workenv, internship.satisfied, internship.recommendation, '=HYPERLINK("{}", "{}")'.format(f"http://127.0.0.1:5000/downloadcompletioncert/{internship.id}", "Download Cert")]
+                    record = record_student + record_internship
+                    ws.append(record)
+                    record_internship = []
         wb.save(filename='sample_book.xlsx')
         return send_file('sample_book.xlsx', as_attachment=True, download_name='sample_book.xlsx')
     else:
-        return None
-
-    # query_sets = Internships.query.all()
-    # print("Excel - ", query_sets)
-    # column_names = ['id', 'companyname', 'domain', 'source', 'rating', 'skills_acquired',
-    #                 'companyrepresentative_name', 'companyrepresentative_contact', 'startdate', 'enddate']
-    # return excel.make_response_from_query_sets(query_sets, column_names, 'xlsx', file_name="sheet")
-
-
-# @app.route('/uploadexceldata', methods=['GET','POST'])
-# def uploadexceldata():
+        return redirect('/search')
 
 
 @app.route('/excelformatdownload')
