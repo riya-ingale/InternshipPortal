@@ -23,7 +23,7 @@
   position: relative;
   z-index: 1;
   overflow: hidden;
-  min-height: 300px;
+  min-height: 200px;
   transition: 0.7s;
 }
 
@@ -48,7 +48,7 @@
   position: absolute;
   background: rgb(85 108 214 / 5%);
   width: 170px;
-  height: 400px;
+  height: 300px;
   z-index: -1;
   transform: rotate(42deg);
   right: -56px;
@@ -61,8 +61,8 @@
   color: #309df0;
 }
 
-.solution_card .so_top_icon {
-}
+/* .solution_card .so_top_icon {
+} */
 
 .solution_card .solu_title h3 {
   color: #212121;
