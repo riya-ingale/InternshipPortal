@@ -545,9 +545,9 @@ def exportall():
                                 "%d/ %m/ %y")
                         record_internship = [internship.companyname, internship.position, internship.domain, internship.source, internship.skills_acquired,
                                              internship.companyrepresentative_name, internship.companyrepresentative_contact, internship.startdate, internship.enddate, internship.feedback, internship.workenv, internship.satisfied, internship.recommendation, '=HYPERLINK("{}", "{}")'.format(f"http://127.0.0.1:5000/downloadcompletioncert/{internship.id}", "Download Cert")]
-                    record = record_student + record_internship
-                    ws.append(record)
-                    record_internship = []
+                        record = record_student + record_internship
+                        ws.append(record)
+                        record_internship = []
         wb.save(filename='sample_book.xlsx')
         print("Saved Excel")
         return send_file('sample_book.xlsx', as_attachment=True, download_name='sample_book.xlsx')
@@ -705,6 +705,7 @@ def docustomexport():
     if students:
         # WorkBook Info
         print("creating workbook")
+        print("Students:",students)
         wb = Workbook()
         # insert value in the cells
         ws = wb.active
@@ -713,9 +714,11 @@ def docustomexport():
                     "Company Representative Name", "Company Representative Contact", "Start Date", "End Date", "Feedback", "Work Environment Rating", "Satisfaction", "Would student recommend?", "Completition Certificate"]
         ws.append(headings)
         for student in students:
+            print("Particular Student:",student)
             record_student = [student.fullname, student.rollno, student.mobileno,
                               student.email, student.dept, student.div, student.year]
-            for internship in internships:
+            print("Internships:",internships)
+            for internship in internships:                
                 if internship:
                     if student.id == internship.user_id:
                         if internship.startdate:
@@ -726,9 +729,9 @@ def docustomexport():
                                 "%d/ %m/ %y")
                         record_internship = [internship.companyname, internship.position, internship.domain, internship.source, internship.skills_acquired,
                                              internship.companyrepresentative_name, internship.companyrepresentative_contact, internship.startdate, internship.enddate, internship.feedback, internship.workenv, internship.satisfied, internship.recommendation, '=HYPERLINK("{}", "{}")'.format(f"http://127.0.0.1:5000/downloadcompletioncert/{internship.id}", "Download Cert")]
-                    record = record_student + record_internship
-                    ws.append(record)
-                    record_internship = []
+                        record = record_student + record_internship
+                        ws.append(record)
+                        record_internship = []
         wb.save(filename='sample_book.xlsx')
         return send_file('sample_book.xlsx', as_attachment=True, download_name='sample_book.xlsx')
     else:
