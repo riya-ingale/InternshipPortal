@@ -9,7 +9,11 @@ import os
 from datetime import datetime
 import pdfkit
 import flask_excel as excel
-from openpyxl import Workbook, load_workbook
+from openpyxl import Workbook, load_workbook 
+import requests
+# from office365.runtime.auth.authentication_context import AuthenticationContext
+# from office365.sharepoint.client_context import ClientContext
+# from office365.sharepoint.files.file import File
 
 app = Flask(__name__)
 
@@ -433,6 +437,12 @@ def adminlogin():
             return redirect('/admin/login')
     return render_template('adminlogin.html')
 
+def save_excel(form_excel):
+    _, f_ext = os.path.splitext(form_excel.filename)
+    excel_fn = "sheet" + f_ext
+    excel_path = os.path.join(app.root_path, excel_fn)
+    form_excel.save(excel_path)
+    return excel_fn
 
 @app.route('/admin/dashboard', methods=['GET', 'POST'])
 def admindashboard():
@@ -444,28 +454,37 @@ def admindashboard():
                 # Load the entire workbook.
                 wb = load_workbook(data_file, data_only=True)
                 # Load one worksheet.
-                ws = wb['Sheet1']
+                ws = wb['SE A']
                 all_rows = list(ws.rows)
 
                 # Pull information from specific cells.
-                for row in all_rows:
+                for row in all_rows[2:]:
                     rollno = row[0].value
                     fullname = row[1].value
-                    dept = row[2].value
-                    div = row[3].value
-                    mobileno = row[4].value
-                    email = row[5].value
-                    year = row[6].value
+                    # dept = row[2].value
+                    # div = row[3].value
+                    # mobileno = row[4].value
+                    # email = row[5].value
+                    # year = row[6].value
                     
-                    # companyname = row[7].value
+                    companyname = row[2].value
                     # position = row[8].value
-                    # domain = row[9].value
-                    # source = row[10].value
+                    domain = row[3].value
                     # skills_acquired = row[11].value
                     # companyrepresentative_name = row[12].value
                     # companyrepresentative_contact = row[13].value
-                    # startdate = row[14].value
-                    # enddate = row[15].value
+                    startdate = row[4].value
+                    enddate = row[5].value
+                    source = row[6].value
+                    if row[6].value == "Yes":
+                        certificate_url = row[8].value
+                        # url = request.args['certificate_url']  # user provides url in query string
+                        r = requests.get(certificate_url)
+
+                        # write to a file in the app's instance folder
+                        # come up with a better file name
+                        with app.open_instance_resource('downloaded_file', 'wb') as f:
+                            f.write(r.content)
                     # feedback = row[16].value
                     # workenv = row[17].value
                     # satisfied = row[18].value
@@ -473,18 +492,31 @@ def admindashboard():
 
                     # startdate = datetime.strptime(startdate, '%Y-%m-%d')
                     # enddate = datetime.strptime(enddate, '%Y-%m-%d')
-
-                    newstudent = Users(fullname=fullname, rollno=rollno, dept=dept,
-                                       div=div, year=year, email=email, mobileno=mobileno)
-                    db.session.add(newstudent)
-                    db.session.commit()
-                    # student = Users.query.filter_by(
-                    #     rollno=rollno, fullname=fullname, year=year).first()
-                    # user_id = student.id
-                    # newinternship = Internships(user_id=user_id, companyname=companyname, position=position, domain=domain, source=source, skills_acquired=skills_acquired, companyrepresentative_contact=companyrepresentative_contact,
-                    #                             companyrepresentative_name=companyrepresentative_name, startdate=startdate, enddate=enddate, feedback=feedback, workenv=workenv, satisfied=satisfied, recommendation=recommendation)
-                    # db.session.add(newinternship)
-                    # db.session.commit()
+                    # if startdate:
+                    #     startdate = datetime.strptime(startdate, '%d-%m-%Y')
+                    # if enddate:
+                    #     enddate = datetime.strptime(enddate, '%d-%m-%Y')
+                    user = Users.query.filter_by(
+                        rollno=rollno, fullname=fullname).first()
+                    if user:
+                        user_id = user.id
+                        if companyname:
+                            newinternship = Internships(user_id=user_id,companyname=companyname,
+                                            domain=domain, startdate=startdate, enddate=enddate, source=source)
+                            db.session.add(newinternship)
+                            db.session.commit()
+                    else:
+                        newstudent = Users(fullname=fullname, rollno=rollno, password='sha256$cBl7wrlwRwy9QHJB$7a873cb0e1cd6cd2070c00147540fc6ba209e9114152385c94e06fb641951076' )
+                        db.session.add(newstudent)
+                        db.session.commit()
+                        student = Users.query.filter_by(
+                            rollno=rollno, fullname=fullname).first()
+                        user_id = student.id
+                        if companyname:
+                            newinternship = Internships(user_id=user_id,companyname=companyname,
+                                            domain=domain, startdate=startdate, enddate=enddate, source=source)
+                            db.session.add(newinternship)
+                            db.session.commit()
                 flash('Record Added')
                 return redirect('/admin/dashboard')
             return render_template('admindashboard.html')
