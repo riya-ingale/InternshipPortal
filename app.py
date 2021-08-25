@@ -456,7 +456,7 @@ def admindashboard():
                 # Load the entire workbook.
                 wb = load_workbook(data_file, data_only=True)
                 # Load one worksheet.
-                ws = wb['SE A']
+                ws = wb['TE A']
                 all_rows = list(ws.rows)
 
                 # Pull information from specific cells.
