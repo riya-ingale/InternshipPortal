@@ -324,10 +324,12 @@ def newinternship():
             'companyrepresentative_name')
         companyrepresentative_contact = request.form.get(
             'companyrepresentative_contact')
+
         startdate = request.form.get('startdate')
         startdate = datetime.strptime(startdate, '%Y-%m-%d')
         enddate = request.form.get('enddate')
         enddate = datetime.strptime(enddate, '%Y-%m-%d')
+
         offerletter = request.files['offerletter']
         completioncert = request.files['completioncert']
         if offerletter:
@@ -338,11 +340,13 @@ def newinternship():
             if len(completioncert.filename) > 0:
                 completioncert_filename = completioncert.filename
                 completioncert = completioncert.read()
+
         feedback = request.form.get('feedback')
         workenv = request.form.get('workenv')
         satisfied = request.form.get('satisfied')
         recommendation = request.form.get('recommendation')
         typeofinternship = request.form.get('type')
+
         new_internship = Internships(user_id=current_user.id, companyname=companyname, domain=domain, companyrepresentative_name=companyrepresentative_name, companyrepresentative_contact=companyrepresentative_contact, source=source, position=position, skills_acquired=skills_acquired, startdate=startdate, enddate=enddate,
                                      offerletter=offerletter, offerletter_filename=offerletter_filename, completioncert=completioncert, completioncert_filename=completioncert_filename, feedback=feedback, workenv=workenv, satisfied=satisfied, recommendation=recommendation, typeofinternship=typeofinternship)
         db.session.add(new_internship)
@@ -389,6 +393,7 @@ def updateinternship(id):
         internship.recommendation = request.form.get('recommendation')
         internship.feedback = request.form.get('feedback')
         db.session.commit()
+
         return redirect(f'/profile/{current_user.id}')
 
     return render_template('updateinternship.html', internship=internship)
@@ -399,10 +404,10 @@ def downloadcompletioncert(internship_id):
     internship = Internships.query.filter_by(id=internship_id).first()
     if internship.completioncert:
         file_data = internship.completioncert
-        return send_file(BytesIO(file_data), attachment_filename=internship.companyname + "Completioncert.pdf", as_attachment=True)
+        return send_file(BytesIO(file_data), download_name=internship.companyname + "Completioncert.pdf", as_attachment=True)
     else:
         flash("No file Exists")
-        return redirect(f'/profile/{current_user.id}')
+        return "No file Exists"
 
 
 @app.route('/student_record/<int:user_id>', methods=['POST', 'GET'])
@@ -482,7 +487,6 @@ def admindashboard():
                         certificate_url = row[8].value
                         # url = request.args['certificate_url']  # user provides url in query string
                         r = requests.get(certificate_url)
-
                         # write to a file in the app's instance folder
                         # come up with a better file name
                         with app.open_instance_resource('downloaded_file', 'wb') as f:
@@ -567,6 +571,7 @@ def exportall():
         headings = ["Fullname", "Rollno", "Mobileno", "Email", "Department", "Division", "Year", "Company Name", "Position", "Domain", "Source", "skills_required",
                     "Company Representative Name", "Company Representative Contact", "Start Date", "End Date", "Feedback", "Work Environment Rating", "Satisfaction", "Would student recommend?", "Completion Certificate"]
         ws.append(headings)
+        record_internship = []
         for student in students:
             record_student = [student.fullname, student.rollno, student.mobileno,
                               student.email, student.dept, student.div, student.year]
@@ -584,11 +589,11 @@ def exportall():
                         record = record_student + record_internship
                         ws.append(record)
                         added = 1
-                        record_internship = []   
-            if added == 0:        
+                        record_internship = []
+            if added == 0:
                 record = record_student + record_internship
                 ws.append(record)
-            if added == 1:    
+            if added == 1:
                 added = 0
         wb.save(filename='sample_book.xlsx')
         print("Saved Excel")
@@ -613,17 +618,14 @@ def docustomexport():
     satisfied = request.form.get('satisfied')
     rollno = request.form.get('rollno')
 
-    print(startdate)
     if startdate:
         startdate = datetime.strptime(startdate, '%Y-%m-%d')
     enddate = request.form.get('enddate')
-    print(enddate)
     if enddate:
         enddate = datetime.strptime(enddate, '%Y-%m-%d')
 
     search = "{0}".format(searchname)
     search = search+'%'
-    print(search)
 
     if startdate and enddate and searchname:
         allinternships = Internships.query.filter(or_(Internships.companyname.like(search), Internships.domain.like(
@@ -776,11 +778,11 @@ def docustomexport():
                         ws.append(record)
                         added = 1
                         record_internship = []
-            if added == 0:        
+            if added == 0:
                 record = record_student + record_internship
                 ws.append(record)
-            if added == 1:    
-                added = 0            
+            if added == 1:
+                added = 0
         wb.save(filename='sample_book.xlsx')
         return send_file('sample_book.xlsx', as_attachment=True, download_name='sample_book.xlsx')
     else:

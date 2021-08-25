@@ -84,8 +84,9 @@
             Source of Internship - {{internship.source}}
             <br>
 
-            <p style="font-size:larger">FeedBack</p>
-
+            <p style="font-size:large">FEEDBACK</p>
+            {% if internship.feedback or internship.satisfied or internship.workenv or internship.recommendation or internship.typeofinternship %}
+            
             {% if internship.feedback  %}
             Feedback - {{internship.feedback}}
             <br>
@@ -96,6 +97,12 @@
             <br>
             {% endif %}
             
+            {% if internship.typeofinternship %}
+            Type of Internship? - {{internship.typeofinternship}}
+            <br>
+            {% endif %}
+            
+
             {% if internship.workenv %}
             Rate the Work environment (out of 5) - {{internship.workenv}}
             <br>
@@ -104,6 +111,10 @@
             {% if internship.recommendation %}
             Would you recommmed this company to a Friend? - {{internship.recommendation}}
             <br>
+            {% endif %}
+
+            {% else %}
+            No Feedback Given 
             {% endif %}
             
 
