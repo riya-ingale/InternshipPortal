@@ -9,7 +9,7 @@ import os
 from datetime import datetime
 import pdfkit
 import flask_excel as excel
-from openpyxl import Workbook, load_workbook 
+from openpyxl import Workbook, load_workbook
 import requests
 # from office365.runtime.auth.authentication_context import AuthenticationContext
 # from office365.sharepoint.client_context import ClientContext
@@ -437,12 +437,14 @@ def adminlogin():
             return redirect('/admin/login')
     return render_template('adminlogin.html')
 
+
 def save_excel(form_excel):
     _, f_ext = os.path.splitext(form_excel.filename)
     excel_fn = "sheet" + f_ext
     excel_path = os.path.join(app.root_path, excel_fn)
     form_excel.save(excel_path)
     return excel_fn
+
 
 @app.route('/admin/dashboard', methods=['GET', 'POST'])
 def admindashboard():
@@ -466,7 +468,7 @@ def admindashboard():
                     # mobileno = row[4].value
                     # email = row[5].value
                     # year = row[6].value
-                    
+
                     companyname = row[2].value
                     # position = row[8].value
                     domain = row[3].value
@@ -501,20 +503,21 @@ def admindashboard():
                     if user:
                         user_id = user.id
                         if companyname:
-                            newinternship = Internships(user_id=user_id,companyname=companyname,
-                                            domain=domain, startdate=startdate, enddate=enddate, source=source)
+                            newinternship = Internships(user_id=user_id, companyname=companyname,
+                                                        domain=domain, startdate=startdate, enddate=enddate, source=source)
                             db.session.add(newinternship)
                             db.session.commit()
                     else:
-                        newstudent = Users(fullname=fullname, rollno=rollno, password='sha256$cBl7wrlwRwy9QHJB$7a873cb0e1cd6cd2070c00147540fc6ba209e9114152385c94e06fb641951076' )
+                        newstudent = Users(
+                            fullname=fullname, rollno=rollno, password='sha256$cBl7wrlwRwy9QHJB$7a873cb0e1cd6cd2070c00147540fc6ba209e9114152385c94e06fb641951076')
                         db.session.add(newstudent)
                         db.session.commit()
                         student = Users.query.filter_by(
                             rollno=rollno, fullname=fullname).first()
                         user_id = student.id
                         if companyname:
-                            newinternship = Internships(user_id=user_id,companyname=companyname,
-                                            domain=domain, startdate=startdate, enddate=enddate, source=source)
+                            newinternship = Internships(user_id=user_id, companyname=companyname,
+                                                        domain=domain, startdate=startdate, enddate=enddate, source=source)
                             db.session.add(newinternship)
                             db.session.commit()
                 flash('Record Added')
@@ -553,6 +556,7 @@ def aboutus():
 def exportall():
     students = Users.query.filter(Users.id != 2).all()
     internships = Internships.query.all()
+    added = 0
     if students:
         # WorkBook Info
         print("creating workbook")
@@ -579,7 +583,13 @@ def exportall():
                                              internship.companyrepresentative_name, internship.companyrepresentative_contact, internship.startdate, internship.enddate, internship.feedback, internship.workenv, internship.satisfied, internship.recommendation, '=HYPERLINK("{}", "{}")'.format(f"http://127.0.0.1:5000/downloadcompletioncert/{internship.id}", "Download Cert")]
                         record = record_student + record_internship
                         ws.append(record)
-                        record_internship = []
+                        added = 1
+                        record_internship = []   
+            if added == 0:        
+                record = record_student + record_internship
+                ws.append(record)
+            if added == 1:    
+                added = 0
         wb.save(filename='sample_book.xlsx')
         print("Saved Excel")
         return send_file('sample_book.xlsx', as_attachment=True, download_name='sample_book.xlsx')
@@ -734,10 +744,11 @@ def docustomexport():
         pass
         # return render_template("search.html",s = False)
 
+    added = 0
     if students:
         # WorkBook Info
         print("creating workbook")
-        print("Students:",students)
+        print("Students:", students)
         wb = Workbook()
         # insert value in the cells
         ws = wb.active
@@ -746,11 +757,11 @@ def docustomexport():
                     "Company Representative Name", "Company Representative Contact", "Start Date", "End Date", "Feedback", "Work Environment Rating", "Satisfaction", "Would student recommend?", "Completition Certificate"]
         ws.append(headings)
         for student in students:
-            print("Particular Student:",student)
+            print("Particular Student:", student)
             record_student = [student.fullname, student.rollno, student.mobileno,
                               student.email, student.dept, student.div, student.year]
-            print("Internships:",internships)
-            for internship in internships:                
+            print("Internships:", internships)
+            for internship in internships:
                 if internship:
                     if student.id == internship.user_id:
                         if internship.startdate:
@@ -763,7 +774,13 @@ def docustomexport():
                                              internship.companyrepresentative_name, internship.companyrepresentative_contact, internship.startdate, internship.enddate, internship.feedback, internship.workenv, internship.satisfied, internship.recommendation, '=HYPERLINK("{}", "{}")'.format(f"http://127.0.0.1:5000/downloadcompletioncert/{internship.id}", "Download Cert")]
                         record = record_student + record_internship
                         ws.append(record)
+                        added = 1
                         record_internship = []
+            if added == 0:        
+                record = record_student + record_internship
+                ws.append(record)
+            if added == 1:    
+                added = 0            
         wb.save(filename='sample_book.xlsx')
         return send_file('sample_book.xlsx', as_attachment=True, download_name='sample_book.xlsx')
     else:

@@ -17,13 +17,19 @@
     />
     <title>Internship Portal</title>
   </head>
-  <body style="background-color: #ffe4e1;">
+  <body style="background-color: #ffe4e1">
     <nav class="navbar navbar-expand-lg navbar-red navbar-dark">
       <div class="wrap"></div>
       <div class="container-fluid all-show">
-        <a class="navbar-brand" href="#" style="color: #C1C8E4">
-          <img src="..\static\img\VIT.png" width="70" height="30" class="d-inline-block align-top" alt="">
-          VIT Internship Portal 
+        <a class="navbar-brand" href="#" style="color: #c1c8e4">
+          <img
+            src="..\static\img\VIT.png"
+            width="70"
+            height="30"
+            class="d-inline-block align-top"
+            alt=""
+          />
+          VIT Internship Portal
         </a>
         <button
           class="navbar-toggler"
@@ -37,7 +43,6 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
           <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
             <li class="nav-item">
               <a class="nav-link" href="/"><i class="fa fa-home"> Home</i></a>
@@ -64,17 +69,20 @@
                 ><i class="fa fa-upload"> Upload Data</i></a
               >
             </li>
-            
-            
+
+            <li class="nav-item">
+              <a class="nav-link" href="/aboutus"
+                ><i class="fa fa-info-circle"> About Us</i></a
+              >
+            </li>
+
             {% if not current_user.is_authenticated %}
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="/admin/login"
                 ><i class="fa fa-sign-in"> Login</i></a
               >
             </li>
-            {% endif %} 
-
-            {% if current_user.is_authenticated %}
+            {% endif %} {% if current_user.is_authenticated %}
             <li class="nav-item">
               <a class="nav-link" href="/logout"
                 ><i class="fa fa-sign-out"> Logout</i></a
@@ -85,14 +93,19 @@
         </div>
       </div>
     </nav>
-    
-    <center><h2 style="font-style: italic; margin-top: 5%;">Admin Dashboard to upload Excel Sheets of Student Information</h2>
-    <h5><a href = "/excelformatdownload">Click here to download Excel Format</a></h5></center>
-    <div class = "container">
+
+    <center>
+      <h2 style="font-style: italic; margin-top: 5%">
+        Admin Dashboard to upload Excel Sheets of Student Information
+      </h2>
+      <h5>
+        <a href="/excelformatdownload">Click here to download Excel Format</a>
+      </h5>
+    </center>
+    <div class="container">
       <div>
         <div>
-          {% with messages = get_flashed_messages() %} {% if
-          messages %}
+          {% with messages = get_flashed_messages() %} {% if messages %}
           <div
             class="flashes"
             style="
@@ -108,26 +121,25 @@
           </div>
           {% endif %} {% endwith %}
         </div>
-      <form method="POST" enctype="multipart/form-data">
-      <div class= "row justify-content-center" >
-        
-        <div class="col-12 col-lg-6">
-            <input type="file" multiple name="Excel">
-            <p>Drag your files here or click in this area.</p>                 
-        </div>
-      </div>
-      <p></p>
-      <div class= "row justify-content-center">
-          <div class="col-12 col-lg-6">
-            <button type="submit" formaction="/admin/dashboard">Upload</button>
+        <form method="POST" enctype="multipart/form-data">
+          <div class="row justify-content-center">
+            <div class="col-12 col-lg-6">
+              <input type="file" multiple name="Excel" />
+              <p>Drag your files here or click in this area.</p>
+            </div>
           </div>
+          <p></p>
+          <div class="row justify-content-center">
+            <div class="col-12 col-lg-6">
+              <button type="submit" formaction="/admin/dashboard">
+                Upload
+              </button>
+            </div>
+          </div>
+        </form>
       </div>
-    </form>
     </div>
-    </div>
-    
 
-  
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
       integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
@@ -144,10 +156,11 @@
       crossorigin="anonymous"
     ></script>
     <script>
-      $(document).ready(function(){
-        $('form input').change(function () {
-          $('form p').text(this.files.length + " file(s) selected");
+      $(document).ready(function () {
+        $("form input").change(function () {
+          $("form p").text(this.files.length + " file(s) selected");
         });
-      });</script>
+      });
+    </script>
   </body>
 </html>
