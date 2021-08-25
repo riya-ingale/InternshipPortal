@@ -11,9 +11,10 @@ import pdfkit
 import flask_excel as excel
 from openpyxl import Workbook, load_workbook
 import requests
-# from office365.runtime.auth.authentication_context import AuthenticationContext
-# from office365.sharepoint.client_context import ClientContext
-# from office365.sharepoint.files.file import File
+
+from office365.runtime.auth.authentication_context import AuthenticationContext
+from office365.sharepoint.client_context import ClientContext
+from office365.sharepoint.files.file import File
 
 app = Flask(__name__)
 
