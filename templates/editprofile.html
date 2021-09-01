@@ -40,18 +40,42 @@
             <li class="nav-item">
               <a class="nav-link" href="/"><i class="fa fa-home"> Home</i></a>
             </li>
+
+            {% if current_user.is_authenticated %} 
+            {% if not current_user.role == "admin" %}
             <li class="nav-item">
-              <a class="nav-link" href="/newinternship"><i class="fa fa-plus"> New Internship</i></a>
+              <a class="nav-link" href="/newinternship"
+                ><i class="fa fa-plus"> New Internship</i></a
+              >
             </li>
+
             <li class="nav-item">
-              <a class="nav-link" href="/profile/{{current_user.id}}"><i class="fa fa-user"> User</i></a>
+              <a class="nav-link" href="/profile/{{current_user.id}}"
+                ><i class="fa fa-user"> User</i></a
+              >
             </li>
+            {% endif %} 
+            {% endif %} 
+
+            {% if current_user.role == "admin" %}
             <li class="nav-item">
               <a class="nav-link" href="/search"
                 ><i class="fa fa-search"> Search</i></a
               >
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/dashboard"
+                ><i class="fa fa-upload"> Upload Data</i></a
+              >
+            </li>
+            {% endif %}
 
+            <li class="nav-item">
+              <a class="nav-link" href="/aboutus"
+                ><i class="fa fa-info-circle"> About us</i></a
+              >
+            </li>
+            
             {% if not current_user.is_authenticated %}
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="/login"><i class="fa fa-sign-in"> Login</i></a>
@@ -185,12 +209,21 @@
                   </div>
                 </div>
 
+                <div class="row">
+                  <div class="col-md-6">
+                    <label>Batch</label>
+                  </div>
+                  <div class="col-md-6">
+                    <input type="text" name="batch" value="{{user.batch}}"/> 
+                  </div>
+                </div>
+
                 <p>
                     <br>
                 </p>
+
                 <div class="row">
                 <button class=" col-5 editbtn" formaction="/editprofile/{{user.id}}" value="Edit">Update Profile</button>
-                <button class="col-5 editbtn" formmethod="GET" formaction="/profile/{{current_user.id}}" value="Back">BACK</button>
               </div>
               </div>
 
@@ -202,26 +235,35 @@
               >
               <div class="container">
                 <div class="row">
-                  {% for internship in internships %}
-                    <div class="card text-center col-11" style="margin: 3%;">
-                        <div class="card-header" style="background-color: #fff;color: #151226; font-weight: bold;">
-                          Comapany Name : {{internship.companyname}}
+
+                  {% if not internships %}
+                    {% if current_user.role == "admin" %}
+                    <a href='/newinternship/{{user.id}}' class="btn btn-primary" style="background-color:#151226; color: #fff;">Add New Internship</a>
+                    {% else %}
+                    <a href='/newinternship' class="btn btn-primary" style="background-color:#151226; color: #fff;">Add New Internship</a>
+                    {% endif %}
+                  {% else %}
+                    {% for internship in internships %}
+                      <div class="card text-center col-11" style="margin: 3%;">
+                          <div class="card-header" style="background-color: #fff;color: #151226; font-weight: bold;">
+                            Comapany Name : {{internship.companyname}}
+                          </div>
+                          <div class="card-body">
+                            <h5 class="card-title" style="font-style: italic;">Domain : {{internship.domain}}</h5>
+                            <p class="card-text" style="color: black;">
+                                Source of Internship - {{internship.source}}
+                                <br>
+                                Rating - {{internship.rating}}
+                            </p>
+                            <a href='/downloadcompletioncert/{{internship.id}}' class="btn btn-primary" style="background-color:#266150; color: #fff;">Completion Certicate</a>
+                            <a href='/updateinternship/{{internship.id}}' class="btn btn-primary" style="background-color:blue; color: #fff;">EDIT</a>
+                          </div>
+                          <div class="card-footer text-muted" style="background-color: #fff;color: #266150;">
+                            {{internship.startdate}} - {{internship.enddate}}
+                          </div>
                         </div>
-                        <div class="card-body">
-                          <h5 class="card-title" style="font-style: italic;">Domain : {{internship.domain}}</h5>
-                          <p class="card-text" style="color: black;">
-                              Source of Internship - {{internship.source}}
-                              <br>
-                              Rating - {{internship.rating}}
-                          </p>
-                          <a href='/downloadcompletioncert/{{internship.id}}' class="btn btn-primary" style="background-color:#266150; color: #fff;">Completion Certicate</a>
-                          <a href='/updateinternship/{{internship.id}}' class="btn btn-primary" style="background-color:blue; color: #fff;">EDIT</a>
-                        </div>
-                        <div class="card-footer text-muted" style="background-color: #fff;color: #266150;">
-                          {{internship.startdate}} - {{internship.enddate}}
-                        </div>
-                      </div>
-                      {% endfor %}
+                        {% endfor %}
+                      {% endif %}
                     </div>
                 </div>
                 </div>

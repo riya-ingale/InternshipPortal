@@ -40,12 +40,15 @@
             <li class="nav-item">
               <a class="nav-link" href="/"><i class="fa fa-home"> Home</i></a>
             </li>
+
+            {% if not current_user.role == "admin" %}
             <li class="nav-item">
               <a class="nav-link" href="/newinternship"><i class="fa fa-plus"> New Internship</i></a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/profile/{{current_user.id}}"><i class="fa fa-user"> User</i></a>
             </li>
+            {% endif %}
             
             {% if current_user.role == "admin" %}
             <li class="nav-item">
@@ -194,6 +197,23 @@
                     <p>{{user.div}}</p>
                   </div>
                 </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label>Year</label>
+                  </div>
+                  <div class="col-md-6">
+                    <p>{{user.year}}</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label>Batch</label>
+                  </div>
+                  <div class="col-md-6">
+                    <p>{{user.batch}}</p>
+                  </div>
+                </div>
+
               </div>
               <div
                 class="tab-pane fade"
@@ -203,6 +223,8 @@
               >
               
                 <div class="row">
+
+                 
                   {% for internship in internships %}
                     <div class="card text-center col-11" style="margin: 3%;">
                         <div class="card-header" style="background-color: #fff;color: #266150; font-weight: bold;">
@@ -223,6 +245,7 @@
                         </div>
                       </div>
                       {% endfor %}
+
                     </div>
                 </div>             
               </div>

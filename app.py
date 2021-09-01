@@ -47,6 +47,7 @@ class Users(UserMixin, db.Model):
     dept = db.Column(db.String(15))
     div = db.Column(db.String(15))
     year = db.Column(db.String(15))
+    batch = db.Column(db.String(15))
     linkedIn_username = db.Column(db.Text)
     role = db.Column(db.Text)
 
@@ -59,14 +60,22 @@ class Internships(db.Model):
     domain = db.Column(db.Text)
     source = db.Column(db.Text)
     skills_acquired = db.Column(db.Text)
+
     companyrepresentative_name = db.Column(db.Text)
     companyrepresentative_contact = db.Column(db.Text)
+
+    semester = db.Column(db.Integer)
     startdate = db.Column(db.Date)
     enddate = db.Column(db.Date)
+
     offerletter = db.Column(db.LargeBinary)
     offerletter_filename = db.Column(db.Text)
+    offerletter_link = db.Column(db.Text)
+
     completioncert = db.Column(db.LargeBinary)
     completioncert_filename = db.Column(db.Text)
+    completioncert_link = db.Column(db.Text)
+
     feedback = db.Column(db.Text)
     workenv = db.Column(db.Integer)
     satisfied = db.Column(db.Text)
@@ -174,7 +183,7 @@ def search():
             student_data = []
             internship_data = []
             if request.method == "GET":
-                allstudents = Users.query.filter(Users.id != 2).all()
+                allstudents = Users.query.filter(Users.id != 1).all()
                 allinternships = Internships.query.all()
                 return render_template("search.html", students=allstudents, internships=allinternships, s=True)
 
@@ -357,6 +366,50 @@ def newinternship():
     return render_template("newinternship.html")
 
 
+@app.route('/newinternship/<int:user_id>', methods=['GET', 'POST'])
+@login_required
+def newinternshipadmin(user_id):
+    if request.method == "POST":
+        companyname = request.form.get('companyname')
+        domain = request.form.get('domain')
+        source = request.form.get('source')
+        position = request.form.get('position')
+        skills_acquired = request.form.get('skills_acquired')
+        companyrepresentative_name = request.form.get(
+            'companyrepresentative_name')
+        companyrepresentative_contact = request.form.get(
+            'companyrepresentative_contact')
+
+        startdate = request.form.get('startdate')
+        startdate = datetime.strptime(startdate, '%Y-%m-%d')
+        enddate = request.form.get('enddate')
+        enddate = datetime.strptime(enddate, '%Y-%m-%d')
+
+        offerletter = request.files['offerletter']
+        completioncert = request.files['completioncert']
+        if offerletter:
+            if len(offerletter.filename) > 0:
+                offerletter_filename = offerletter.filename
+                offerletter = offerletter.read()
+        if completioncert:
+            if len(completioncert.filename) > 0:
+                completioncert_filename = completioncert.filename
+                completioncert = completioncert.read()
+
+        feedback = request.form.get('feedback')
+        workenv = request.form.get('workenv')
+        satisfied = request.form.get('satisfied')
+        recommendation = request.form.get('recommendation')
+        typeofinternship = request.form.get('type')
+
+        new_internship = Internships(user_id=current_user.id, companyname=companyname, domain=domain, companyrepresentative_name=companyrepresentative_name, companyrepresentative_contact=companyrepresentative_contact, source=source, position=position, skills_acquired=skills_acquired, startdate=startdate, enddate=enddate,
+                                     offerletter=offerletter, offerletter_filename=offerletter_filename, completioncert=completioncert, completioncert_filename=completioncert_filename, feedback=feedback, workenv=workenv, satisfied=satisfied, recommendation=recommendation, typeofinternship=typeofinternship)
+        db.session.add(new_internship)
+        db.session.commit()
+        return redirect(f"/otherprofile/{user_id}")
+    return render_template("newinternship.html")
+
+
 @app.route('/updateinternship/<int:id>', methods=['GET', 'POST'])
 @login_required
 def updateinternship(id):
@@ -394,9 +447,9 @@ def updateinternship(id):
         internship.recommendation = request.form.get('recommendation')
         internship.feedback = request.form.get('feedback')
         db.session.commit()
-
+        if current_user.role == "admin":
+            return redirect(f'/otherprofile/{user_id}')
         return redirect(f'/profile/{current_user.id}')
-
     return render_template('updateinternship.html', internship=internship)
 
 
@@ -407,8 +460,10 @@ def downloadcompletioncert(internship_id):
         file_data = internship.completioncert
         return send_file(BytesIO(file_data), download_name=internship.companyname + "Completioncert.pdf", as_attachment=True)
     else:
-        flash("No file Exists")
-        return "No file Exists"
+        if internship.completioncert_link:
+            return redirect(internship.completioncert_link)
+        else:
+            return "<h1>NO FILE EXISTS</h1>"
 
 
 @app.route('/student_record/<int:user_id>', methods=['POST', 'GET'])
@@ -462,18 +517,19 @@ def admindashboard():
                 # Load the entire workbook.
                 wb = load_workbook(data_file, data_only=True)
                 # Load one worksheet.
-                ws = wb['TE A']
+                ws = wb['BE B']
                 all_rows = list(ws.rows)
 
                 # Pull information from specific cells.
                 for row in all_rows[2:]:
                     rollno = row[0].value
                     fullname = row[1].value
-                    # dept = row[2].value
-                    # div = row[3].value
+                    dept = "CMPN"
+                    div = "B"
                     # mobileno = row[4].value
                     # email = row[5].value
-                    # year = row[6].value
+                    year = "BE"
+                    batch = "2021"
 
                     companyname = row[2].value
                     # position = row[8].value
@@ -484,14 +540,17 @@ def admindashboard():
                     startdate = row[4].value
                     enddate = row[5].value
                     source = row[6].value
-                    if row[6].value == "Yes":
+                    certificate_url = None
+                    if row[7].value == "Yes":
                         certificate_url = row[8].value
-                        # url = request.args['certificate_url']  # user provides url in query string
-                        r = requests.get(certificate_url)
-                        # write to a file in the app's instance folder
-                        # come up with a better file name
-                        with app.open_instance_resource('downloaded_file', 'wb') as f:
-                            f.write(r.content)
+                        print(certificate_url)
+                        # # url = request.args['certificate_url']  # user provides url in query string
+                        # r = requests.get(certificate_url)
+                        # # write to a file in the app's instance folder
+                        # # come up with a better file name
+                        # with app.open_instance_resource('downloaded_file', 'wb') as f:
+                        #     f.write(r.content)
+
                     # feedback = row[16].value
                     # workenv = row[17].value
                     # satisfied = row[18].value
@@ -508,13 +567,17 @@ def admindashboard():
                     if user:
                         user_id = user.id
                         if companyname:
-                            newinternship = Internships(user_id=user_id, companyname=companyname,
-                                                        domain=domain, startdate=startdate, enddate=enddate, source=source)
+                            if certificate_url:
+                                newinternship = Internships(user_id=user_id, companyname=companyname,
+                                                            domain=domain, startdate=startdate, enddate=enddate, source=source, completioncert_link=certificate_url)
+                            else:
+                                newinternship = Internships(user_id=user_id, companyname=companyname,
+                                                            domain=domain, startdate=startdate, enddate=enddate, source=source)
                             db.session.add(newinternship)
                             db.session.commit()
                     else:
                         newstudent = Users(
-                            fullname=fullname, rollno=rollno, password='sha256$cBl7wrlwRwy9QHJB$7a873cb0e1cd6cd2070c00147540fc6ba209e9114152385c94e06fb641951076')
+                            fullname=fullname, rollno=rollno, password='sha256$cBl7wrlwRwy9QHJB$7a873cb0e1cd6cd2070c00147540fc6ba209e9114152385c94e06fb641951076', dept=dept, div=div, year=year, batch=batch)
                         db.session.add(newstudent)
                         db.session.commit()
                         student = Users.query.filter_by(
@@ -522,7 +585,7 @@ def admindashboard():
                         user_id = student.id
                         if companyname:
                             newinternship = Internships(user_id=user_id, companyname=companyname,
-                                                        domain=domain, startdate=startdate, enddate=enddate, source=source)
+                                                        domain=domain, startdate=startdate, enddate=enddate, source=source, completioncert_link=certificate_url)
                             db.session.add(newinternship)
                             db.session.commit()
                 flash('Record Added')
@@ -547,7 +610,10 @@ def editprofile(user_id):
         user.dept = request.form['dept']
         user.div = request.form['div']
         user.year = request.form['year']
+        user.batch = request.form['batch']
         db.session.commit()
+        if current_user.role == "admin":
+            return redirect(f'/otherprofile/{user_id}')
         return redirect(f'/profile/{user_id}')
     return render_template('editprofile.html', user=user, internships=internships)
 
@@ -559,7 +625,7 @@ def aboutus():
 
 @app.route('/exportall', methods=['GET', 'POST'])
 def exportall():
-    students = Users.query.filter(Users.id != 2).all()
+    students = Users.query.filter(Users.id != 1).all()
     internships = Internships.query.all()
     added = 0
     if students:

@@ -47,6 +47,8 @@
             <li class="nav-item">
               <a class="nav-link" href="/"><i class="fa fa-home"> Home</i></a>
             </li>
+
+            {% if not current_user.role == "admin" %}
             <li class="nav-item">
               <a class="nav-link" href="/newinternship"
                 ><i class="fa fa-plus"> New Internship</i></a
@@ -57,6 +59,19 @@
                 ><i class="fa fa-user"> User</i></a
               >
             </li>
+            {% endif %}
+
+            {% if current_user.role == "admin" %}
+            <li class="nav-item">
+              <a class="nav-link" href="/search"
+                ><i class="fa fa-search"> Search</i></a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/dashboard"
+                ><i class="fa fa-upload"> Upload Data</i></a>
+            </li>
+            {% endif %}
 
             <li class="nav-item">
               <a class="nav-link" href="/aboutus"
