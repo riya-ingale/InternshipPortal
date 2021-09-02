@@ -63,6 +63,7 @@ class Internships(db.Model):
     semester = db.Column(db.Integer)
     startdate = db.Column(db.Date)
     enddate = db.Column(db.Date)
+    yearofstudy = db.Column(db.Text)
 
     offerletter = db.Column(db.LargeBinary)
     offerletter_filename = db.Column(db.Text)
@@ -187,7 +188,7 @@ def search():
                 searchname = request.form.get('searchname')
                 dept = request.form.get('dept')
                 div = request.form.get('div')
-                year = request.form.get('year')
+                batch = request.form.get('batch')
                 domain = request.form.get('domain')
                 satisfied = request.form.get('satisfied')
                 startdate = request.form.get('startdate')
@@ -260,24 +261,24 @@ def search():
                     else:
                         pass
 
-                if dept and div and year:
+                if dept and div and batch:
                     allstudents = Users.query.filter_by(
-                        dept=dept, div=div, year=year).all()
-                elif dept and div and not year:
+                        dept=dept, div=div, batch=batch).all()
+                elif dept and div and not batch:
                     allstudents = Users.query.filter_by(
                         dept=dept, div=div).all()
-                elif div and year and not dept:
+                elif div and batch and not dept:
                     allstudents = Users.query.filter_by(
-                        div=div, year=year).all()
-                elif dept and year and not div:
+                        div=div, batch=batch).all()
+                elif dept and batch and not div:
                     allstudents = Users.query.filter_by(
-                        dept=dept, year=year).all()
-                elif dept and not div and not year:
+                        dept=dept, batch=batch).all()
+                elif dept and not div and not batch:
                     allstudents = Users.query.filter_by(dept=dept).all()
-                elif div and not dept and not year:
+                elif div and not dept and not batch:
                     allstudents = Users.query.filter_by(div=div).all()
-                elif year and not div and not dept:
-                    allstudents = Users.query.filter_by(year=year).all()
+                elif batch and not div and not dept:
+                    allstudents = Users.query.filter_by(batch=batch).all()
                 else:
                     pass
 
@@ -336,6 +337,8 @@ def newinternship():
         enddate = request.form.get('enddate')
         enddate = datetime.strptime(enddate, '%Y-%m-%d')
 
+        yearofstudy = request.form.get('yearofstudy')
+
         offerletter = request.files['offerletter']
         completioncert = request.files['completioncert']
         if offerletter:
@@ -356,7 +359,7 @@ def newinternship():
         recommendation = request.form.get('recommendation')
         typeofinternship = request.form.get('type')
 
-        new_internship = Internships(user_id=current_user.id, companyname=companyname, domain=domain, companyrepresentative_name=companyrepresentative_name, companyrepresentative_contact=companyrepresentative_contact, source=source, position=position, skills_acquired=skills_acquired, startdate=startdate, enddate=enddate,
+        new_internship = Internships(user_id=current_user.id, companyname=companyname, domain=domain, companyrepresentative_name=companyrepresentative_name, companyrepresentative_contact=companyrepresentative_contact, source=source, position=position, skills_acquired=skills_acquired, startdate=startdate, enddate=enddate, yearofstudy=yearofstudy,
                                      offerletter=offerletter, offerletter_filename=offerletter_filename, completioncert=completioncert, completioncert_filename=completioncert_filename, completioncert_link=completioncert_link, offerletter_link=offerletter_link, feedback=feedback, workenv=workenv, satisfied=satisfied, recommendation=recommendation, typeofinternship=typeofinternship)
         db.session.add(new_internship)
         db.session.commit()
@@ -384,6 +387,8 @@ def newinternshipadmin(user_id):
         enddate = request.form.get('enddate')
         enddate = datetime.strptime(enddate, '%Y-%m-%d')
 
+        yearofstudy = request.form.get('yearofstudy')
+
         offerletter = request.files['offerletter']
         completioncert = request.files['completioncert']
         if offerletter:
@@ -404,7 +409,7 @@ def newinternshipadmin(user_id):
         recommendation = request.form.get('recommendation')
         typeofinternship = request.form.get('type')
 
-        new_internship = Internships(user_id=current_user.id, companyname=companyname, domain=domain, companyrepresentative_name=companyrepresentative_name, companyrepresentative_contact=companyrepresentative_contact, source=source, position=position, skills_acquired=skills_acquired, startdate=startdate, enddate=enddate,
+        new_internship = Internships(user_id=current_user.id, companyname=companyname, domain=domain, companyrepresentative_name=companyrepresentative_name, companyrepresentative_contact=companyrepresentative_contact, source=source, position=position, skills_acquired=skills_acquired, startdate=startdate, enddate=enddate, yearofstudy=yearofstudy,
                                      offerletter=offerletter, offerletter_filename=offerletter_filename, completioncert=completioncert, completioncert_filename=completioncert_filename, completioncert_link=completioncert_link, offerletter_link=offerletter_link, feedback=feedback, workenv=workenv, satisfied=satisfied, recommendation=recommendation, typeofinternship=typeofinternship)
         db.session.add(new_internship)
         db.session.commit()
@@ -433,6 +438,8 @@ def updateinternship(id):
         internship.startdate = datetime.strptime(startdate, '%Y-%m-%d')
         enddate = request.form.get('enddate')
         internship.enddate = datetime.strptime(enddate, '%Y-%m-%d')
+
+        internship.yearofstudy = request.form.get('yearofstudy')
 
         offerletter = request.files['offerletter']
         completioncert = request.files['completioncert']
@@ -479,6 +486,8 @@ def updateinternshipadmin(id, user_id):
         internship.startdate = datetime.strptime(startdate, '%Y-%m-%d')
         enddate = request.form.get('enddate')
         internship.enddate = datetime.strptime(enddate, '%Y-%m-%d')
+
+        internship.yearofstudy = request.form.get('yearofstudy')
 
         offerletter = request.files['offerletter']
         completioncert = request.files['completioncert']
@@ -584,7 +593,7 @@ def admindashboard():
                 # Load the entire workbook.
                 wb = load_workbook(data_file, data_only=True)
                 # Load one worksheet.
-                ws = wb['BE B']
+                ws = wb['TE A']
                 all_rows = list(ws.rows)
 
                 # Pull information from specific cells.
@@ -592,11 +601,11 @@ def admindashboard():
                     rollno = row[0].value
                     fullname = row[1].value
                     dept = "CMPN"
-                    div = "B"
+                    div = "A"
                     # mobileno = row[4].value
                     # email = row[5].value
-                    year = "BE"
-                    batch = "2021"
+                    year = "TE"
+                    batch = "2022"
 
                     companyname = row[2].value
                     # position = row[8].value
@@ -606,6 +615,7 @@ def admindashboard():
                     # companyrepresentative_contact = row[13].value
                     startdate = row[4].value
                     enddate = row[5].value
+                    yearofstudy = "TE"
                     source = row[6].value
                     certificate_url = None
                     if row[7].value == "Yes":
@@ -646,7 +656,7 @@ def admindashboard():
                         user_id = student.id
                         if companyname:
                             newinternship = Internships(user_id=user_id, companyname=companyname,
-                                                        domain=domain, startdate=startdate, enddate=enddate, source=source, completioncert_link=certificate_url)
+                                                        domain=domain, startdate=startdate, enddate=enddate, yearofstudy=yearofstudy, source=source, completioncert_link=certificate_url)
                             db.session.add(newinternship)
                             db.session.commit()
                 flash('Record Added')

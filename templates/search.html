@@ -61,7 +61,8 @@
 
             <li class="nav-item">
               <a class="nav-link" href="/aboutus"
-                ><i class="fa fa-info-circle"> About Us</i></a>
+                ><i class="fa fa-info-circle"> About Us</i></a
+              >
             </li>
 
             {% if not current_user.is_authenticated %}
@@ -84,8 +85,16 @@
 
     <div class="container">
       <div class="row">
-        <div class="s009 col-12 col-lg-6" style="background-color: #ffe4e1;top:100px;margin-top: 0px;padding-top: 0px;">
-          <form method="POST" >
+        <div
+          class="s009 col-12 col-lg-6"
+          style="
+            background-color: #ffe4e1;
+            top: 100px;
+            margin-top: 0px;
+            padding-top: 0px;
+          "
+        >
+          <form method="POST">
             <div class="inner-form">
               <div class="basic-search">
                 <div class="input-field">
@@ -119,7 +128,12 @@
                 <div class="row">
                   <div class="input-field col-12 col-sm-4">
                     <div class="input-select">
-                      <select id="dept" data-trigger="" name="dept" onchange="handleChange()">
+                      <select
+                        id="dept"
+                        data-trigger=""
+                        name="dept"
+                        onchange="handleChange()"
+                      >
                         <option placeholder="" name="dept" value="">
                           Department
                         </option>
@@ -133,7 +147,12 @@
                   </div>
                   <div class="input-field col-12 col-sm-4">
                     <div class="input-select">
-                      <select id="div" data-trigger="" name="div" onchange="handleChange()">
+                      <select
+                        id="div"
+                        data-trigger=""
+                        name="div"
+                        onchange="handleChange()"
+                      >
                         <option placeholder="" value="" name="div">
                           Division
                         </option>
@@ -144,40 +163,57 @@
                   </div>
                   <div class="input-field col-12 col-sm-4">
                     <div class="input-select">
-                      <select id="year" data-trigger="" name="year" onchange="handleChange()">
-                        <option placeholder="" value="" name="year">
-                          Year
+                      <select
+                        id="year"
+                        data-trigger=""
+                        name="batch"
+                        onchange="handleChange()"
+                      >
+                        <option placeholder="" value="" name="batch">
+                          Batch
                         </option>
-                        <option value="FE" name="year">FE</option>
-                        <option value="SE" name="year">SE</option>
-                        <option value="TE" name="year">TE</option>
-                        <option value="BE" name="year">BE</option>
+                        <option value="2021" name="batch">2021</option>
+                        <option value="2022" name="batch">2022</option>
+                        <option value="2023" name="batch">2023</option>
+                        <option value="2024" name="batch">2024</option>
+                        <option value="2025" name="batch">2025</option>
                       </select>
                     </div>
                   </div>
                 </div>
 
-               
-
                 <div class="row second">
                   <div class="input-field col-12 col-sm-6">
                     <div class="input-select">
-                      <select id="year" data-trigger="" name="satisfied" onchange="handleChange()">
+                      <select
+                        id="year"
+                        data-trigger=""
+                        name="satisfied"
+                        onchange="handleChange()"
+                      >
                         <option placeholder="" value="" name="satisfied">
                           Student Satisfaction
                         </option>
                         <option value="Yes" name="satisfied">Satisfied</option>
-                        <option value="No" name="satisfied">Not Satisfied</option>
-                        <option value="Partly" name="satisfied">Partly Satified</option>
+                        <option value="No" name="satisfied">
+                          Not Satisfied
+                        </option>
+                        <option value="Partly" name="satisfied">
+                          Partly Satified
+                        </option>
                       </select>
                     </div>
                   </div>
 
                   <div class="input-field col-12 col-sm-6">
                     <div class="input-select">
-                      <select id="domain" data-trigger="" name="domain" onchange="handleChange()">
-                        <option selected value="" name="domain">Domain
-                        </option>
+                      <select
+                        id="domain"
+                        data-trigger=""
+                        name="domain"
+                        onchange="handleChange()"
+                      >
+                        <option selected value="" name="domain">Domain</option>
                         <option value="Web Development" name="domain">
                           Web Development
                         </option>
@@ -194,31 +230,47 @@
                           Sales and Marketing
                         </option>
                         <option value="Teaching" name="domain">Teaching</option>
-                        <option value="Programming" name="domain">Programming</option>
+                        <option value="Programming" name="domain">
+                          Programming
+                        </option>
                       </select>
                     </div>
                   </div>
-
                 </div>
 
                 <div class="row second">
                   <div class="input-field-date col-12 col-sm-6">
                     <label for="startdate">Start Date</label>
-                    <input id="startdate" type="date" name="startdate" onchange="handleChange()"/>
+                    <input
+                      id="startdate"
+                      type="date"
+                      name="startdate"
+                      onchange="handleChange()"
+                    />
                   </div>
 
                   <div class="input-field-date col-12 col-sm-6">
                     <label for="enddate">End Date</label>
-                    <input type="date" id="enddate" name="enddate" onchange="handleChange()"/>
+                    <input
+                      type="date"
+                      id="enddate"
+                      name="enddate"
+                      onchange="handleChange()"
+                    />
                   </div>
                 </div>
 
                 <div class="row second">
                   <div class="input-field col-12">
                     <label for="rollno">Roll Number</label>
-                    <input id="rollno" type="text" name="rollno" onchange="handleChange()"  style="background-color: #ffe4e1;"/>
+                    <input
+                      id="rollno"
+                      type="text"
+                      name="rollno"
+                      onchange="handleChange()"
+                      style="background-color: #ffe4e1"
+                    />
                   </div>
-                  
                 </div>
 
                 <div class="row third">
@@ -249,7 +301,6 @@
                     </div>
                   </div>
                 </div>
-
               </div>
             </div>
           </form>
@@ -306,7 +357,7 @@
                 <!-- End First -->
               </ul>
               {% else %}
-                <h5 style="font-style: italic">No Students Found</h5>
+              <h5 style="font-style: italic">No Students Found</h5>
               {% endif %}
             </div>
           </div>
@@ -336,51 +387,116 @@
       });
     </script>
 
-<div class="container-fluid pb-0 mb-0 justify-content-center text-light" style="background-color: #151226;color: #fff;">
-  <footer>
-    <div class="row my-5 justify-content-center py-5">
-      <div class="col-11">
-        <div class="row ">
-          <div class="col-xl-8 col-md-4 col-sm-4 col-12 my-auto mx-auto a">
-            <h3 class="mb-md-0 mb-5 bold-text" style="color: #fff;"> VIT Internship Portal</h3>
-          </div>
-          <div class="col-xl-2 col-md-4 col-sm-4 col-12">
-            <h6 class="mb-3 mb-lg-4 bold-text "><b>Links</b></h6>
-            <ul class="list-unstyled">
-              <li><a href="/">Home</a></li>
-              <li><a href="/login">Login</a></li>
-              <li><a href="/aboutus">About Us</a></li>
-            </ul>
-          </div>
-          <div class="col-xl-2 col-md-4 col-sm-4 col-12">
-            <h6 class="mb-3 mb-lg-4 bold-text mt-sm-0 mt-5" style="color: #ffffff;"><b>ADDRESS</b></h6>
-            <p class="mb-1">VIT</p>
-            <p>Wadala, Mumbai</p>
+    <div
+      class="container-fluid pb-0 mb-0 justify-content-center text-light"
+      style="background-color: #151226; color: #fff"
+    >
+      <footer>
+        <div class="row my-5 justify-content-center py-5">
+          <div class="col-11">
+            <div class="row">
+              <div class="col-xl-8 col-md-4 col-sm-4 col-12 my-auto mx-auto a">
+                <h3 class="mb-md-0 mb-5 bold-text" style="color: #fff">
+                  VIT Internship Portal
+                </h3>
+              </div>
+              <div class="col-xl-2 col-md-4 col-sm-4 col-12">
+                <h6 class="mb-3 mb-lg-4 bold-text"><b>Links</b></h6>
+                <ul class="list-unstyled">
+                  <li><a href="/">Home</a></li>
+                  <li><a href="/login">Login</a></li>
+                  <li><a href="/aboutus">About Us</a></li>
+                </ul>
+              </div>
+              <div class="col-xl-2 col-md-4 col-sm-4 col-12">
+                <h6
+                  class="mb-3 mb-lg-4 bold-text mt-sm-0 mt-5"
+                  style="color: #ffffff"
+                >
+                  <b>ADDRESS</b>
+                </h6>
+                <p class="mb-1">VIT</p>
+                <p>Wadala, Mumbai</p>
+              </div>
+            </div>
+            <div class="row">
+              <div
+                class="
+                  col-xl-8 col-md-4 col-sm-4 col-auto
+                  my-md-0
+                  mt-5
+                  order-sm-1 order-3
+                  align-self-end
+                "
+              >
+                <p class="social text-muted mb-0 pb-0 bold-text">
+                  <span class="mx-2"
+                    ><i
+                      class="fa fa-facebook"
+                      aria-hidden="true"
+                      style="color: #ffffff"
+                    ></i
+                  ></span>
+                  <span class="mx-2"
+                    ><i
+                      class="fa fa-linkedin-square"
+                      aria-hidden="true"
+                      style="color: #ffffff"
+                    ></i
+                  ></span>
+                  <span class="mx-2"
+                    ><i
+                      class="fa fa-twitter"
+                      aria-hidden="true"
+                      style="color: #ffffff"
+                    ></i
+                  ></span>
+                  <span class="mx-2"
+                    ><i
+                      class="fa fa-instagram"
+                      aria-hidden="true"
+                      style="color: #ffffff"
+                    ></i
+                  ></span>
+                </p>
+                <small class="rights"><span>&#174;</span>Team VIT </small>
+              </div>
+              <div
+                class="
+                  col-xl-2 col-md-4 col-sm-4 col-auto
+                  order-1
+                  align-self-end
+                "
+              >
+                <h6 class="mt-55 mt-2 bold-text" style="color: #ffffff">
+                  <b>Contact Us</b>
+                </h6>
+                <small>
+                  <span><i class="fa fa-info" aria-hidden="true"></i></span>
+                  <a href="/aboutus">About Us</a></small
+                >
+              </div>
+              <div
+                class="
+                  col-xl-2 col-md-4 col-sm-4 col-auto
+                  order-2
+                  align-self-end
+                  mt-3
+                "
+              >
+                <h6 class="mt-55 mt-2 bold-text" style="color: #ffffff">
+                  <b>Give Your Feedback</b>
+                </h6>
+                <small>
+                  <span><i class="fa fa-envelope" aria-hidden="true"></i></span>
+                  contact@gmail.com</small
+                >
+              </div>
+            </div>
           </div>
         </div>
-        <div class="row ">
-          <div class="col-xl-8 col-md-4 col-sm-4 col-auto my-md-0 mt-5 order-sm-1 order-3 align-self-end">
-            <p class="social text-muted mb-0 pb-0 bold-text">
-               <span class="mx-2"><i class="fa fa-facebook" aria-hidden="true" style="color: #ffffff;"></i></span>
-               <span class="mx-2"><i class="fa fa-linkedin-square" aria-hidden="true" style="color: #ffffff;"></i></span>
-               <span class="mx-2"><i class="fa fa-twitter" aria-hidden="true" style="color: #ffffff;"></i></span>
-               <span class="mx-2"><i class="fa fa-instagram" aria-hidden="true" style="color: #ffffff;"></i></span>
-             </p>
-             <small class="rights"><span>&#174;</span>Team VIT </small>
-          </div>
-          <div class="col-xl-2 col-md-4 col-sm-4 col-auto order-1 align-self-end ">
-            <h6 class="mt-55 mt-2  bold-text" style="color: #ffffff;"><b>Contact Us</b></h6><small>
-               <span><i class="fa fa-info" aria-hidden="true"></i></span> <a href="/aboutus">About Us</a></small>
-          </div>
-          <div class="col-xl-2 col-md-4 col-sm-4 col-auto order-2 align-self-end mt-3 ">
-            <h6 class="mt-55 mt-2 bold-text" style="color: #ffffff;"><b>Give Your Feedback</b></h6><small>
-               <span><i class="fa fa-envelope" aria-hidden="true"></i></span> contact@gmail.com</small>
-          </div>
-        </div>
-      </div>
+      </footer>
     </div>
-  </footer>
-</div>
 
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -423,21 +539,20 @@
       }
     </script> -->
     <script>
-      let cn=document.getElementById("companyname");
+      let cn = document.getElementById("companyname");
 
       dept.onchange = handleChange;
-      
+
       function handleChange() {
         document.getElementById("btn-Download").style.visibility = "visible";
       }
 
-      if(document.getElementById("companyname").value == null)
-    {
-      document.getElementById("btn-Download").style.visibility = "hidden";
-      console.log("This Works")
-    }
+      if (document.getElementById("companyname").value == null) {
+        document.getElementById("btn-Download").style.visibility = "hidden";
+        console.log("This Works");
+      }
 
-      console.log("Department:",typeof(dept))
+      console.log("Department:", typeof dept);
     </script>
   </body>
 </html>
