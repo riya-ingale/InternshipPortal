@@ -7,7 +7,7 @@
 body {
   font-family: "Poppins-Regular";
   font-size: 15px;
-  color: #C1C8E4;
+  color: #c1c8e4;
   margin: 0;
 }
 
@@ -25,7 +25,7 @@ select,
 button {
   font-family: "Poppins-Regular";
   font-size: 15px;
-  color: #C1C8E4;
+  color: #c1c8e4;
 }
 
 ul {
@@ -157,7 +157,7 @@ h3 {
   top: 11px;
   right: 19px;
   font-size: 17px;
-  color: #C1C8E4;
+  color: #c1c8e4;
 }
 
 .form-control {
@@ -173,22 +173,22 @@ h3 {
 }
 
 .form-control::-webkit-input-placeholder {
-  color: #C1C8E4;
+  color: #c1c8e4;
   font-size: 13px;
 }
 
 .form-control::-moz-placeholder {
-  color: #C1C8E4;
+  color: #c1c8e4;
   font-size: 13px;
 }
 
 .form-control:-ms-input-placeholder {
-  color: #C1C8E4;
+  color: #c1c8e4;
   font-size: 13px;
 }
 
 .form-control:-moz-placeholder {
-  color: #C1C8E4;
+  color: #c1c8e4;
   font-size: 13px;
 }
 
@@ -198,7 +198,7 @@ textarea.form-control {
 }
 
 .option {
-  color: #C1C8E4;
+  color: #c1c8e4;
 }
 
 .actions ul {
@@ -301,7 +301,7 @@ textarea.form-control {
 }
 
 .actions li:first-child a:hover {
-  background: #C1C8E4;
+  background: #c1c8e4;
 }
 
 .actions li:last-child a {
@@ -321,7 +321,7 @@ textarea.form-control {
 .checkbox label {
   padding-left: 21px;
   cursor: pointer;
-  color: #C1C8E4;
+  color: #c1c8e4;
 }
 
 .checkbox input {
@@ -343,7 +343,7 @@ textarea.form-control {
   width: 13px;
   border-radius: 2px;
   background-color: #ebebeb;
-  border: 1px solid #C1C8E4;
+  border: 1px solid #c1c8e4;
   font-family: "Font Awesome";
   color: #000;
   font-size: 10px;
@@ -681,11 +681,7 @@ svg {
 .path {
   stroke-dasharray: 1000;
   stroke-dashoffset: 0;
-
- 
 }
-
-
 
 @-webkit-keyframes dash {
   0% {

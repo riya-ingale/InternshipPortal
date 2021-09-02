@@ -227,6 +227,7 @@
                         <div class="card-header" style="background-color: #fff;color: #266150; font-weight: bold;">
                           Comapany Name : {{internship.companyname}}
                         </div>
+
                         <div class="card-body">
                           <h5 class="card-title" style="font-style: italic;">Domain : {{internship.domain}}</h5>
                           <p class="card-text" style="color: black;">
@@ -234,11 +235,21 @@
                               <br>
                               Position - {{internship.position}}
                           </p>
+
+                          {% if internship.completioncert or internship.completioncert_link %}
                           <a href='/downloadcompletioncert/{{internship.id}}' class="btn btn-primary" style="background-color:#266150; color: #fff;">Completion Certicate</a>
+                          {% endif %}
+
+                          {% if internship.offerletter or internship.offerletter_link %}
+                          <a href='/downloadofferletter/{{internship.id}}' class="btn btn-primary" style="background-color:#266150; color: #fff;">Offerletter/Email Screenshot</a>
+                          {% endif %}
+
                         </div>
+
                         <div class="card-footer text-muted" style="background-color: #fff;color: #266150;">
                           {{internship.startdate}} - {{internship.enddate}}
                         </div>
+                        
                       </div>
                       {% endfor %}
                     </div>

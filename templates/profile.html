@@ -237,7 +237,14 @@
                               <br>
                               Position - {{internship.position}}
                           </p>
-                          <a href='/downloadcompletioncert/{{internship.id}}' class="btn btn-primary" style="background-color:#151226; color: #fff;">Completion Certicate</a>
+
+                          {% if internship.completioncert or internship.completioncert_link %}
+                          <a href='/downloadcompletioncert/{{internship.id}}' class="btn btn-primary" style="background-color:#266150; color: #fff;">Completion Certicate</a>
+                          {% endif %}
+
+                          {% if internship.offerletter or internship.offerletter_link %}
+                          <a href='/downloadofferletter/{{internship.id}}' class="btn btn-primary" style="background-color:#266150; color: #fff;">Offerletter/Email Screenshot</a>
+                          {% endif %}
                           
                         </div>
                         <div class="card-footer text-muted" style="background-color: #fff;color: #151226;">

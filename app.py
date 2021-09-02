@@ -12,10 +12,6 @@ import flask_excel as excel
 from openpyxl import Workbook, load_workbook
 import requests
 
-from office365.runtime.auth.authentication_context import AuthenticationContext
-from office365.sharepoint.client_context import ClientContext
-from office365.sharepoint.files.file import File
-
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = os.urandom(24)
@@ -351,6 +347,9 @@ def newinternship():
                 completioncert_filename = completioncert.filename
                 completioncert = completioncert.read()
 
+        completioncert_link = request.form.get('completioncert_link')
+        offerletter_link = request.form.get('offerletter_link')
+
         feedback = request.form.get('feedback')
         workenv = request.form.get('workenv')
         satisfied = request.form.get('satisfied')
@@ -358,7 +357,7 @@ def newinternship():
         typeofinternship = request.form.get('type')
 
         new_internship = Internships(user_id=current_user.id, companyname=companyname, domain=domain, companyrepresentative_name=companyrepresentative_name, companyrepresentative_contact=companyrepresentative_contact, source=source, position=position, skills_acquired=skills_acquired, startdate=startdate, enddate=enddate,
-                                     offerletter=offerletter, offerletter_filename=offerletter_filename, completioncert=completioncert, completioncert_filename=completioncert_filename, feedback=feedback, workenv=workenv, satisfied=satisfied, recommendation=recommendation, typeofinternship=typeofinternship)
+                                     offerletter=offerletter, offerletter_filename=offerletter_filename, completioncert=completioncert, completioncert_filename=completioncert_filename, completioncert_link=completioncert_link, offerletter_link=offerletter_link, feedback=feedback, workenv=workenv, satisfied=satisfied, recommendation=recommendation, typeofinternship=typeofinternship)
         db.session.add(new_internship)
         db.session.commit()
         flash("Record Added!")
@@ -396,6 +395,9 @@ def newinternshipadmin(user_id):
                 completioncert_filename = completioncert.filename
                 completioncert = completioncert.read()
 
+        completioncert_link = request.form.get('completioncert_link')
+        offerletter_link = request.form.get('offerletter_link')
+
         feedback = request.form.get('feedback')
         workenv = request.form.get('workenv')
         satisfied = request.form.get('satisfied')
@@ -403,7 +405,7 @@ def newinternshipadmin(user_id):
         typeofinternship = request.form.get('type')
 
         new_internship = Internships(user_id=current_user.id, companyname=companyname, domain=domain, companyrepresentative_name=companyrepresentative_name, companyrepresentative_contact=companyrepresentative_contact, source=source, position=position, skills_acquired=skills_acquired, startdate=startdate, enddate=enddate,
-                                     offerletter=offerletter, offerletter_filename=offerletter_filename, completioncert=completioncert, completioncert_filename=completioncert_filename, feedback=feedback, workenv=workenv, satisfied=satisfied, recommendation=recommendation, typeofinternship=typeofinternship)
+                                     offerletter=offerletter, offerletter_filename=offerletter_filename, completioncert=completioncert, completioncert_filename=completioncert_filename, completioncert_link=completioncert_link, offerletter_link=offerletter_link, feedback=feedback, workenv=workenv, satisfied=satisfied, recommendation=recommendation, typeofinternship=typeofinternship)
         db.session.add(new_internship)
         db.session.commit()
         return redirect(f"/otherprofile/{user_id}")
@@ -441,16 +443,68 @@ def updateinternship(id):
             internship.completioncert_filename = completioncert.filename
             internship.completioncert = completioncert.read()
 
+        internship.completioncert_link = request.form.get(
+            'completioncert_link')
+        internship.offerletter_link = request.form.get('offerletter_link')
+
         internship.typeofinternship = request.form.get('type')
         internship.satisfied = request.form.get('satisfied')
         internship.workenv = request.form.get('workenv')
         internship.recommendation = request.form.get('recommendation')
         internship.feedback = request.form.get('feedback')
         db.session.commit()
+        return redirect(f'/profile/{current_user.id}')
+    return render_template('updateinternship.html', internship=internship)
+
+
+@app.route('/updateinternship/<int:id>/<int:user_id>', methods=['GET', 'POST'])
+@login_required
+def updateinternshipadmin(id, user_id):
+    internship = Internships.query.filter_by(id=id).first()
+    user = Users.query.filter_by(id=user_id).first()
+    print(internship.companyname)
+    if request.method == 'POST':
+        internship.companyname = request.form.get('companyname')
+        internship.position = request.form.get('position')
+        internship.domain = request.form.get('domain')
+        internship.source = request.form.get('source')
+        internship.rating = request.form.get('rating')
+        internship.skills_acquired = request.form.get('skills_acquired')
+        internship.companyrepresentative_name = request.form.get(
+            'companyrepresentative_name')
+        internship.companyrepresentative_contact = request.form.get(
+            'companyrepresentative_contact')
+
+        startdate = request.form.get('startdate')
+        internship.startdate = datetime.strptime(startdate, '%Y-%m-%d')
+        enddate = request.form.get('enddate')
+        internship.enddate = datetime.strptime(enddate, '%Y-%m-%d')
+
+        offerletter = request.files['offerletter']
+        completioncert = request.files['completioncert']
+        if len(offerletter.filename) > 0:
+            internship.offerletter_filename = offerletter.filename
+            internship.offerletter = offerletter.read()
+        if len(completioncert.filename) > 0:
+            internship.completioncert_filename = completioncert.filename
+            internship.completioncert = completioncert.read()
+
+        internship.completioncert_link = request.form.get(
+            'completioncert_link')
+        internship.offerletter_link = request.form.get('offerletter_link')
+
+        internship.typeofinternship = request.form.get('type')
+        internship.satisfied = request.form.get('satisfied')
+        internship.workenv = request.form.get('workenv')
+        internship.recommendation = request.form.get('recommendation')
+        internship.feedback = request.form.get('feedback')
+
+        db.session.commit()
+
         if current_user.role == "admin":
             return redirect(f'/otherprofile/{user_id}')
         return redirect(f'/profile/{current_user.id}')
-    return render_template('updateinternship.html', internship=internship)
+    return render_template('updateinternship.html', internship=internship, user=user)
 
 
 @app.route('/downloadcompletioncert/<int:internship_id>', methods=['GET', 'POST'])
@@ -462,6 +516,19 @@ def downloadcompletioncert(internship_id):
     else:
         if internship.completioncert_link:
             return redirect(internship.completioncert_link)
+        else:
+            return "<h1>NO FILE EXISTS</h1>"
+
+
+@app.route('/downloadofferletter/<int:internship_id>', methods=['GET', 'POST'])
+def downloadofferletter(internship_id):
+    internship = Internships.query.filter_by(id=internship_id).first()
+    if internship.offerletter:
+        file_data = internship.offerletter
+        return send_file(BytesIO(file_data), download_name=internship.companyname + "Completioncert.pdf", as_attachment=True)
+    else:
+        if internship.offerletter_link:
+            return redirect(internship.offerletter_link)
         else:
             return "<h1>NO FILE EXISTS</h1>"
 
@@ -544,12 +611,6 @@ def admindashboard():
                     if row[7].value == "Yes":
                         certificate_url = row[8].value
                         print(certificate_url)
-                        # # url = request.args['certificate_url']  # user provides url in query string
-                        # r = requests.get(certificate_url)
-                        # # write to a file in the app's instance folder
-                        # # come up with a better file name
-                        # with app.open_instance_resource('downloaded_file', 'wb') as f:
-                        #     f.write(r.content)
 
                     # feedback = row[16].value
                     # workenv = row[17].value
@@ -629,10 +690,9 @@ def exportall():
     internships = Internships.query.all()
     added = 0
     if students:
-        # WorkBook Info
-        print("creating workbook")
+        # Creating Workbook
         wb = Workbook()
-        # insert value in the cells
+        # Insert headings in the cells
         ws = wb.active
         ws.title = "Students Data"
         headings = ["Fullname", "Rollno", "Mobileno", "Email", "Department", "Division", "Year", "Company Name", "Position", "Domain", "Source", "skills_required",
@@ -794,7 +854,7 @@ def docustomexport():
             student_data.append(student)
         students = student_data
         internships = allinternships
-        # return render_template("search.html", students=student_data, internships=allinternships, s = True)
+
     elif allstudents and not allinternships:
         for student in allstudents:
             student = Internships.query.filter_by(
@@ -802,7 +862,7 @@ def docustomexport():
             internship_data.append(student)
         students = allstudents
         internships = internship_data
-        # return render_template("search.html", students=allstudents, internships=internship_data, s = True)
+
     elif allinternships and allstudents:
         students = allstudents
         internships = allinternships
@@ -811,8 +871,6 @@ def docustomexport():
         students = []
         internships = []
         pass
-        # return render_template("search.html",s = False)
-
     added = 0
     if students:
         # WorkBook Info

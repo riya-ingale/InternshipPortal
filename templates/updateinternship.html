@@ -130,7 +130,7 @@
                 name="domain"
                 id="inputGroupSelect02"
               >
-                <option selected name="domain">Choose...</option>
+                <option selected name="domain" value="">Choose...</option>
                 <option value="Web Development" name="domain">
                   Web Development
                 </option>
@@ -314,6 +314,26 @@
                   id="inputGroupFile01"
                 />
               </div>
+            </div>
+            <div class="form-row">
+              <label
+                >Link to the Offer Letter/Email notification screenshot</label
+              >
+              <input
+                name="offerletter_link"
+                type="text"
+                class="form-control"
+                value="{{internship.offerletter_link}}"
+              />
+            </div>
+            <div class="form-row">
+              <label>Link to the Completion Certificate</label>
+              <input
+                name="completioncert_link"
+                type="text"
+                class="form-control"
+                value="{{completioncert_link}}"
+              />
             </div>
           </section>
 
@@ -571,6 +591,15 @@
             <p><br /></p>
             <div class="lastbtndiv">
               <!-- <div class="form-group"> -->
+              {% if current_user.role == "admin" %}
+              <input
+                class="lastsubmit"
+                type="submit"
+                formaction="/updateinternship/{{internship.id}}/{{user.id}}"
+                class="btnContact"
+                value="SUBMIT RECORD"
+              />
+              {% else %}
               <input
                 class="lastsubmit"
                 type="submit"
@@ -578,6 +607,7 @@
                 class="btnContact"
                 value="SUBMIT RECORD"
               />
+              {% endif %}
               <!-- </div> -->
             </div>
           </section>

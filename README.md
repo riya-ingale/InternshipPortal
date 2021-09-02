@@ -3,6 +3,7 @@
 ## Commands on Command Prompt to Run the app on local machine
 
 Clone the repo : git clone https://github.com/riya-ingale/InternshipPortal.git<br>
+
 <p></p>
 Inside the InternshipPortal Folder, Open CommandPrompt<br>
 <p></p>

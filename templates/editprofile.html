@@ -99,7 +99,7 @@
         <div class="row">
           <div class="col-md-6">
             <div class="profile-head">
-              <h5>{{current_user.fullname}}</h5>
+              <h5>{{user.fullname}}</h5>
               <h6>Vidyalankar Institute of Technology</h6>
 
               <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -253,10 +253,23 @@
                             <p class="card-text" style="color: black;">
                                 Source of Internship - {{internship.source}}
                                 <br>
-                                Rating - {{internship.rating}}
+                                Position - {{internship.position}}
                             </p>
+
+                            {% if internship.completioncert or internship.completioncert_link %}
                             <a href='/downloadcompletioncert/{{internship.id}}' class="btn btn-primary" style="background-color:#266150; color: #fff;">Completion Certicate</a>
+                            {% endif %}
+
+                            {% if internship.offerletter or internship.offerletter_link %}
+                            <a href='/downloadofferletter/{{internship.id}}' class="btn btn-primary" style="background-color:#266150; color: #fff;">Offerletter/Email Screenshot</a>
+                            {% endif %}
+
+                            {% if current_user.role == "admin" %}
+                            <a href='/updateinternship/{{internship.id}}/{{user.id}}' class="btn btn-primary" style="background-color:blue; color: #fff;">EDIT</a>
+                            {% else %}
                             <a href='/updateinternship/{{internship.id}}' class="btn btn-primary" style="background-color:blue; color: #fff;">EDIT</a>
+                            {% endif %}
+
                           </div>
                           <div class="card-footer text-muted" style="background-color: #fff;color: #266150;">
                             {{internship.startdate}} - {{internship.enddate}}
