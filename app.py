@@ -748,7 +748,7 @@ def docustomexport():
     searchname = request.form.get('searchname')
     dept = request.form.get('dept')
     div = request.form.get('div')
-    year = request.form.get('year')
+    batch = request.form.get('batch')
     satisfied = request.form.get('satisfied')
     startdate = request.form.get('startdate')
     domain = request.form.get('domain')
@@ -822,24 +822,24 @@ def docustomexport():
         else:
             pass
 
-    if dept and div and year:
+    if dept and div and batch:
         allstudents = Users.query.filter_by(
-            dept=dept, div=div, year=year).all()
-    elif dept and div and not year:
+            dept=dept, div=div, batch=batch).all()
+    elif dept and div and not batch:
         allstudents = Users.query.filter_by(
             dept=dept, div=div).all()
-    elif div and year and not dept:
+    elif div and batch and not dept:
         allstudents = Users.query.filter_by(
-            div=div, year=year).all()
-    elif dept and year and not div:
+            div=div, batch=batch).all()
+    elif dept and batch and not div:
         allstudents = Users.query.filter_by(
-            dept=dept, year=year).all()
-    elif dept and not div and not year:
+            dept=dept, batch=batch).all()
+    elif dept and not div and not batch:
         allstudents = Users.query.filter_by(dept=dept).all()
-    elif div and not dept and not year:
+    elif div and not dept and not batch:
         allstudents = Users.query.filter_by(div=div).all()
-    elif year and not div and not dept:
-        allstudents = Users.query.filter_by(year=year).all()
+    elif batch and not div and not dept:
+        allstudents = Users.query.filter_by(batch=batch).all()
     else:
         pass
 
@@ -893,6 +893,7 @@ def docustomexport():
         headings = ["Fullname", "Rollno", "Mobileno", "Email", "Department", "Division", "Year", "Company Name", "Position", "Domain", "Source", "skills_required",
                     "Company Representative Name", "Company Representative Contact", "Start Date", "End Date", "Feedback", "Work Environment Rating", "Satisfaction", "Would student recommend?", "Completition Certificate"]
         ws.append(headings)
+        record_internship = []
         for student in students:
             print("Particular Student:", student)
             record_student = [student.fullname, student.rollno, student.mobileno,
