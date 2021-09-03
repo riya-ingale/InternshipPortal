@@ -4,14 +4,22 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../static/css/styles.css" />
-    <link rel="stylesheet" href="..static/css/newinternship.css" />
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+      href="{{ url_for('static',filename='css/styles.css') }}"
+    />
     <link
       rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+      href="{{ url_for('static',filename='css/newinternship.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
     <title>Internship Portal</title>
   </head>
@@ -21,7 +29,7 @@
       <div class="container-fluid all-show">
         <a class="navbar-brand" href="/" style="color: #c1c8e4">
           <img
-            src="..\static\img\VIT.png"
+            src="{{ url_for('static',filename='img/VIT.png') }}"
             width="70"
             height="30"
             class="d-inline-block align-top"
@@ -45,6 +53,8 @@
             <li class="nav-item">
               <a class="nav-link" href="/"><i class="fa fa-home"> Home</i></a>
             </li>
+            
+            {% if not current_user.role == "admin" %}
             <li class="nav-item">
               <a class="nav-link" href="/newinternship"
                 ><i class="fa fa-plus"> New Internship</i></a
@@ -55,6 +65,19 @@
                 ><i class="fa fa-user"> User</i></a
               >
             </li>
+            {% endif %}
+
+            {% if current_user.role == "admin" %}
+            <li class="nav-item">
+              <a class="nav-link" href="/search"
+                ><i class="fa fa-search"> Search</i></a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/dashboard"
+                ><i class="fa fa-upload"> Upload Data</i></a>
+            </li>
+            {% endif %}
 
             <li class="nav-item">
               <a class="nav-link" href="/aboutus"
@@ -739,6 +762,6 @@
     <script>
       $('a[href$="#finish"]').attr("href", "http://www.google.com");
     </script>
-    <script src="../static/js/newinternship.js"></script>
+    <script src="{{ url_for('static',filename='js/newinternship.js') }}"></script>
   </body>
 </html>
